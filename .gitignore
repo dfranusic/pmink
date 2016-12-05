@@ -331,4 +331,5 @@ lib/LuaJIT-2.0.3/src/lj_vmmath.o
 lib/LuaJIT-2.0.3/src/lj_vmmath_dyn.o
 lib/LuaJIT-2.0.3/src/luajit
 lib/LuaJIT-2.0.3/src/luajit.o
+lib/LuaJIT-2.0.3/src/luaconf.h
 *.pyc

@@ -288,7 +288,11 @@ pmink_test_LDADD = $(BOOST_LDLIBS) \
 		   $(BOOST_UNIT_TEST_FRAMEWORK_LIB) \
 		   $(ICU_LIBS)
 
-
+# -rpath must be set for LUAJIT since LUAJIT_LIBS and LUAJIT_CFLAGS
+#  are defined in configure.ac
+if ENABLE_LUAJITBUNDLED
+pmink_test_LDFLAGS = -rpath `readlink -f lib/LuaJIT-2.0.3/src`
+endif
 
 # pMINK programs
 bin_PROGRAMS = configd \
@@ -622,6 +626,13 @@ fgnd_CPPFLAGS = $(FGN_CPP14_FLAGS) \
 		$(BOOST_FLAGS) \
 		$(ICU_CPPFLAGS) \
 		$(NCURSES_CFLAGS)
+
+# -rpath must be set for LUAJIT since LUAJIT_LIBS and LUAJIT_CFLAGS
+#  are defined in configure.ac
+if ENABLE_LUAJITBUNDLED
+fgnd_LDFLAGS = -rpath `readlink -f lib/LuaJIT-2.0.3/src`
+endif
+
 
 # rename data files
 install-data-hook:
