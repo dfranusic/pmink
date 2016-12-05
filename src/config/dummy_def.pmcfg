@@ -1,0 +1,42 @@
+/*
+ * This file is part of Project MINK <http://www.release14.org>.
+ *
+ * Copyright (C) 2012 Release14 Ltd.
+ * http://www.release14.org/
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
+// types
+TYPES {
+	"STRING" 	PTRN.*PTRN					"Alphanumeric value"					
+	"INT"		PTRN\d+PTRN					"Numeric value"
+	"IP"		PTRN\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}PTRN	"xxx.xxx.xxx.xxx"
+	"BOOL"		PTRN[01]PTRN					"0 - False, 1 - True"
+	"TSTAMP"	PTRN\d{4}-\d{2}-\d{2}-\d{2}:\d{2}:\d{2}PTRN	"Timestamp value in YYYY-MM-DD-hh:mm:ss format"
+
+
+}
+
+
+// config definition example
+CONFIG {
+	// dummy config
+	config CONST "configuration" {
+		test1	"INT"		"Numeric test value"
+		test2	"STRING"	"Alphanumeric test value"
+
+	}		
+}

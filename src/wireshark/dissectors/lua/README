@@ -1,0 +1,4 @@
+# ADD TO:
+# 	/etc/wireshark/init.lua
+LUA_SCRIPTS="/home/jdjurici/dev/pmink/src/wireshark/lua/"
+dofile(LUA_SCRIPTS.."rrp.lua")

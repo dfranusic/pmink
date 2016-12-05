@@ -1,0 +1,74 @@
+sgn {
+	m3ua {
+		asp {
+			asp1 {
+				sctp {
+					local {
+						ip1   "127.0.0.1"
+						port1 "10"
+					}
+					timers {
+						hb-interval         "8999"
+						max-burst           "200"
+						max-init-retransmit "10"
+					}
+					mode "c"
+				}
+				block     "1"
+				qos-class "1"
+			}
+		}
+		as {
+			as1 {
+				asp {
+					asp1 {
+						active "1"
+						weight "10"
+					}
+				}
+			}
+		}
+	}
+}
+open_smsf {
+	rules {
+		r1 {
+			map_scoa     "989898989"
+			map_scda     "!=9000"
+			action_true  "r2"
+			action_false "allow"
+		}
+		r2 {
+			hlr_request {
+				map_scoa         "888888"
+				gt_called_number "66767667"
+				active           "1"
+			}
+		}
+	}
+}
+router {
+	test-param1 "test-val-1"
+	test-param2 "66"
+	connections {
+		CONXX {
+			id            "CONXX"
+		}
+		CONX {
+			id            "CONX"
+			number        "10"
+		}
+		CONN1 {
+			id            "CONN1"
+			desc          "bla bla bla 1"
+			type          "M3UA"
+			activity-type "ACTIVE"
+		}
+		CONN2 {
+			id            "CONN2"
+			desc          "bla bla bla 2"
+			type          "M3UA"
+			activity-type "ACTIVE"
+		}
+	}
+}

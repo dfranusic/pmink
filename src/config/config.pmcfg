@@ -1,0 +1,219 @@
+/*
+ * This file is part of Project MINK <http://www.release14.org>.
+ *
+ * Copyright (C) 2012 Release14 Ltd.
+ * http://www.release14.org/
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
+// types
+TYPES {
+	"STRING" 	PTRN.*PTRN					"Textual value"					
+	"INT"		PTRN\d+PTRN					"Numerical value"
+	"IP"		PTRN\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}PTRN	"xxx.xxx.xxx.xxx"
+	"BOOL"		PTRN[01]PTRN					"0 - False, 1 - True"
+	"CONN_MODE"	PTRN[cs]PTRN					"c - Client mode, s - Server mode"
+	"ENABLE_FLAG"	PTRN[1]PTRN					"1 - Enabled"
+	"M3UA_TF_MODE"	PTRN[123]PTRN					"1 - Override, 2 - Loadshare, 3 - Broadcast"
+	"M3UA_LS_TYPE"	PTRN[123]PTRN					"1 - Weighted Round robin, 2 - Round robin, 3 - Stateful"
+	"ASP_LST"	PTRN:pmcfg:[sgn m3ua asp]PTRN			// no description, special type, auto generated	
+
+
+}
+
+
+// config definition example
+CONFIG {
+	// sgn config
+	sgn CONST "Signalling node configuration" {
+		// smpp
+		smpp CONST "Short Message Peer-to-Peer" {
+		
+		}
+		
+		// m3ua
+		m3ua CONST "MTP Level 3 (MTP3) User Adaptation Layer" {
+
+			// ASP definition
+			asp CONST "Application server processes" {
+				asp_conn * "STRING" "Application server process" {
+					// sctp
+					sctp CONST "Stream Control Transmission Protocol" {
+						local CONST "Local address" {
+							ip1 	"IP" 	"Primary IP Address"
+							port1	"INT"	"Primary Port number"	
+							ip2	"IP"	"Secondary IP Address"
+							port2	"INT"	"Secondary Port number"
+						}
+
+						remote CONST "Remote address" {
+							ip1 	"IP" 	"Primary IP Address"
+							port1	"INT"	"Primary Port number"
+							ip2	"IP"	"Secondary IP Address"
+							port2	"INT"	"Secondary Port number"
+						}
+
+						timers CONST "SCTP timers" {
+							hb-interval		"INT"	"Heartbeat interval in msec"
+							max-burst		"INT"	"Maximum number of new data packets that can be sent in a burst"
+							max-init-retransmit	"INT"	"Maximum number of retries for INIT message (0 - 255)"
+							path-max-retrans	"INT"	"Maximum number of consecutive retransmissions over a destination transport address"
+							rto-initial		"INT"	"Initial value of retransmission timeout RTO in msec (1 - 65535)"
+							rto-max			"INT"	"Maximum value used for RTO in msec (1 - 65535)"
+							rto-min			"INT"	"Minimum value used for RTO in msec (1 - 65535)"
+							sack-timeout		"INT"	"Delayed SACK timeout in msec"
+							valid-cookie-life	"INT"	"Maximum lifespan in msec of Cookie sent in an INIT ACK chunk "
+						
+						}
+
+						mode "CONN_MODE"	"Connection mode (c - client, s - server)"
+					}
+
+					// m3ua	
+					m3ua CONST "MTP Level 3 (MTP3) User Adaptation Layer" {
+						opc 	"INT"	"Originating point code"
+						dpc	"INT"	"Destination point code"
+						si	"INT"	"Service indicator"
+						ni	"INT"	"Network indicator"
+						mp	"INT"	"Message priority"
+						sls	"INT"	"Signalling link selection code"
+						nap	"INT"	"Network appearance"
+
+						timers CONST "M3UA timers" {
+						
+						
+						}
+					}
+
+					// r14p
+					r14p CONST "Release14 R14P Application Layer" {
+					
+					}
+
+					// global
+					shutdown 	"ENABLE_FLAG"	"Shutdown m3ua and sctp"
+					block		"ENABLE_FLAG"	"Shutdown m3ua only"	
+					qos-class	"INT"		"Quality of service class number"
+
+
+				}
+			}
+
+			// AS definition
+			as CONST "Application servers" {
+				as_conn * "STRING" "Application server" {
+					asp CONST "Application server processes" {
+						asp_conn * "ASP_LST" "Application server process" {
+							active	"ENABLE_FLAG"	"Activity flag (1 - enable)"
+							weight	"INT"		"Connection priority factor"
+						}
+					
+					}
+
+					// global as routing key
+					routing-key CONST "Routing key definition" {
+						routing-context	"INT"	"Routing context"
+						dpc		"INT"	"Destination point code"
+						opc		"INT"	"Originating point code"
+						si		"INT"	"Service indicator"
+						gtt		"INT"	"SCCP Global title address information digits"
+					
+					}
+
+					// traffic mode
+					traffic-mode CONST "Traffic mode" {
+						type		"M3UA_TF_MODE"  "Traffic mode type (1 - Override, 2 - Loadshare, 3 - Broadcast)"
+						loadshare-type	"M3UA_LS_TYPE"	"Loadshare type (1 - Weighted Round robin, 2 - Round robin, 3 - Stateful)"
+
+					
+					}
+
+					// global
+					qos-class		"INT"		"Quality of service class number"
+					recovery-timeout	"INT"		"Recovery timeout in msec"
+					burst-recovery		"INT"		"Burst recovery timeout in msec"
+
+
+
+
+				}
+			}
+
+		
+		}		
+              	// Huawei
+                huawei CONST "Huawei specific" {
+                        // pps moi
+                        pps-moi CONST "Prepaid service management open interface" {
+
+                        }
+                }	
+	
+	
+	}
+
+
+
+	open_smsf CONST "Open smsf bla" {
+		rules CONST "rules" {
+			rule * "STRING" "Rule definition" {
+				map_scoa	"STRING"	"map bla bla bla"
+				map_scda	"STRING"	"map bla la "
+				action		"STRING"	"default action vlabla"
+				action_true	"STRING"	"action true"
+				action_false	"STRING"	"action false"
+				points		"INT"		"score points"
+
+				hlr_request CONST "initiate HLR request" {
+					map_scoa		"STRING"	"map scoa number"
+					gt_called_number	"STRING"	"gt called number"
+					active			"BOOL"		"activity flag (0 or 1)"
+				
+				}
+			}
+		
+		}
+	}
+
+
+	router CONST "Router block description" {
+		
+		test-param1 "STRING" 	"test parameter 1"
+		test-param2 "INT"	"test parameter 2"
+
+		connections CONST "Connections" {
+			// * marks a template node
+			connection * "STRING" 	"Connection definition"{
+				id 		"STRING" 	"id description"
+				desc 		"STRING" 	"desc description"
+				type		"STRING" 	"type description"
+				number		"INT"		"test number"
+				activity-type	"STRING" 	"activity type description"
+
+				m3ua CONST {
+					m3ua-param-1 "STRING"
+		
+				}
+				smpp CONST {
+					smpp-param-1 "STRING"	
+				}
+		
+			}
+
+		}
+		
+	}
+}

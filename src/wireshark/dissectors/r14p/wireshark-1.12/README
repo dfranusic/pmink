@@ -1,0 +1,19 @@
+Release14 R14P Wireshark plugin
+===============================
+
+This is an example of how to create an ASN1_based plugin.
+
+Under Linux:
+1. replace each instance of "r14p" in Makefile.am to your plugin's name
+2. add your plugin's name to ../Makefile.am
+3. add plugin Makefile path to AC_OUTPUT in ../../configure.ac
+4. run autoreconf at top level
+5. run make at top level (will automatically run configure)
+6. your plugin should be complete
+
+Under Windows:
+1. replace each instance of "r14p" in Makefile.common to your plugin's name
+2. replace each instance of "r14p" in moduleinfo.nmake to your plugin's name
+3. add your plugin's name to ../Makefile.nmake
+4. run make at top level 
+5. your plugin should be complete

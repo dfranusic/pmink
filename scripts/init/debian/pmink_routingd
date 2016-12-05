@@ -1,0 +1,97 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          pmink_routingd
+# Required-Start:    $network
+# Required-Stop:     $network
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start pMINK Routing Daemon
+# Description:       Start pMINK Routing Daemon
+### END INIT INFO
+
+set -e
+
+ME=`basename "$0"`
+PMINK_VAR="/usr/local/pmink/var"
+RTRD="/usr/local/pmink/bin/routingd"
+DEFAULTS="/etc/default/$ME"
+ARGS=""
+# Check for daemon presence
+[ -x "$RTRD" ] || exit 0
+
+# Include defaults if available
+[ -f "$DEFAULTS" ] && . "$DEFAULTS"
+
+# Get lsb functions
+. /lib/lsb/init-functions
+
+
+do_start() {
+  # set id
+  if [ ! -z "$DAEMON_ID" ]; then
+    ARGS="$ARGS -i $DAEMON_ID"
+  else
+    echo "Cannot start, missing daemon id!"
+    return 1
+  fi
+  # listener port
+  if [ ! -z "$LISTENER_PORT" ]; then
+    ARGS="$ARGS -p $LISTENER_PORT"
+  else
+    echo "Cannot start, missing r14p inbound port!"
+    return 1
+  fi
+  # process config daemon connections
+  for cfgd in $CFG_DAEMONS
+  do
+    ARGS="$ARGS -c $cfgd"
+  done
+  # start in debug mode
+  if [ $DEBUG_MODE -eq 1 ]; then
+    ARGS="$ARGS -D"
+  fi
+  # --r14p-streams
+  if [ ! -z $R14P_STREAMS ]; then
+    ARGS="$ARGS --r14p-streams=$R14P_STREAMS"
+  fi
+  # --r14p-stimeout
+  if [ ! -z $R14P_STIMEOUT ]; then
+    ARGS="$ARGS --r14p-stimeout=$R14P_STIMEOUT"
+  fi
+  # start
+  log_begin_msg "Starting pMINK Routing Daemon..."
+  # core dump
+  if [ $CORE_DUMP -eq 1 ]; then
+    ulimit -c unlimited
+  else
+    ulimit -c 0
+  fi
+  start-stop-daemon --start --background --make-pidfile --chdir $PMINK_VAR --pidfile $PMINK_VAR/$ME.pid --exec $RTRD -- $ARGS
+  log_end_msg $?
+  return 0
+}
+
+
+case "$1" in
+  start)
+    do_start
+    ;;
+  stop)
+    log_begin_msg "Stopping pMINK Routing Daemon..."
+    start-stop-daemon --stop --retry 10 --pidfile $PMINK_VAR/$ME.pid
+    log_end_msg $?
+    rm -f $PMINK_VAR/$ME.pid
+    ;;
+  restart|reload|force-reload) 
+    $0 stop
+    sleep 1
+    $0 start
+    ;;
+  status)
+    status_of_proc -p $PMINK_VAR/$ME.pid
+    ;;
+  *)
+    echo "Usage: /etc/init.d/pmink_routingd {start|stop|restart|reload|force-reload|status}"
+    exit 1
+esac
+

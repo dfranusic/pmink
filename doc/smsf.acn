@@ -1,0 +1,580 @@
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{SGN?\glossaryentryfield{sgn}{\glsnamefont{SGN}}{Signalling Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{STP?\glossaryentryfield{stp}{\glsnamefont{STP}}{Signalling Transfer Point}{\relax }|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{RRP?\glossaryentryfield{rrp}{\glsnamefont{RRP}}{Release14 Routing and Rating Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{ROUTINGD?\glossaryentryfield{routingd}{\glsnamefont{ROUTINGD}}{R14P Routing Daemon}{\relax }|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{CONFIGD?\glossaryentryfield{configd}{\glsnamefont{CONFIGD}}{pMINK Configuration Daemon}{\relax }|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{CLI?\glossaryentryfield{cli}{\glsnamefont{CLI}}{pMINK Command Line Interface}{\relax }|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{SMS?\glossaryentryfield{sms}{\glsnamefont{SMS}}{Short Message Service}{\relax }|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{CDR?\glossaryentryfield{cdr}{\glsnamefont{CDR}}{Call Data Record}{\relax }|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{WRR?\glossaryentryfield{wrr}{\glsnamefont{WRR}}{Weighted Round Robin}{\relax }|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{FSM?\glossaryentryfield{fsm}{\glsnamefont{FSM}}{Finite-state machine}{\relax }|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{RPE?\glossaryentryfield{rpe}{\glsnamefont{RPE}}{Rule Processing Engine}{\relax }|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{RPROC?\glossaryentryfield{rproc}{\glsnamefont{RPROC}}{Rule Processor}{\relax }|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{REL?\glossaryentryfield{rel}{\glsnamefont{REL}}{Rule Execution Logic}{\relax }|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{SMSTPDU?\glossaryentryfield{smstpdu}{\glsnamefont{SMSTPDU}}{Short message TPDU 3GPP TS 23.040}{\relax }|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{TP-OA?\glossaryentryfield{tp-oa}{\glsnamefont{TP-OA}}{TP-Originating-Address}{\relax }|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{TP-DA?\glossaryentryfield{tp-da}{\glsnamefont{TP-DA}}{TP-Destination-Address}{\relax }|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{TON?\glossaryentryfield{ton}{\glsnamefont{TON}}{Type Of Number}{\relax }|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{NAI?\glossaryentryfield{nai}{\glsnamefont{NAI}}{Nature Of Address Indicator}{\relax }|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{NP?\glossaryentryfield{np}{\glsnamefont{NP}}{Numbering Plan}{\relax }|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{M3UA?\glossaryentryfield{m3ua}{\glsnamefont{M3UA}}{MTP Level 3 (MTP3) User Adaptation Layer}{\relax }|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{SCCP?\glossaryentryfield{sccp}{\glsnamefont{SCCP}}{Signalling Connection Control Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{TCAP?\glossaryentryfield{tcap}{\glsnamefont{TCAP}}{Transaction Capabilities Application Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{MAP?\glossaryentryfield{map}{\glsnamefont{MAP}}{Mobile Application Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{SMPP?\glossaryentryfield{smpp}{\glsnamefont{SMPP}}{Short Message Peer-to-Peer}{\relax }|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{TCP?\glossaryentryfield{tcp}{\glsnamefont{TCP}}{Transmission Control Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{SCTP?\glossaryentryfield{sctp}{\glsnamefont{SCTP}}{Stream Control Transmission Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{AS?\glossaryentryfield{as}{\glsnamefont{AS}}{Application Server}{\relax }|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{ASP?\glossaryentryfield{asp}{\glsnamefont{ASP}}{Application Server Process}{\relax }|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{LCI?\glossaryentryfield{lci}{\glsnamefont{LCI}}{Left Component Index}{\relax }|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{RCI?\glossaryentryfield{rci}{\glsnamefont{RCI}}{Right Component Index}{\relax }|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{PDU?\glossaryentryfield{pdu}{\glsnamefont{PDU}}{Protocol Data Unit}{\relax }|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{API?\glossaryentryfield{api}{\glsnamefont{API}}{Application Programming Interface}{\relax }|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{SGN?\glossaryentryfield{sgn}{\glsnamefont{SGN}}{Signalling Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{SGN?\glossaryentryfield{sgn}{\glsnamefont{SGN}}{Signalling Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{STP?\glossaryentryfield{stp}{\glsnamefont{STP}}{Signalling Transfer Point}{\relax }|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{STP?\glossaryentryfield{stp}{\glsnamefont{STP}}{Signalling Transfer Point}{\relax }|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{SGN?\glossaryentryfield{sgn}{\glsnamefont{SGN}}{Signalling Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{SGN?\glossaryentryfield{sgn}{\glsnamefont{SGN}}{Signalling Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{ROUTINGD?\glossaryentryfield{routingd}{\glsnamefont{ROUTINGD}}{R14P Routing Daemon}{\relax }|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{ROUTINGD?\glossaryentryfield{routingd}{\glsnamefont{ROUTINGD}}{R14P Routing Daemon}{\relax }|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{CONFIGD?\glossaryentryfield{configd}{\glsnamefont{CONFIGD}}{pMINK Configuration Daemon}{\relax }|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{CONFIGD?\glossaryentryfield{configd}{\glsnamefont{CONFIGD}}{pMINK Configuration Daemon}{\relax }|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{CONFIGD?\glossaryentryfield{configd}{\glsnamefont{CONFIGD}}{pMINK Configuration Daemon}{\relax }|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{CONFIGD?\glossaryentryfield{configd}{\glsnamefont{CONFIGD}}{pMINK Configuration Daemon}{\relax }|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{CLI?\glossaryentryfield{cli}{\glsnamefont{CLI}}{pMINK Command Line Interface}{\relax }|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{CLI?\glossaryentryfield{cli}{\glsnamefont{CLI}}{pMINK Command Line Interface}{\relax }|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{CONFIGD?\glossaryentryfield{configd}{\glsnamefont{CONFIGD}}{pMINK Configuration Daemon}{\relax }|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{14}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{14}
+\glossaryentry{ROUTINGD?\glossaryentryfield{routingd}{\glsnamefont{ROUTINGD}}{R14P Routing Daemon}{\relax }|setentrycounter[]{page}\glsnumberformat}{14}
+\glossaryentry{ROUTINGD?\glossaryentryfield{routingd}{\glsnamefont{ROUTINGD}}{R14P Routing Daemon}{\relax }|setentrycounter[]{page}\glsnumberformat}{14}
+\glossaryentry{CONFIGD?\glossaryentryfield{configd}{\glsnamefont{CONFIGD}}{pMINK Configuration Daemon}{\relax }|setentrycounter[]{page}\glsnumberformat}{14}
+\glossaryentry{CONFIGD?\glossaryentryfield{configd}{\glsnamefont{CONFIGD}}{pMINK Configuration Daemon}{\relax }|setentrycounter[]{page}\glsnumberformat}{14}
+\glossaryentry{ROUTINGD?\glossaryentryfield{routingd}{\glsnamefont{ROUTINGD}}{R14P Routing Daemon}{\relax }|setentrycounter[]{page}\glsnumberformat}{14}
+\glossaryentry{ROUTINGD?\glossaryentryfield{routingd}{\glsnamefont{ROUTINGD}}{R14P Routing Daemon}{\relax }|setentrycounter[]{page}\glsnumberformat}{14}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{14}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{14}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{14}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{14}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{14}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{14}
+\glossaryentry{RRP?\glossaryentryfield{rrp}{\glsnamefont{RRP}}{Release14 Routing and Rating Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{14}
+\glossaryentry{RRP?\glossaryentryfield{rrp}{\glsnamefont{RRP}}{Release14 Routing and Rating Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{14}
+\glossaryentry{RRP?\glossaryentryfield{rrp}{\glsnamefont{RRP}}{Release14 Routing and Rating Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{14}
+\glossaryentry{RRP?\glossaryentryfield{rrp}{\glsnamefont{RRP}}{Release14 Routing and Rating Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{14}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{14}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{14}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{14}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{14}
+\glossaryentry{ROUTINGD?\glossaryentryfield{routingd}{\glsnamefont{ROUTINGD}}{R14P Routing Daemon}{\relax }|setentrycounter[]{page}\glsnumberformat}{14}
+\glossaryentry{ROUTINGD?\glossaryentryfield{routingd}{\glsnamefont{ROUTINGD}}{R14P Routing Daemon}{\relax }|setentrycounter[]{page}\glsnumberformat}{14}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{14}
+\glossaryentry{CONFIGD?\glossaryentryfield{configd}{\glsnamefont{CONFIGD}}{pMINK Configuration Daemon}{\relax }|setentrycounter[]{page}\glsnumberformat}{14}
+\glossaryentry{ROUTINGD?\glossaryentryfield{routingd}{\glsnamefont{ROUTINGD}}{R14P Routing Daemon}{\relax }|setentrycounter[]{page}\glsnumberformat}{14}
+\glossaryentry{CONFIGD?\glossaryentryfield{configd}{\glsnamefont{CONFIGD}}{pMINK Configuration Daemon}{\relax }|setentrycounter[]{page}\glsnumberformat}{14}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{14}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{14}
+\glossaryentry{RRP?\glossaryentryfield{rrp}{\glsnamefont{RRP}}{Release14 Routing and Rating Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{14}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{14}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{14}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{15}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{15}
+\glossaryentry{ROUTINGD?\glossaryentryfield{routingd}{\glsnamefont{ROUTINGD}}{R14P Routing Daemon}{\relax }|setentrycounter[]{page}\glsnumberformat}{15}
+\glossaryentry{ROUTINGD?\glossaryentryfield{routingd}{\glsnamefont{ROUTINGD}}{R14P Routing Daemon}{\relax }|setentrycounter[]{page}\glsnumberformat}{15}
+\glossaryentry{CONFIGD?\glossaryentryfield{configd}{\glsnamefont{CONFIGD}}{pMINK Configuration Daemon}{\relax }|setentrycounter[]{page}\glsnumberformat}{15}
+\glossaryentry{CONFIGD?\glossaryentryfield{configd}{\glsnamefont{CONFIGD}}{pMINK Configuration Daemon}{\relax }|setentrycounter[]{page}\glsnumberformat}{15}
+\glossaryentry{ROUTINGD?\glossaryentryfield{routingd}{\glsnamefont{ROUTINGD}}{R14P Routing Daemon}{\relax }|setentrycounter[]{page}\glsnumberformat}{15}
+\glossaryentry{ROUTINGD?\glossaryentryfield{routingd}{\glsnamefont{ROUTINGD}}{R14P Routing Daemon}{\relax }|setentrycounter[]{page}\glsnumberformat}{15}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{15}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{15}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{15}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{15}
+\glossaryentry{RRP?\glossaryentryfield{rrp}{\glsnamefont{RRP}}{Release14 Routing and Rating Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{15}
+\glossaryentry{RRP?\glossaryentryfield{rrp}{\glsnamefont{RRP}}{Release14 Routing and Rating Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{15}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{15}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{15}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{15}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{15}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{15}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{15}
+\glossaryentry{RRP?\glossaryentryfield{rrp}{\glsnamefont{RRP}}{Release14 Routing and Rating Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{15}
+\glossaryentry{RRP?\glossaryentryfield{rrp}{\glsnamefont{RRP}}{Release14 Routing and Rating Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{15}
+\glossaryentry{RRP?\glossaryentryfield{rrp}{\glsnamefont{RRP}}{Release14 Routing and Rating Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{15}
+\glossaryentry{RRP?\glossaryentryfield{rrp}{\glsnamefont{RRP}}{Release14 Routing and Rating Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{15}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{16}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{16}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{16}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{16}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{16}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{16}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{16}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{16}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{16}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{16}
+\glossaryentry{CONFIGD?\glossaryentryfield{configd}{\glsnamefont{CONFIGD}}{pMINK Configuration Daemon}{\relax }|setentrycounter[]{page}\glsnumberformat}{16}
+\glossaryentry{CONFIGD?\glossaryentryfield{configd}{\glsnamefont{CONFIGD}}{pMINK Configuration Daemon}{\relax }|setentrycounter[]{page}\glsnumberformat}{16}
+\glossaryentry{CLI?\glossaryentryfield{cli}{\glsnamefont{CLI}}{pMINK Command Line Interface}{\relax }|setentrycounter[]{page}\glsnumberformat}{16}
+\glossaryentry{CLI?\glossaryentryfield{cli}{\glsnamefont{CLI}}{pMINK Command Line Interface}{\relax }|setentrycounter[]{page}\glsnumberformat}{16}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{16}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{16}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{16}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{16}
+\glossaryentry{SMS?\glossaryentryfield{sms}{\glsnamefont{SMS}}{Short Message Service}{\relax }|setentrycounter[]{page}\glsnumberformat}{16}
+\glossaryentry{SMS?\glossaryentryfield{sms}{\glsnamefont{SMS}}{Short Message Service}{\relax }|setentrycounter[]{page}\glsnumberformat}{16}
+\glossaryentry{SMS?\glossaryentryfield{sms}{\glsnamefont{SMS}}{Short Message Service}{\relax }|setentrycounter[]{page}\glsnumberformat}{16}
+\glossaryentry{SMS?\glossaryentryfield{sms}{\glsnamefont{SMS}}{Short Message Service}{\relax }|setentrycounter[]{page}\glsnumberformat}{16}
+\glossaryentry{SMS?\glossaryentryfield{sms}{\glsnamefont{SMS}}{Short Message Service}{\relax }|setentrycounter[]{page}\glsnumberformat}{16}
+\glossaryentry{SMS?\glossaryentryfield{sms}{\glsnamefont{SMS}}{Short Message Service}{\relax }|setentrycounter[]{page}\glsnumberformat}{16}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{17}
+\glossaryentry{RRP?\glossaryentryfield{rrp}{\glsnamefont{RRP}}{Release14 Routing and Rating Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{17}
+\glossaryentry{RRP?\glossaryentryfield{rrp}{\glsnamefont{RRP}}{Release14 Routing and Rating Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{17}
+\glossaryentry{CDR?\glossaryentryfield{cdr}{\glsnamefont{CDR}}{Call Data Record}{\relax }|setentrycounter[]{page}\glsnumberformat}{17}
+\glossaryentry{CDR?\glossaryentryfield{cdr}{\glsnamefont{CDR}}{Call Data Record}{\relax }|setentrycounter[]{page}\glsnumberformat}{17}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{17}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{17}
+\glossaryentry{RRP?\glossaryentryfield{rrp}{\glsnamefont{RRP}}{Release14 Routing and Rating Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{17}
+\glossaryentry{WRR?\glossaryentryfield{wrr}{\glsnamefont{WRR}}{Weighted Round Robin}{\relax }|setentrycounter[]{page}\glsnumberformat}{17}
+\glossaryentry{WRR?\glossaryentryfield{wrr}{\glsnamefont{WRR}}{Weighted Round Robin}{\relax }|setentrycounter[]{page}\glsnumberformat}{17}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{17}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{17}
+\glossaryentry{CDR?\glossaryentryfield{cdr}{\glsnamefont{CDR}}{Call Data Record}{\relax }|setentrycounter[]{page}\glsnumberformat}{17}
+\glossaryentry{CDR?\glossaryentryfield{cdr}{\glsnamefont{CDR}}{Call Data Record}{\relax }|setentrycounter[]{page}\glsnumberformat}{17}
+\glossaryentry{CDR?\glossaryentryfield{cdr}{\glsnamefont{CDR}}{Call Data Record}{\relax }|setentrycounter[]{page}\glsnumberformat}{17}
+\glossaryentry{CDR?\glossaryentryfield{cdr}{\glsnamefont{CDR}}{Call Data Record}{\relax }|setentrycounter[]{page}\glsnumberformat}{17}
+\glossaryentry{RRP?\glossaryentryfield{rrp}{\glsnamefont{RRP}}{Release14 Routing and Rating Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{17}
+\glossaryentry{CDR?\glossaryentryfield{cdr}{\glsnamefont{CDR}}{Call Data Record}{\relax }|setentrycounter[]{page}\glsnumberformat}{17}
+\glossaryentry{CDR?\glossaryentryfield{cdr}{\glsnamefont{CDR}}{Call Data Record}{\relax }|setentrycounter[]{page}\glsnumberformat}{17}
+\glossaryentry{CDR?\glossaryentryfield{cdr}{\glsnamefont{CDR}}{Call Data Record}{\relax }|setentrycounter[]{page}\glsnumberformat}{17}
+\glossaryentry{CDR?\glossaryentryfield{cdr}{\glsnamefont{CDR}}{Call Data Record}{\relax }|setentrycounter[]{page}\glsnumberformat}{17}
+\glossaryentry{RRP?\glossaryentryfield{rrp}{\glsnamefont{RRP}}{Release14 Routing and Rating Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{17}
+\glossaryentry{CDR?\glossaryentryfield{cdr}{\glsnamefont{CDR}}{Call Data Record}{\relax }|setentrycounter[]{page}\glsnumberformat}{17}
+\glossaryentry{CDR?\glossaryentryfield{cdr}{\glsnamefont{CDR}}{Call Data Record}{\relax }|setentrycounter[]{page}\glsnumberformat}{17}
+\glossaryentry{WRR?\glossaryentryfield{wrr}{\glsnamefont{WRR}}{Weighted Round Robin}{\relax }|setentrycounter[]{page}\glsnumberformat}{17}
+\glossaryentry{WRR?\glossaryentryfield{wrr}{\glsnamefont{WRR}}{Weighted Round Robin}{\relax }|setentrycounter[]{page}\glsnumberformat}{17}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{17}
+\glossaryentry{CLI?\glossaryentryfield{cli}{\glsnamefont{CLI}}{pMINK Command Line Interface}{\relax }|setentrycounter[]{page}\glsnumberformat}{17}
+\glossaryentry{CLI?\glossaryentryfield{cli}{\glsnamefont{CLI}}{pMINK Command Line Interface}{\relax }|setentrycounter[]{page}\glsnumberformat}{17}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{18}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{18}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{FSM?\glossaryentryfield{fsm}{\glsnamefont{FSM}}{Finite-state machine}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{FSM?\glossaryentryfield{fsm}{\glsnamefont{FSM}}{Finite-state machine}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{SMS?\glossaryentryfield{sms}{\glsnamefont{SMS}}{Short Message Service}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{SMS?\glossaryentryfield{sms}{\glsnamefont{SMS}}{Short Message Service}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{RPE?\glossaryentryfield{rpe}{\glsnamefont{RPE}}{Rule Processing Engine}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{RPE?\glossaryentryfield{rpe}{\glsnamefont{RPE}}{Rule Processing Engine}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{STP?\glossaryentryfield{stp}{\glsnamefont{STP}}{Signalling Transfer Point}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{STP?\glossaryentryfield{stp}{\glsnamefont{STP}}{Signalling Transfer Point}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{STP?\glossaryentryfield{stp}{\glsnamefont{STP}}{Signalling Transfer Point}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{RPE?\glossaryentryfield{rpe}{\glsnamefont{RPE}}{Rule Processing Engine}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{RPE?\glossaryentryfield{rpe}{\glsnamefont{RPE}}{Rule Processing Engine}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{RPROC?\glossaryentryfield{rproc}{\glsnamefont{RPROC}}{Rule Processor}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{RPROC?\glossaryentryfield{rproc}{\glsnamefont{RPROC}}{Rule Processor}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{REL?\glossaryentryfield{rel}{\glsnamefont{REL}}{Rule Execution Logic}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{REL?\glossaryentryfield{rel}{\glsnamefont{REL}}{Rule Execution Logic}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{RPROC?\glossaryentryfield{rproc}{\glsnamefont{RPROC}}{Rule Processor}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{RPE?\glossaryentryfield{rpe}{\glsnamefont{RPE}}{Rule Processing Engine}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{REL?\glossaryentryfield{rel}{\glsnamefont{REL}}{Rule Execution Logic}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{RPROC?\glossaryentryfield{rproc}{\glsnamefont{RPROC}}{Rule Processor}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{REL?\glossaryentryfield{rel}{\glsnamefont{REL}}{Rule Execution Logic}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{RPE?\glossaryentryfield{rpe}{\glsnamefont{RPE}}{Rule Processing Engine}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{STP?\glossaryentryfield{stp}{\glsnamefont{STP}}{Signalling Transfer Point}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{STP?\glossaryentryfield{stp}{\glsnamefont{STP}}{Signalling Transfer Point}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{RPROC?\glossaryentryfield{rproc}{\glsnamefont{RPROC}}{Rule Processor}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{RPROC?\glossaryentryfield{rproc}{\glsnamefont{RPROC}}{Rule Processor}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{REL?\glossaryentryfield{rel}{\glsnamefont{REL}}{Rule Execution Logic}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{REL?\glossaryentryfield{rel}{\glsnamefont{REL}}{Rule Execution Logic}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{REL?\glossaryentryfield{rel}{\glsnamefont{REL}}{Rule Execution Logic}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{RPROC?\glossaryentryfield{rproc}{\glsnamefont{RPROC}}{Rule Processor}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{CLI?\glossaryentryfield{cli}{\glsnamefont{CLI}}{pMINK Command Line Interface}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{CLI?\glossaryentryfield{cli}{\glsnamefont{CLI}}{pMINK Command Line Interface}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{REL?\glossaryentryfield{rel}{\glsnamefont{REL}}{Rule Execution Logic}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{REL?\glossaryentryfield{rel}{\glsnamefont{REL}}{Rule Execution Logic}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{REL?\glossaryentryfield{rel}{\glsnamefont{REL}}{Rule Execution Logic}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{RPROC?\glossaryentryfield{rproc}{\glsnamefont{RPROC}}{Rule Processor}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{RPROC?\glossaryentryfield{rproc}{\glsnamefont{RPROC}}{Rule Processor}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{RPE?\glossaryentryfield{rpe}{\glsnamefont{RPE}}{Rule Processing Engine}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{REL?\glossaryentryfield{rel}{\glsnamefont{REL}}{Rule Execution Logic}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{REL?\glossaryentryfield{rel}{\glsnamefont{REL}}{Rule Execution Logic}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{RPROC?\glossaryentryfield{rproc}{\glsnamefont{RPROC}}{Rule Processor}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{RPROC?\glossaryentryfield{rproc}{\glsnamefont{RPROC}}{Rule Processor}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{RPROC?\glossaryentryfield{rproc}{\glsnamefont{RPROC}}{Rule Processor}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{RPROC?\glossaryentryfield{rproc}{\glsnamefont{RPROC}}{Rule Processor}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{RPROC?\glossaryentryfield{rproc}{\glsnamefont{RPROC}}{Rule Processor}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{RPROC?\glossaryentryfield{rproc}{\glsnamefont{RPROC}}{Rule Processor}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{MAP?\glossaryentryfield{map}{\glsnamefont{MAP}}{Mobile Application Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{SMPP?\glossaryentryfield{smpp}{\glsnamefont{SMPP}}{Short Message Peer-to-Peer}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{RPE?\glossaryentryfield{rpe}{\glsnamefont{RPE}}{Rule Processing Engine}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{RPE?\glossaryentryfield{rpe}{\glsnamefont{RPE}}{Rule Processing Engine}{\relax }|setentrycounter[]{page}\glsnumberformat}{19}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{20}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{20}
+\glossaryentry{RPROC?\glossaryentryfield{rproc}{\glsnamefont{RPROC}}{Rule Processor}{\relax }|setentrycounter[]{page}\glsnumberformat}{21}
+\glossaryentry{CLI?\glossaryentryfield{cli}{\glsnamefont{CLI}}{pMINK Command Line Interface}{\relax }|setentrycounter[]{page}\glsnumberformat}{21}
+\glossaryentry{SMSTPDU?\glossaryentryfield{smstpdu}{\glsnamefont{SMSTPDU}}{Short message TPDU 3GPP TS 23.040}{\relax }|setentrycounter[]{page}\glsnumberformat}{21}
+\glossaryentry{TP-OA?\glossaryentryfield{tp-oa}{\glsnamefont{TP-OA}}{TP-Originating-Address}{\relax }|setentrycounter[]{page}\glsnumberformat}{21}
+\glossaryentry{TP-OA?\glossaryentryfield{tp-oa}{\glsnamefont{TP-OA}}{TP-Originating-Address}{\relax }|setentrycounter[]{page}\glsnumberformat}{21}
+\glossaryentry{TON?\glossaryentryfield{ton}{\glsnamefont{TON}}{Type Of Number}{\relax }|setentrycounter[]{page}\glsnumberformat}{21}
+\glossaryentry{TON?\glossaryentryfield{ton}{\glsnamefont{TON}}{Type Of Number}{\relax }|setentrycounter[]{page}\glsnumberformat}{21}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{22}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{22}
+\glossaryentry{M3UA?\glossaryentryfield{m3ua}{\glsnamefont{M3UA}}{MTP Level 3 (MTP3) User Adaptation Layer}{\relax }|setentrycounter[]{page}\glsnumberformat}{22}
+\glossaryentry{M3UA?\glossaryentryfield{m3ua}{\glsnamefont{M3UA}}{MTP Level 3 (MTP3) User Adaptation Layer}{\relax }|setentrycounter[]{page}\glsnumberformat}{22}
+\glossaryentry{SCCP?\glossaryentryfield{sccp}{\glsnamefont{SCCP}}{Signalling Connection Control Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{22}
+\glossaryentry{SCCP?\glossaryentryfield{sccp}{\glsnamefont{SCCP}}{Signalling Connection Control Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{22}
+\glossaryentry{TCAP?\glossaryentryfield{tcap}{\glsnamefont{TCAP}}{Transaction Capabilities Application Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{22}
+\glossaryentry{TCAP?\glossaryentryfield{tcap}{\glsnamefont{TCAP}}{Transaction Capabilities Application Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{22}
+\glossaryentry{MAP?\glossaryentryfield{map}{\glsnamefont{MAP}}{Mobile Application Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{22}
+\glossaryentry{MAP?\glossaryentryfield{map}{\glsnamefont{MAP}}{Mobile Application Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{22}
+\glossaryentry{SMSTPDU?\glossaryentryfield{smstpdu}{\glsnamefont{SMSTPDU}}{Short message TPDU 3GPP TS 23.040}{\relax }|setentrycounter[]{page}\glsnumberformat}{22}
+\glossaryentry{SMSTPDU?\glossaryentryfield{smstpdu}{\glsnamefont{SMSTPDU}}{Short message TPDU 3GPP TS 23.040}{\relax }|setentrycounter[]{page}\glsnumberformat}{22}
+\glossaryentry{SMPP?\glossaryentryfield{smpp}{\glsnamefont{SMPP}}{Short Message Peer-to-Peer}{\relax }|setentrycounter[]{page}\glsnumberformat}{22}
+\glossaryentry{SMPP?\glossaryentryfield{smpp}{\glsnamefont{SMPP}}{Short Message Peer-to-Peer}{\relax }|setentrycounter[]{page}\glsnumberformat}{22}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{22}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{22}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{22}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{22}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{22}
+\glossaryentry{SCTP?\glossaryentryfield{sctp}{\glsnamefont{SCTP}}{Stream Control Transmission Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{22}
+\glossaryentry{SCTP?\glossaryentryfield{sctp}{\glsnamefont{SCTP}}{Stream Control Transmission Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{22}
+\glossaryentry{STP?\glossaryentryfield{stp}{\glsnamefont{STP}}{Signalling Transfer Point}{\relax }|setentrycounter[]{page}\glsnumberformat}{22}
+\glossaryentry{STP?\glossaryentryfield{stp}{\glsnamefont{STP}}{Signalling Transfer Point}{\relax }|setentrycounter[]{page}\glsnumberformat}{22}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{22}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{22}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{22}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{23}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{23}
+\glossaryentry{SCTP?\glossaryentryfield{sctp}{\glsnamefont{SCTP}}{Stream Control Transmission Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{23}
+\glossaryentry{SCTP?\glossaryentryfield{sctp}{\glsnamefont{SCTP}}{Stream Control Transmission Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{23}
+\glossaryentry{M3UA?\glossaryentryfield{m3ua}{\glsnamefont{M3UA}}{MTP Level 3 (MTP3) User Adaptation Layer}{\relax }|setentrycounter[]{page}\glsnumberformat}{23}
+\glossaryentry{M3UA?\glossaryentryfield{m3ua}{\glsnamefont{M3UA}}{MTP Level 3 (MTP3) User Adaptation Layer}{\relax }|setentrycounter[]{page}\glsnumberformat}{23}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{23}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{23}
+\glossaryentry{TCP?\glossaryentryfield{tcp}{\glsnamefont{TCP}}{Transmission Control Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{23}
+\glossaryentry{TCP?\glossaryentryfield{tcp}{\glsnamefont{TCP}}{Transmission Control Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{23}
+\glossaryentry{SMPP?\glossaryentryfield{smpp}{\glsnamefont{SMPP}}{Short Message Peer-to-Peer}{\relax }|setentrycounter[]{page}\glsnumberformat}{23}
+\glossaryentry{SMPP?\glossaryentryfield{smpp}{\glsnamefont{SMPP}}{Short Message Peer-to-Peer}{\relax }|setentrycounter[]{page}\glsnumberformat}{23}
+\glossaryentry{SGN?\glossaryentryfield{sgn}{\glsnamefont{SGN}}{Signalling Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{23}
+\glossaryentry{SGN?\glossaryentryfield{sgn}{\glsnamefont{SGN}}{Signalling Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{23}
+\glossaryentry{AS?\glossaryentryfield{as}{\glsnamefont{AS}}{Application Server}{\relax }|setentrycounter[]{page}\glsnumberformat}{23}
+\glossaryentry{AS?\glossaryentryfield{as}{\glsnamefont{AS}}{Application Server}{\relax }|setentrycounter[]{page}\glsnumberformat}{23}
+\glossaryentry{SGN?\glossaryentryfield{sgn}{\glsnamefont{SGN}}{Signalling Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{23}
+\glossaryentry{SGN?\glossaryentryfield{sgn}{\glsnamefont{SGN}}{Signalling Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{23}
+\glossaryentry{ASP?\glossaryentryfield{asp}{\glsnamefont{ASP}}{Application Server Process}{\relax }|setentrycounter[]{page}\glsnumberformat}{23}
+\glossaryentry{ASP?\glossaryentryfield{asp}{\glsnamefont{ASP}}{Application Server Process}{\relax }|setentrycounter[]{page}\glsnumberformat}{23}
+\glossaryentry{SGN?\glossaryentryfield{sgn}{\glsnamefont{SGN}}{Signalling Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{23}
+\glossaryentry{SGN?\glossaryentryfield{sgn}{\glsnamefont{SGN}}{Signalling Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{23}
+\glossaryentry{SGN?\glossaryentryfield{sgn}{\glsnamefont{SGN}}{Signalling Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{24}
+\glossaryentry{SGN?\glossaryentryfield{sgn}{\glsnamefont{SGN}}{Signalling Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{24}
+\glossaryentry{M3UA?\glossaryentryfield{m3ua}{\glsnamefont{M3UA}}{MTP Level 3 (MTP3) User Adaptation Layer}{\relax }|setentrycounter[]{page}\glsnumberformat}{24}
+\glossaryentry{M3UA?\glossaryentryfield{m3ua}{\glsnamefont{M3UA}}{MTP Level 3 (MTP3) User Adaptation Layer}{\relax }|setentrycounter[]{page}\glsnumberformat}{24}
+\glossaryentry{TCAP?\glossaryentryfield{tcap}{\glsnamefont{TCAP}}{Transaction Capabilities Application Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{26}
+\glossaryentry{TCAP?\glossaryentryfield{tcap}{\glsnamefont{TCAP}}{Transaction Capabilities Application Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{26}
+\glossaryentry{TCAP?\glossaryentryfield{tcap}{\glsnamefont{TCAP}}{Transaction Capabilities Application Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{26}
+\glossaryentry{TCAP?\glossaryentryfield{tcap}{\glsnamefont{TCAP}}{Transaction Capabilities Application Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{26}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{26}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{26}
+\glossaryentry{TCAP?\glossaryentryfield{tcap}{\glsnamefont{TCAP}}{Transaction Capabilities Application Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{27}
+\glossaryentry{TCAP?\glossaryentryfield{tcap}{\glsnamefont{TCAP}}{Transaction Capabilities Application Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{27}
+\glossaryentry{NAI?\glossaryentryfield{nai}{\glsnamefont{NAI}}{Nature Of Address Indicator}{\relax }|setentrycounter[]{page}\glsnumberformat}{27}
+\glossaryentry{NAI?\glossaryentryfield{nai}{\glsnamefont{NAI}}{Nature Of Address Indicator}{\relax }|setentrycounter[]{page}\glsnumberformat}{27}
+\glossaryentry{NP?\glossaryentryfield{np}{\glsnamefont{NP}}{Numbering Plan}{\relax }|setentrycounter[]{page}\glsnumberformat}{27}
+\glossaryentry{NP?\glossaryentryfield{np}{\glsnamefont{NP}}{Numbering Plan}{\relax }|setentrycounter[]{page}\glsnumberformat}{27}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{28}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{28}
+\glossaryentry{SMSTPDU?\glossaryentryfield{smstpdu}{\glsnamefont{SMSTPDU}}{Short message TPDU 3GPP TS 23.040}{\relax }|setentrycounter[]{page}\glsnumberformat}{28}
+\glossaryentry{MAP?\glossaryentryfield{map}{\glsnamefont{MAP}}{Mobile Application Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{28}
+\glossaryentry{SMSTPDU?\glossaryentryfield{smstpdu}{\glsnamefont{SMSTPDU}}{Short message TPDU 3GPP TS 23.040}{\relax }|setentrycounter[]{page}\glsnumberformat}{29}
+\glossaryentry{SMSTPDU?\glossaryentryfield{smstpdu}{\glsnamefont{SMSTPDU}}{Short message TPDU 3GPP TS 23.040}{\relax }|setentrycounter[]{page}\glsnumberformat}{29}
+\glossaryentry{SMS?\glossaryentryfield{sms}{\glsnamefont{SMS}}{Short Message Service}{\relax }|setentrycounter[]{page}\glsnumberformat}{29}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{30}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{30}
+\glossaryentry{SMS?\glossaryentryfield{sms}{\glsnamefont{SMS}}{Short Message Service}{\relax }|setentrycounter[]{page}\glsnumberformat}{30}
+\glossaryentry{TON?\glossaryentryfield{ton}{\glsnamefont{TON}}{Type Of Number}{\relax }|setentrycounter[]{page}\glsnumberformat}{30}
+\glossaryentry{TON?\glossaryentryfield{ton}{\glsnamefont{TON}}{Type Of Number}{\relax }|setentrycounter[]{page}\glsnumberformat}{30}
+\glossaryentry{NP?\glossaryentryfield{np}{\glsnamefont{NP}}{Numbering Plan}{\relax }|setentrycounter[]{page}\glsnumberformat}{30}
+\glossaryentry{NP?\glossaryentryfield{np}{\glsnamefont{NP}}{Numbering Plan}{\relax }|setentrycounter[]{page}\glsnumberformat}{30}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{31}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{31}
+\glossaryentry{SGN?\glossaryentryfield{sgn}{\glsnamefont{SGN}}{Signalling Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{31}
+\glossaryentry{SGN?\glossaryentryfield{sgn}{\glsnamefont{SGN}}{Signalling Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{31}
+\glossaryentry{SMPP?\glossaryentryfield{smpp}{\glsnamefont{SMPP}}{Short Message Peer-to-Peer}{\relax }|setentrycounter[]{page}\glsnumberformat}{31}
+\glossaryentry{SMPP?\glossaryentryfield{smpp}{\glsnamefont{SMPP}}{Short Message Peer-to-Peer}{\relax }|setentrycounter[]{page}\glsnumberformat}{31}
+\glossaryentry{M3UA?\glossaryentryfield{m3ua}{\glsnamefont{M3UA}}{MTP Level 3 (MTP3) User Adaptation Layer}{\relax }|setentrycounter[]{page}\glsnumberformat}{31}
+\glossaryentry{M3UA?\glossaryentryfield{m3ua}{\glsnamefont{M3UA}}{MTP Level 3 (MTP3) User Adaptation Layer}{\relax }|setentrycounter[]{page}\glsnumberformat}{31}
+\glossaryentry{AS?\glossaryentryfield{as}{\glsnamefont{AS}}{Application Server}{\relax }|setentrycounter[]{page}\glsnumberformat}{31}
+\glossaryentry{AS?\glossaryentryfield{as}{\glsnamefont{AS}}{Application Server}{\relax }|setentrycounter[]{page}\glsnumberformat}{31}
+\glossaryentry{ASP?\glossaryentryfield{asp}{\glsnamefont{ASP}}{Application Server Process}{\relax }|setentrycounter[]{page}\glsnumberformat}{31}
+\glossaryentry{ASP?\glossaryentryfield{asp}{\glsnamefont{ASP}}{Application Server Process}{\relax }|setentrycounter[]{page}\glsnumberformat}{31}
+\glossaryentry{AS?\glossaryentryfield{as}{\glsnamefont{AS}}{Application Server}{\relax }|setentrycounter[]{page}\glsnumberformat}{31}
+\glossaryentry{AS?\glossaryentryfield{as}{\glsnamefont{AS}}{Application Server}{\relax }|setentrycounter[]{page}\glsnumberformat}{31}
+\glossaryentry{SGN?\glossaryentryfield{sgn}{\glsnamefont{SGN}}{Signalling Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{31}
+\glossaryentry{SGN?\glossaryentryfield{sgn}{\glsnamefont{SGN}}{Signalling Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{31}
+\glossaryentry{ASP?\glossaryentryfield{asp}{\glsnamefont{ASP}}{Application Server Process}{\relax }|setentrycounter[]{page}\glsnumberformat}{31}
+\glossaryentry{ASP?\glossaryentryfield{asp}{\glsnamefont{ASP}}{Application Server Process}{\relax }|setentrycounter[]{page}\glsnumberformat}{31}
+\glossaryentry{TON?\glossaryentryfield{ton}{\glsnamefont{TON}}{Type Of Number}{\relax }|setentrycounter[]{page}\glsnumberformat}{32}
+\glossaryentry{TON?\glossaryentryfield{ton}{\glsnamefont{TON}}{Type Of Number}{\relax }|setentrycounter[]{page}\glsnumberformat}{32}
+\glossaryentry{NP?\glossaryentryfield{np}{\glsnamefont{NP}}{Numbering Plan}{\relax }|setentrycounter[]{page}\glsnumberformat}{32}
+\glossaryentry{NP?\glossaryentryfield{np}{\glsnamefont{NP}}{Numbering Plan}{\relax }|setentrycounter[]{page}\glsnumberformat}{32}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{33}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{33}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{33}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{33}
+\glossaryentry{SMS?\glossaryentryfield{sms}{\glsnamefont{SMS}}{Short Message Service}{\relax }|setentrycounter[]{page}\glsnumberformat}{34}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{35}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{35}
+\glossaryentry{RPE?\glossaryentryfield{rpe}{\glsnamefont{RPE}}{Rule Processing Engine}{\relax }|setentrycounter[]{page}\glsnumberformat}{35}
+\glossaryentry{RPE?\glossaryentryfield{rpe}{\glsnamefont{RPE}}{Rule Processing Engine}{\relax }|setentrycounter[]{page}\glsnumberformat}{35}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{35}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{35}
+\glossaryentry{CLI?\glossaryentryfield{cli}{\glsnamefont{CLI}}{pMINK Command Line Interface}{\relax }|setentrycounter[]{page}\glsnumberformat}{35}
+\glossaryentry{CLI?\glossaryentryfield{cli}{\glsnamefont{CLI}}{pMINK Command Line Interface}{\relax }|setentrycounter[]{page}\glsnumberformat}{35}
+\glossaryentry{RPROC?\glossaryentryfield{rproc}{\glsnamefont{RPROC}}{Rule Processor}{\relax }|setentrycounter[]{page}\glsnumberformat}{35}
+\glossaryentry{RPROC?\glossaryentryfield{rproc}{\glsnamefont{RPROC}}{Rule Processor}{\relax }|setentrycounter[]{page}\glsnumberformat}{35}
+\glossaryentry{LCI?\glossaryentryfield{lci}{\glsnamefont{LCI}}{Left Component Index}{\relax }|setentrycounter[]{page}\glsnumberformat}{35}
+\glossaryentry{RCI?\glossaryentryfield{rci}{\glsnamefont{RCI}}{Right Component Index}{\relax }|setentrycounter[]{page}\glsnumberformat}{35}
+\glossaryentry{PDU?\glossaryentryfield{pdu}{\glsnamefont{PDU}}{Protocol Data Unit}{\relax }|setentrycounter[]{page}\glsnumberformat}{35}
+\glossaryentry{SGN?\glossaryentryfield{sgn}{\glsnamefont{SGN}}{Signalling Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{35}
+\glossaryentry{SGN?\glossaryentryfield{sgn}{\glsnamefont{SGN}}{Signalling Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{35}
+\glossaryentry{LCI?\glossaryentryfield{lci}{\glsnamefont{LCI}}{Left Component Index}{\relax }|setentrycounter[]{page}\glsnumberformat}{35}
+\glossaryentry{LCI?\glossaryentryfield{lci}{\glsnamefont{LCI}}{Left Component Index}{\relax }|setentrycounter[]{page}\glsnumberformat}{35}
+\glossaryentry{SGN?\glossaryentryfield{sgn}{\glsnamefont{SGN}}{Signalling Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{35}
+\glossaryentry{RCI?\glossaryentryfield{rci}{\glsnamefont{RCI}}{Right Component Index}{\relax }|setentrycounter[]{page}\glsnumberformat}{35}
+\glossaryentry{RCI?\glossaryentryfield{rci}{\glsnamefont{RCI}}{Right Component Index}{\relax }|setentrycounter[]{page}\glsnumberformat}{35}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{35}
+\glossaryentry{LCI?\glossaryentryfield{lci}{\glsnamefont{LCI}}{Left Component Index}{\relax }|setentrycounter[]{page}\glsnumberformat}{35}
+\glossaryentry{LCI?\glossaryentryfield{lci}{\glsnamefont{LCI}}{Left Component Index}{\relax }|setentrycounter[]{page}\glsnumberformat}{35}
+\glossaryentry{RCI?\glossaryentryfield{rci}{\glsnamefont{RCI}}{Right Component Index}{\relax }|setentrycounter[]{page}\glsnumberformat}{35}
+\glossaryentry{RCI?\glossaryentryfield{rci}{\glsnamefont{RCI}}{Right Component Index}{\relax }|setentrycounter[]{page}\glsnumberformat}{35}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{36}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{36}
+\glossaryentry{LCI?\glossaryentryfield{lci}{\glsnamefont{LCI}}{Left Component Index}{\relax }|setentrycounter[]{page}\glsnumberformat}{36}
+\glossaryentry{LCI?\glossaryentryfield{lci}{\glsnamefont{LCI}}{Left Component Index}{\relax }|setentrycounter[]{page}\glsnumberformat}{36}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{36}
+\glossaryentry{RCI?\glossaryentryfield{rci}{\glsnamefont{RCI}}{Right Component Index}{\relax }|setentrycounter[]{page}\glsnumberformat}{36}
+\glossaryentry{RCI?\glossaryentryfield{rci}{\glsnamefont{RCI}}{Right Component Index}{\relax }|setentrycounter[]{page}\glsnumberformat}{36}
+\glossaryentry{TCAP?\glossaryentryfield{tcap}{\glsnamefont{TCAP}}{Transaction Capabilities Application Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{36}
+\glossaryentry{TCAP?\glossaryentryfield{tcap}{\glsnamefont{TCAP}}{Transaction Capabilities Application Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{36}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{36}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{36}
+\glossaryentry{LCI?\glossaryentryfield{lci}{\glsnamefont{LCI}}{Left Component Index}{\relax }|setentrycounter[]{page}\glsnumberformat}{36}
+\glossaryentry{LCI?\glossaryentryfield{lci}{\glsnamefont{LCI}}{Left Component Index}{\relax }|setentrycounter[]{page}\glsnumberformat}{36}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{36}
+\glossaryentry{RCI?\glossaryentryfield{rci}{\glsnamefont{RCI}}{Right Component Index}{\relax }|setentrycounter[]{page}\glsnumberformat}{36}
+\glossaryentry{RCI?\glossaryentryfield{rci}{\glsnamefont{RCI}}{Right Component Index}{\relax }|setentrycounter[]{page}\glsnumberformat}{36}
+\glossaryentry{TCAP?\glossaryentryfield{tcap}{\glsnamefont{TCAP}}{Transaction Capabilities Application Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{36}
+\glossaryentry{TCAP?\glossaryentryfield{tcap}{\glsnamefont{TCAP}}{Transaction Capabilities Application Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{36}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{37}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{37}
+\glossaryentry{TCAP?\glossaryentryfield{tcap}{\glsnamefont{TCAP}}{Transaction Capabilities Application Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{37}
+\glossaryentry{TCAP?\glossaryentryfield{tcap}{\glsnamefont{TCAP}}{Transaction Capabilities Application Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{37}
+\glossaryentry{SMSTPDU?\glossaryentryfield{smstpdu}{\glsnamefont{SMSTPDU}}{Short message TPDU 3GPP TS 23.040}{\relax }|setentrycounter[]{page}\glsnumberformat}{37}
+\glossaryentry{SMSTPDU?\glossaryentryfield{smstpdu}{\glsnamefont{SMSTPDU}}{Short message TPDU 3GPP TS 23.040}{\relax }|setentrycounter[]{page}\glsnumberformat}{37}
+\glossaryentry{TP-OA?\glossaryentryfield{tp-oa}{\glsnamefont{TP-OA}}{TP-Originating-Address}{\relax }|setentrycounter[]{page}\glsnumberformat}{37}
+\glossaryentry{TP-OA?\glossaryentryfield{tp-oa}{\glsnamefont{TP-OA}}{TP-Originating-Address}{\relax }|setentrycounter[]{page}\glsnumberformat}{37}
+\glossaryentry{M3UA?\glossaryentryfield{m3ua}{\glsnamefont{M3UA}}{MTP Level 3 (MTP3) User Adaptation Layer}{\relax }|setentrycounter[]{page}\glsnumberformat}{37}
+\glossaryentry{M3UA?\glossaryentryfield{m3ua}{\glsnamefont{M3UA}}{MTP Level 3 (MTP3) User Adaptation Layer}{\relax }|setentrycounter[]{page}\glsnumberformat}{37}
+\glossaryentry{RCI?\glossaryentryfield{rci}{\glsnamefont{RCI}}{Right Component Index}{\relax }|setentrycounter[]{page}\glsnumberformat}{37}
+\glossaryentry{RCI?\glossaryentryfield{rci}{\glsnamefont{RCI}}{Right Component Index}{\relax }|setentrycounter[]{page}\glsnumberformat}{37}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{37}
+\glossaryentry{SMSTPDU?\glossaryentryfield{smstpdu}{\glsnamefont{SMSTPDU}}{Short message TPDU 3GPP TS 23.040}{\relax }|setentrycounter[]{page}\glsnumberformat}{37}
+\glossaryentry{SMSTPDU?\glossaryentryfield{smstpdu}{\glsnamefont{SMSTPDU}}{Short message TPDU 3GPP TS 23.040}{\relax }|setentrycounter[]{page}\glsnumberformat}{37}
+\glossaryentry{TP-OA?\glossaryentryfield{tp-oa}{\glsnamefont{TP-OA}}{TP-Originating-Address}{\relax }|setentrycounter[]{page}\glsnumberformat}{37}
+\glossaryentry{TP-OA?\glossaryentryfield{tp-oa}{\glsnamefont{TP-OA}}{TP-Originating-Address}{\relax }|setentrycounter[]{page}\glsnumberformat}{37}
+\glossaryentry{TON?\glossaryentryfield{ton}{\glsnamefont{TON}}{Type Of Number}{\relax }|setentrycounter[]{page}\glsnumberformat}{37}
+\glossaryentry{TON?\glossaryentryfield{ton}{\glsnamefont{TON}}{Type Of Number}{\relax }|setentrycounter[]{page}\glsnumberformat}{37}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{38}
+\glossaryentry{SCCP?\glossaryentryfield{sccp}{\glsnamefont{SCCP}}{Signalling Connection Control Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{38}
+\glossaryentry{SCCP?\glossaryentryfield{sccp}{\glsnamefont{SCCP}}{Signalling Connection Control Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{38}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{38}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{38}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{38}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{38}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{38}
+\glossaryentry{SCCP?\glossaryentryfield{sccp}{\glsnamefont{SCCP}}{Signalling Connection Control Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{38}
+\glossaryentry{SCCP?\glossaryentryfield{sccp}{\glsnamefont{SCCP}}{Signalling Connection Control Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{38}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{38}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{38}
+\glossaryentry{SMS?\glossaryentryfield{sms}{\glsnamefont{SMS}}{Short Message Service}{\relax }|setentrycounter[]{page}\glsnumberformat}{38}
+\glossaryentry{SMS?\glossaryentryfield{sms}{\glsnamefont{SMS}}{Short Message Service}{\relax }|setentrycounter[]{page}\glsnumberformat}{38}
+\glossaryentry{NAI?\glossaryentryfield{nai}{\glsnamefont{NAI}}{Nature Of Address Indicator}{\relax }|setentrycounter[]{page}\glsnumberformat}{38}
+\glossaryentry{NAI?\glossaryentryfield{nai}{\glsnamefont{NAI}}{Nature Of Address Indicator}{\relax }|setentrycounter[]{page}\glsnumberformat}{38}
+\glossaryentry{SMS?\glossaryentryfield{sms}{\glsnamefont{SMS}}{Short Message Service}{\relax }|setentrycounter[]{page}\glsnumberformat}{39}
+\glossaryentry{SMS?\glossaryentryfield{sms}{\glsnamefont{SMS}}{Short Message Service}{\relax }|setentrycounter[]{page}\glsnumberformat}{39}
+\glossaryentry{NP?\glossaryentryfield{np}{\glsnamefont{NP}}{Numbering Plan}{\relax }|setentrycounter[]{page}\glsnumberformat}{39}
+\glossaryentry{NP?\glossaryentryfield{np}{\glsnamefont{NP}}{Numbering Plan}{\relax }|setentrycounter[]{page}\glsnumberformat}{39}
+\glossaryentry{M3UA?\glossaryentryfield{m3ua}{\glsnamefont{M3UA}}{MTP Level 3 (MTP3) User Adaptation Layer}{\relax }|setentrycounter[]{page}\glsnumberformat}{39}
+\glossaryentry{M3UA?\glossaryentryfield{m3ua}{\glsnamefont{M3UA}}{MTP Level 3 (MTP3) User Adaptation Layer}{\relax }|setentrycounter[]{page}\glsnumberformat}{39}
+\glossaryentry{M3UA?\glossaryentryfield{m3ua}{\glsnamefont{M3UA}}{MTP Level 3 (MTP3) User Adaptation Layer}{\relax }|setentrycounter[]{page}\glsnumberformat}{39}
+\glossaryentry{M3UA?\glossaryentryfield{m3ua}{\glsnamefont{M3UA}}{MTP Level 3 (MTP3) User Adaptation Layer}{\relax }|setentrycounter[]{page}\glsnumberformat}{39}
+\glossaryentry{M3UA?\glossaryentryfield{m3ua}{\glsnamefont{M3UA}}{MTP Level 3 (MTP3) User Adaptation Layer}{\relax }|setentrycounter[]{page}\glsnumberformat}{39}
+\glossaryentry{M3UA?\glossaryentryfield{m3ua}{\glsnamefont{M3UA}}{MTP Level 3 (MTP3) User Adaptation Layer}{\relax }|setentrycounter[]{page}\glsnumberformat}{39}
+\glossaryentry{M3UA?\glossaryentryfield{m3ua}{\glsnamefont{M3UA}}{MTP Level 3 (MTP3) User Adaptation Layer}{\relax }|setentrycounter[]{page}\glsnumberformat}{39}
+\glossaryentry{M3UA?\glossaryentryfield{m3ua}{\glsnamefont{M3UA}}{MTP Level 3 (MTP3) User Adaptation Layer}{\relax }|setentrycounter[]{page}\glsnumberformat}{39}
+\glossaryentry{SCCP?\glossaryentryfield{sccp}{\glsnamefont{SCCP}}{Signalling Connection Control Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{40}
+\glossaryentry{SCCP?\glossaryentryfield{sccp}{\glsnamefont{SCCP}}{Signalling Connection Control Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{40}
+\glossaryentry{SCCP?\glossaryentryfield{sccp}{\glsnamefont{SCCP}}{Signalling Connection Control Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{40}
+\glossaryentry{SCCP?\glossaryentryfield{sccp}{\glsnamefont{SCCP}}{Signalling Connection Control Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{40}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{40}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{40}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
+\glossaryentry{SMPP?\glossaryentryfield{smpp}{\glsnamefont{SMPP}}{Short Message Peer-to-Peer}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
+\glossaryentry{SMPP?\glossaryentryfield{smpp}{\glsnamefont{SMPP}}{Short Message Peer-to-Peer}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
+\glossaryentry{TCAP?\glossaryentryfield{tcap}{\glsnamefont{TCAP}}{Transaction Capabilities Application Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
+\glossaryentry{TCAP?\glossaryentryfield{tcap}{\glsnamefont{TCAP}}{Transaction Capabilities Application Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
+\glossaryentry{MAP?\glossaryentryfield{map}{\glsnamefont{MAP}}{Mobile Application Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
+\glossaryentry{MAP?\glossaryentryfield{map}{\glsnamefont{MAP}}{Mobile Application Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
+\glossaryentry{SMSTPDU?\glossaryentryfield{smstpdu}{\glsnamefont{SMSTPDU}}{Short message TPDU 3GPP TS 23.040}{\relax }|setentrycounter[]{page}\glsnumberformat}{42}
+\glossaryentry{SMSTPDU?\glossaryentryfield{smstpdu}{\glsnamefont{SMSTPDU}}{Short message TPDU 3GPP TS 23.040}{\relax }|setentrycounter[]{page}\glsnumberformat}{42}
+\glossaryentry{M3UA?\glossaryentryfield{m3ua}{\glsnamefont{M3UA}}{MTP Level 3 (MTP3) User Adaptation Layer}{\relax }|setentrycounter[]{page}\glsnumberformat}{42}
+\glossaryentry{M3UA?\glossaryentryfield{m3ua}{\glsnamefont{M3UA}}{MTP Level 3 (MTP3) User Adaptation Layer}{\relax }|setentrycounter[]{page}\glsnumberformat}{42}
+\glossaryentry{SCCP?\glossaryentryfield{sccp}{\glsnamefont{SCCP}}{Signalling Connection Control Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{42}
+\glossaryentry{SCCP?\glossaryentryfield{sccp}{\glsnamefont{SCCP}}{Signalling Connection Control Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{42}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
+\glossaryentry{SCTP?\glossaryentryfield{sctp}{\glsnamefont{SCTP}}{Stream Control Transmission Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
+\glossaryentry{M3UA?\glossaryentryfield{m3ua}{\glsnamefont{M3UA}}{MTP Level 3 (MTP3) User Adaptation Layer}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
+\glossaryentry{TCP?\glossaryentryfield{tcp}{\glsnamefont{TCP}}{Transmission Control Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
+\glossaryentry{SMPP?\glossaryentryfield{smpp}{\glsnamefont{SMPP}}{Short Message Peer-to-Peer}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
+\glossaryentry{SMPP?\glossaryentryfield{smpp}{\glsnamefont{SMPP}}{Short Message Peer-to-Peer}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
+\glossaryentry{SMPP?\glossaryentryfield{smpp}{\glsnamefont{SMPP}}{Short Message Peer-to-Peer}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
+\glossaryentry{SMSTPDU?\glossaryentryfield{smstpdu}{\glsnamefont{SMSTPDU}}{Short message TPDU 3GPP TS 23.040}{\relax }|setentrycounter[]{page}\glsnumberformat}{46}
+\glossaryentry{SMSTPDU?\glossaryentryfield{smstpdu}{\glsnamefont{SMSTPDU}}{Short message TPDU 3GPP TS 23.040}{\relax }|setentrycounter[]{page}\glsnumberformat}{46}
+\glossaryentry{TCAP?\glossaryentryfield{tcap}{\glsnamefont{TCAP}}{Transaction Capabilities Application Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{47}
+\glossaryentry{TCAP?\glossaryentryfield{tcap}{\glsnamefont{TCAP}}{Transaction Capabilities Application Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{47}
+\glossaryentry{MAP?\glossaryentryfield{map}{\glsnamefont{MAP}}{Mobile Application Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{47}
+\glossaryentry{MAP?\glossaryentryfield{map}{\glsnamefont{MAP}}{Mobile Application Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{47}
+\glossaryentry{M3UA?\glossaryentryfield{m3ua}{\glsnamefont{M3UA}}{MTP Level 3 (MTP3) User Adaptation Layer}{\relax }|setentrycounter[]{page}\glsnumberformat}{47}
+\glossaryentry{M3UA?\glossaryentryfield{m3ua}{\glsnamefont{M3UA}}{MTP Level 3 (MTP3) User Adaptation Layer}{\relax }|setentrycounter[]{page}\glsnumberformat}{47}
+\glossaryentry{SCCP?\glossaryentryfield{sccp}{\glsnamefont{SCCP}}{Signalling Connection Control Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{47}
+\glossaryentry{SCCP?\glossaryentryfield{sccp}{\glsnamefont{SCCP}}{Signalling Connection Control Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{47}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{48}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{48}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{48}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{48}
+\glossaryentry{API?\glossaryentryfield{api}{\glsnamefont{API}}{Application Programming Interface}{\relax }|setentrycounter[]{page}\glsnumberformat}{48}
+\glossaryentry{API?\glossaryentryfield{api}{\glsnamefont{API}}{Application Programming Interface}{\relax }|setentrycounter[]{page}\glsnumberformat}{48}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{48}
+\glossaryentry{RPE?\glossaryentryfield{rpe}{\glsnamefont{RPE}}{Rule Processing Engine}{\relax }|setentrycounter[]{page}\glsnumberformat}{48}
+\glossaryentry{RPE?\glossaryentryfield{rpe}{\glsnamefont{RPE}}{Rule Processing Engine}{\relax }|setentrycounter[]{page}\glsnumberformat}{48}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{48}
+\glossaryentry{RPE?\glossaryentryfield{rpe}{\glsnamefont{RPE}}{Rule Processing Engine}{\relax }|setentrycounter[]{page}\glsnumberformat}{48}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{48}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{48}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{48}
+\glossaryentry{RPE?\glossaryentryfield{rpe}{\glsnamefont{RPE}}{Rule Processing Engine}{\relax }|setentrycounter[]{page}\glsnumberformat}{48}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{49}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{49}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{49}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{49}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{51}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{51}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{52}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{52}
+\glossaryentry{CLI?\glossaryentryfield{cli}{\glsnamefont{CLI}}{pMINK Command Line Interface}{\relax }|setentrycounter[]{page}\glsnumberformat}{52}
+\glossaryentry{CLI?\glossaryentryfield{cli}{\glsnamefont{CLI}}{pMINK Command Line Interface}{\relax }|setentrycounter[]{page}\glsnumberformat}{52}
+\glossaryentry{SMS?\glossaryentryfield{sms}{\glsnamefont{SMS}}{Short Message Service}{\relax }|setentrycounter[]{page}\glsnumberformat}{56}
+\glossaryentry{SMS?\glossaryentryfield{sms}{\glsnamefont{SMS}}{Short Message Service}{\relax }|setentrycounter[]{page}\glsnumberformat}{56}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{56}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{56}
+\glossaryentry{SMS?\glossaryentryfield{sms}{\glsnamefont{SMS}}{Short Message Service}{\relax }|setentrycounter[]{page}\glsnumberformat}{56}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{56}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{56}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{56}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{58}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{58}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{58}
+\glossaryentry{SGN?\glossaryentryfield{sgn}{\glsnamefont{SGN}}{Signalling Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{58}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{58}
+\glossaryentry{STP?\glossaryentryfield{stp}{\glsnamefont{STP}}{Signalling Transfer Point}{\relax }|setentrycounter[]{page}\glsnumberformat}{58}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{58}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{58}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{58}
+\glossaryentry{SGN?\glossaryentryfield{sgn}{\glsnamefont{SGN}}{Signalling Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{58}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{58}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{58}
+\glossaryentry{FGN?\glossaryentryfield{fgn}{\glsnamefont{FGN}}{Filtering Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{58}
+\glossaryentry{SMPP?\glossaryentryfield{smpp}{\glsnamefont{SMPP}}{Short Message Peer-to-Peer}{\relax }|setentrycounter[]{page}\glsnumberformat}{58}
+\glossaryentry{SMPP?\glossaryentryfield{smpp}{\glsnamefont{SMPP}}{Short Message Peer-to-Peer}{\relax }|setentrycounter[]{page}\glsnumberformat}{58}
+\glossaryentry{TCAP?\glossaryentryfield{tcap}{\glsnamefont{TCAP}}{Transaction Capabilities Application Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{59}
+\glossaryentry{TCAP?\glossaryentryfield{tcap}{\glsnamefont{TCAP}}{Transaction Capabilities Application Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{59}
+\glossaryentry{MAP?\glossaryentryfield{map}{\glsnamefont{MAP}}{Mobile Application Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{60}
+\glossaryentry{MAP?\glossaryentryfield{map}{\glsnamefont{MAP}}{Mobile Application Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{60}
+\glossaryentry{SMSTPDU?\glossaryentryfield{smstpdu}{\glsnamefont{SMSTPDU}}{Short message TPDU 3GPP TS 23.040}{\relax }|setentrycounter[]{page}\glsnumberformat}{60}
+\glossaryentry{SMSTPDU?\glossaryentryfield{smstpdu}{\glsnamefont{SMSTPDU}}{Short message TPDU 3GPP TS 23.040}{\relax }|setentrycounter[]{page}\glsnumberformat}{60}
+\glossaryentry{M3UA?\glossaryentryfield{m3ua}{\glsnamefont{M3UA}}{MTP Level 3 (MTP3) User Adaptation Layer}{\relax }|setentrycounter[]{page}\glsnumberformat}{61}
+\glossaryentry{M3UA?\glossaryentryfield{m3ua}{\glsnamefont{M3UA}}{MTP Level 3 (MTP3) User Adaptation Layer}{\relax }|setentrycounter[]{page}\glsnumberformat}{61}
+\glossaryentry{SCCP?\glossaryentryfield{sccp}{\glsnamefont{SCCP}}{Signalling Connection Control Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{61}
+\glossaryentry{SCCP?\glossaryentryfield{sccp}{\glsnamefont{SCCP}}{Signalling Connection Control Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{61}
+\glossaryentry{STP?\glossaryentryfield{stp}{\glsnamefont{STP}}{Signalling Transfer Point}{\relax }|setentrycounter[]{page}\glsnumberformat}{62}
+\glossaryentry{STP?\glossaryentryfield{stp}{\glsnamefont{STP}}{Signalling Transfer Point}{\relax }|setentrycounter[]{page}\glsnumberformat}{62}
+\glossaryentry{M3UA?\glossaryentryfield{m3ua}{\glsnamefont{M3UA}}{MTP Level 3 (MTP3) User Adaptation Layer}{\relax }|setentrycounter[]{page}\glsnumberformat}{62}
+\glossaryentry{M3UA?\glossaryentryfield{m3ua}{\glsnamefont{M3UA}}{MTP Level 3 (MTP3) User Adaptation Layer}{\relax }|setentrycounter[]{page}\glsnumberformat}{62}
+\glossaryentry{SCCP?\glossaryentryfield{sccp}{\glsnamefont{SCCP}}{Signalling Connection Control Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{62}
+\glossaryentry{SCCP?\glossaryentryfield{sccp}{\glsnamefont{SCCP}}{Signalling Connection Control Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{62}
+\glossaryentry{LCI?\glossaryentryfield{lci}{\glsnamefont{LCI}}{Left Component Index}{\relax }|setentrycounter[]{page}\glsnumberformat}{62}
+\glossaryentry{LCI?\glossaryentryfield{lci}{\glsnamefont{LCI}}{Left Component Index}{\relax }|setentrycounter[]{page}\glsnumberformat}{62}
+\glossaryentry{RCI?\glossaryentryfield{rci}{\glsnamefont{RCI}}{Right Component Index}{\relax }|setentrycounter[]{page}\glsnumberformat}{62}
+\glossaryentry{RCI?\glossaryentryfield{rci}{\glsnamefont{RCI}}{Right Component Index}{\relax }|setentrycounter[]{page}\glsnumberformat}{62}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{62}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{62}
+\glossaryentry{M3UA?\glossaryentryfield{m3ua}{\glsnamefont{M3UA}}{MTP Level 3 (MTP3) User Adaptation Layer}{\relax }|setentrycounter[]{page}\glsnumberformat}{62}
+\glossaryentry{M3UA?\glossaryentryfield{m3ua}{\glsnamefont{M3UA}}{MTP Level 3 (MTP3) User Adaptation Layer}{\relax }|setentrycounter[]{page}\glsnumberformat}{62}
+\glossaryentry{SCCP?\glossaryentryfield{sccp}{\glsnamefont{SCCP}}{Signalling Connection Control Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{62}
+\glossaryentry{SCCP?\glossaryentryfield{sccp}{\glsnamefont{SCCP}}{Signalling Connection Control Part}{\relax }|setentrycounter[]{page}\glsnumberformat}{62}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{63}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{63}
+\glossaryentry{pMINK?\glossaryentryfield{pmink}{\glsnamefont{pMINK}}{Project MINK Framework}{\relax }|setentrycounter[]{page}\glsnumberformat}{63}
+\glossaryentry{SCTP?\glossaryentryfield{sctp}{\glsnamefont{SCTP}}{Stream Control Transmission Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{63}
+\glossaryentry{SCTP?\glossaryentryfield{sctp}{\glsnamefont{SCTP}}{Stream Control Transmission Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{63}
+\glossaryentry{STP?\glossaryentryfield{stp}{\glsnamefont{STP}}{Signalling Transfer Point}{\relax }|setentrycounter[]{page}\glsnumberformat}{63}
+\glossaryentry{STP?\glossaryentryfield{stp}{\glsnamefont{STP}}{Signalling Transfer Point}{\relax }|setentrycounter[]{page}\glsnumberformat}{63}
+\glossaryentry{R14P?\glossaryentryfield{r14p}{\glsnamefont{R14P}}{Release14 Application Layer Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{63}
+\glossaryentry{SGN?\glossaryentryfield{sgn}{\glsnamefont{SGN}}{Signalling Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{64}
+\glossaryentry{SGN?\glossaryentryfield{sgn}{\glsnamefont{SGN}}{Signalling Gateway Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{64}
+\glossaryentry{M3UA?\glossaryentryfield{m3ua}{\glsnamefont{M3UA}}{MTP Level 3 (MTP3) User Adaptation Layer}{\relax }|setentrycounter[]{page}\glsnumberformat}{64}
+\glossaryentry{M3UA?\glossaryentryfield{m3ua}{\glsnamefont{M3UA}}{MTP Level 3 (MTP3) User Adaptation Layer}{\relax }|setentrycounter[]{page}\glsnumberformat}{64}
+\glossaryentry{RPE?\glossaryentryfield{rpe}{\glsnamefont{RPE}}{Rule Processing Engine}{\relax }|setentrycounter[]{page}\glsnumberformat}{67}
+\glossaryentry{RPE?\glossaryentryfield{rpe}{\glsnamefont{RPE}}{Rule Processing Engine}{\relax }|setentrycounter[]{page}\glsnumberformat}{67}

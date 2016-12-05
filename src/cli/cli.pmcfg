@@ -1,0 +1,55 @@
+// type definition
+
+TYPES {
+	"STRING" 	PTRN.+PTRN
+	"INT"		PTRN\d+PTRN
+	"IP"		PTRN\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}PTRN
+
+
+}
+
+// cli structure example
+CONFIG {
+	test_script	SCRIPT	["./src/cli/test_script.sh"] 			"Test script"
+	configure 	METHOD 	["../../bin/test/test_module.so"]	"Configuration mode (config daemon)"
+	uptime		SCRIPT	["uptime"]		 		"System uptime"
+
+	test_group1 CONST{
+		kkkkkkk CONST
+
+	}
+	test_group CONST {
+		test_group1 CONST {
+			test_group2 CONST {
+			}
+		}
+	}
+	// custom block, handled by external plugin	
+	//config_mode CONST ["./bin/test/test_module.so"]	"Consiguration plugin module"
+	config_mode CONST ["./dist/plg_config.so"]	"Consiguration plugin module"
+
+	config_mode2 CONST
+
+        configuration CONST "Configuration management" {
+
+                // configuration_show
+                show METHOD ["../../bin/test/test_module.so"]	"Show current config" {
+                        method-param-1  "STRING"
+                        method-param-11  "STRING"
+                }
+
+
+
+	}
+
+        firewall CONST "Firewall management" {
+                allow   SCRIPT		["./test_script.sh"]	"Test method description" {
+                        script-param-1  "INT" 			"Parameter 1 desc"
+                        //script-param-2  "IP" 			"Parameter 2 desc"
+                }
+        }
+
+}
+
+
+

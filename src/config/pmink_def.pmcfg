@@ -1,0 +1,1523 @@
+/*
+ * This file is part of Project MINK <http://www.release14.org>.
+ *
+ * Copyright (C) 2012 Release14 Ltd.
+ * http://www.release14.org/
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
+// types
+TYPES {
+        "STRING_OPID"   PTRN.{2,}PTRN                                   		"Alphanumeric value of two or more characters"
+        "TSTAMP"        PTRN\d{4}-\d{2}-\d{2}-\d{2}:\d{2}:\d{2}PTRN     		"Timestamp value in YYYY-MM-DD-hh:mm:ss format"
+        "FN_METHOD"     PTRN[01]PTRN                                    		"0 - File naming method A (per target), 1 - File naming method B (per MF node)"
+        "HI3_TYPE"      PTRN[01]PTRN                                    		"0 - x.690, 1 - pcap"
+        "TARGET_TYPE"   PTRN[01234678]PTRN                              		"0 - pop3, 1 - smtp, 2 - imap, 3 - radius, 4 - dhcp (mac or o82 remote agent id, 6 - layer2 (mac), 7 - layer3 (ip), 8 - cisco sii ip:port"
+        "HIF_LST"       PTRN:pmcfg:[/openli mediation hiconns]PTRN
+        "HIC_TYPE"      PTRN[01]PTRN                                    		"0 - FTP, 1 - TCP"
+	"LOG_LEVEL"     PTRN[3467]PTRN                                  		"3 - ERROR, 4 - WARNING, 6 - INFO, 7 - DEBUG"
+	"STRING" 	PTRN.*PTRN							"Alphanumeric value"					
+	"STRING_2"      PTRN.{2}PTRN                                    		"Two alphanumeric values"
+	"STRING_15"	PTRN.{1,15}PTRN							"Alphanumeric value, maximum length 15 characters"
+	"LABEL"         PTRN[^@\d].*PTRN                                		"Alphanumeric value"
+	"TMPL_LABEL"    PTRNt\d+PTRN  		                 			"Letter 't' followed by template id number"
+	"NUM_LABEL"     PTRN_\d+PTRN  		                 			"Symbol '#' followed by template id number"
+	"INT"		PTRN\d+PTRN							"Numerical value"
+	"INT_OR_REGX"	PTRN\d+|^:.*PTRN						"Numerical value or regular expression (must start with ':' sign followed by perl style regular expression)"
+	"INT_RGX_CONST" PTRN^(?:\[(\d+|\+|<-|->)])?(?:(?:(!=|==|<|<=|>|>=)?(\d+))|(?::(.+))|(?:(!=|==|<|<=|>|>=)?(?:@(?:\[(\d+|\+|<-|->)])?([A-Za-z].*)))|(?:(!=|==|>>|<<|--)?(?:@\{([A-Za-z].*)\}))|(?:(!=|==|<|<=|>|>=)?(.+)))PTRN	"Numerical value, regular expression or context specific constant"
+	"INT_CONST"	PTRN\d+|^@.*PTRN						"Numerical value or context specific constant"
+	"PMINK_CONST"	PTRN^@.*PTRN							"Pmink context specific string constant (must start with '@' sign followed by alphanumeric value)"
+	"IP"		PTRN\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}PTRN			"xxx.xxx.xxx.xxx"
+	"CIDR"		PTRN\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/\d+PTRN			"xxx.xxx.xxx.xxx/xx"
+	"BOOL"		PTRN[01]PTRN							"0 - False, 1 - True"
+	"CONN_MODE"	PTRN[01]PTRN							"0 - Client mode, 1 - Server mode"
+	"SPARING_MODE"	PTRN[ms]PTRN							"m - master, s - slave"
+	"M3UA_TF_MODE"	PTRN[123]PTRN							"1 - Override, 2 - Loadshare, 3 - Broadcast"
+	"M3UA_LS_TYPE"	PTRN[123]PTRN							"1 - Weighted Round robin, 2 - Round robin, 3 - TCAP Stateful"
+	"IF_TYPE"	PTRN[01]PTRN							"0 - PCAP passive capture, 1 - CISCO SII active capture"
+	"CSII_TARGETS"	PTRN:pmcfg:[^ ^ ^ ^ targets]PTRN				"Supported targets"
+	"SMPP_BIND"	PTRN[219]PTRN							"2 - Bind_transmitter, 1 - Bind_receiver, 9 - Bind_transceiver"
+	"SMPP_CONN" 	PTRN(?!^connections$).{1,64}PTRN				"Alphanumeric value, maximum length 64 characters"					
+	"ASP_NAME"	PTRN(?!^asp$).{1,64}PTRN					"Alphanumeric value, maximum length 64 characters"
+	"AS_NAME"	PTRN(?!^as$).{1,64}PTRN						"Alphanumeric value, maximum length 64 characters"
+	"SMPP_USER"	PTRN(?!^connections$).{1,15}PTRN				"Alphanumeric value, maximum length 15 characters"
+	"SMPP_PWD"	PTRN.{1,8}PTRN							"Alphanumeric value, maximum length 8 characters"
+	"SMPP_SYST"	PTRN.{1,12}PTRN							"Alphanumeric value, maximum length 12 characters"
+	"STP_DEST_TYPE"	PTRN[012]PTRN							"0 - R14P, 1 - AS, 2 - SMPP"
+	"SMPP_TON"	PTRN[0123456]PTRN						"0 - Unknown, 1 - International, 2 - National, 3 - Network specific, 4 - Subscriber number, 5 - Alphanumeric, 6 - Abbreviated "
+	"SMPP_NPI"	PTRN0|1|3|4|6|8|9|10|14|18PTRN					"0 - Unknown, 1 - ISDN Telephone, 3 - Data X121, 4 - Telex, 6 - Land mobile, 8 - National, 9 - Private, 10 - Ermes, 14 - Internet/IP, 18 - Wap client"
+	"FILTER_RES"	PTRN[012]PTRN							"0 - ACCEPT, 1 - DROP, 2 - CONTINUE"
+	"RANGE"		PTRN^\d+-\d+$PTRN						"Range (FROM-TO)"
+	"PCAP_IF"	PTRN^(?!any).*PTRN						"Network interface label"
+	"PCAP_TYPE"	PTRN[012]PTRN				        		"0 - M3UA, 1 - SMPP, 2 - M3UA and SMPP"
+
+}
+
+
+// config definition example
+CONFIG {
+	// pmink config
+	pmink CONST "Project MINK configuration" {
+		// routing configuration
+		routing CONST "Routing configuration" {
+			// routing node
+			routing_node * "STRING_15" "Routing node" {
+				// destination types
+				destinations CONST "Destination configuration" {
+					// destination type
+					destination_type * "STRING_15" "Destination type" {
+						// destination type nodes
+						nodes CONST "Nodes" {
+							node * "STRING_15" "Destination node" {
+								weight	"INT"	"Priority"
+							}	
+						}
+					}
+				}
+			}
+		}
+
+	}
+
+        // openLI config
+	openli CONST "Open Lawful Interception configuration" {
+                leac CONST "LEA collector" {
+                        hi2_in          "STRING"        "HI2 input directory"
+                        hi3_in          "STRING"        "HI3 x.690 input directory"
+                        hi3_out         "STRING"        "HI3 pcap output directory"
+			err_dir		"STRING"	"Malformed/unknown files output directory"
+                        pcap_ppf        "INT"           "HI3 pcap packets per file"
+                        pcap_timeout    "INT"           "HI3 pcap flush timeout in seconds"
+
+                        db CONST "HI1/HI2 DB configuration" {
+                                address      "IP"            "DB server IP address"
+                                port         "INT"           "DB server port"
+                                name         "STRING"        "DB name"
+                                user         "STRING"        "DB username"
+                                password     "STRING"        "DB password"
+                        }
+                }
+
+		dr CONST "Data retention" {
+			status		"BOOL"          "Data retention activity flag"
+			db_address	"IP"		"Database server IP address"
+			db_port		"INT"		"Database server port"
+			db_name		"STRING"	"Database name"
+			db_user		"STRING"	"Database username"
+			db_password	"STRING"	"Database password"
+			db_batch_size	"INT"		"Number of inserts per batch"
+
+		}
+		
+		// netflow data retention
+		drnfl9 CONST "NetFlow 9 data retention configuration" {
+			// data retention node
+			drnode * "STRING_15" "Data retention node" {
+				log             	"LOG_LEVEL"     "Logging level"
+                	        dsctr_pool      	"INT"           "NetFlow dissector pool size in megabytes"
+				dsctr_fields    	"INT"           "NetFlow dissector field pool size in megabytes (per dissector)"
+				
+				// db params
+	                        db CONST "DB configuration" {
+        	                        address      	"STRING"        "DB server IP address"
+                	                port         	"INT"           "DB server port"
+					address_extra	"STRING"	"Extra DB server IP address"
+                        	        name         	"STRING"        "DB name"
+                                	user         	"STRING"        "DB username"
+	                                password     	"STRING"        "DB password"
+					batch		"INT"           "Number of inserts per batch"
+					pool            "INT"           "DB record pool size (default = batch * 10)"
+        	                }
+
+				// netflow interfaces
+				interfaces CONST "NetFlow interfaces" {
+					// netflow interface (source/device)
+					interface * "LABEL" "NetFlow interface" {
+        	                	        netflow_in_port 	"INT"           "NetFlow inbound UDP port"
+						netflow_in_address	"IP"		"NetFlow inbound IP address"
+						netflow_out_address     "IP"		"NetFlow forward outbound address"
+						netflow_out_port	"INT"		"NetFlow forward outbound UDP port"
+						translation_map_max	"INT"		"Max number of buffered translations"
+
+						// templates
+						templates CONST "Templates" {
+							// template
+							template * "TMPL_LABEL" "Template" {
+								active	"BOOL"	"Activity status"
+							}
+						
+						
+						}
+						// filters
+						filters CONST "CIDR Filters" {
+							// filter
+							filter * "LABEL" "CIDR Filter" {
+								value 	"CIDR"	"CIDR Filter pattern"
+							}
+						
+						}
+					}
+				}
+			}
+		}
+
+		// mediations
+		mediations CONST "Mediation function (MF) configuration" {
+			mediation * "STRING_15" "Mediation node" {
+	                        // mediation template
+        	                log             "LOG_LEVEL"     "Logging level"
+                	        hihdr_pool      "INT"           "Probe HI2/HI3 file header pool size"
+				max_file_batch	"INT"		"Max number of buffered HI files in a single batch"
+
+                        	// HI connections
+	                        hiconns CONST "Handover interface connections" {
+        	                        hiconn * "LABEL" "Handover interface connection" {
+                	                        type            "HIC_TYPE"      "Connection type"
+                        	                address         "IP"            "Server address"
+                                	        port            "INT"           "Server port"
+                                        	src_address     "IP"            "Client source address"
+	                                        src_port        "INT"           "Client source port"
+        	                                username        "STRING"        "FTP username"
+                	                        password        "STRING"        "FTP password"
+                        	                homedir         "STRING"        "FTP home directory"
+                                	        hi2dir          "STRING"        "HI2 data directory"
+                                        	hi3dir          "STRING"        "HI3 data directory"
+	                                        kaint           "INT"           "Keep alive interval in seconds"
+        	                                fnm             "FN_METHOD"     "File naming method"
+                                       	 	mfid            "STRING_2"      "MF node id"
+                                	        opid            "STRING_OPID"   "Operator id"
+						hi_pool         "INT"           "HI2/HI3 chunk pool size"
+                               	 	}
+                        	}
+			}
+		
+		}
+		// probes
+		probes CONST "Packet data interception probe list" {
+			// probe template
+			probe * "STRING_15" "Packet data interception probe configuration" {
+				id		"STRING"	"Probe identifier"
+				tcp_timeout	"INT"		"TCP stream timeout in seconds"
+				hi3_timeout	"INT"		"HI3 delivery timeout"
+				clsf_max	"INT"		"Max number of classification attempts"
+				dsctr_pool	"INT"		"DPI dissector pool size in megabytes (per dpi worker)"
+				dsctr_fields	"INT"		"DPI dissector field pool size in megabytes (per dissector)"
+				ps_pdu_pool	"INT"		"LI-PS-PDU pool size in megabytes (per probe)"
+				hi3_max_aggr	"INT"		"HI3 payload aggregation limit (max number of aggregated payloads)"
+				hi_pool		"INT"		"HI2/HI3 payload aggregation pool size"
+				hi_mtu		"INT"		"HI2/HI3 payload MTU size (default 65535)"
+				rad_interim_ip	"BOOL"		"Detect framed IP in RADIUS Interim updates"  
+				log		"LOG_LEVEL"	"Logging level"
+
+
+                                // interfaces
+                                interfaces CONST "Network interfaces" {
+
+					// interface
+                                        interface * "LABEL"    "Network interface" {
+                                                if              "STRING"        "Interface identifier"
+						type		"IF_TYPE"	"Interface type"
+                                                pbacklog        "INT"           "Max packet backlog size"
+                                                pcap_buffer     "INT"           "libpcap capture handle buffer size"
+                                                pcap_cpu        "INT"           "Packet capture thread CPU core affinity"
+                                                snaplen         "INT"           "Max packet snapshot length (MTU)"
+                                                l2b_cpu         "INT"           "L2B thread CPU core affinity"
+						
+						// cisco sii specific
+						cisco_sii CONST "CISCO SII interface configuration" {
+                                                	mediation_port          "INT"           "Mediation UDP delivery port"
+                                                        mediation_address       "IP"            "Mediation IP address"
+                                                        cisco_address           "IP"            "Node IP address"
+                                                        snmp_username           "STRING"        "SNMP username"
+                                                        snmp_password           "STRING"        "SNMP password"
+
+                                                        // targets for this cisco node
+                                                        targets CONST "Targets" {
+								// target link
+                                                                target * "CSII_TARGETS" "Target link" {
+                                                                        active 		"BOOL"  "Activity status"
+									mediation_id	"INT"	"Mediation id"
+                                                                }
+                                                        }
+
+						
+						}
+
+                                        }
+                                }
+
+
+				l3b CONST "Layer 3 balancer configuration" {
+					core		"INT"	"L3B CPU core affinity"
+				
+				}
+
+				l4b CONST "Layer 4 balancer configuration" {
+					core	"INT"	"L4B CPU core affinity"
+					
+				}
+
+				dpiworkers CONST "DPI worker list" {
+					dpiworker * "STRING" "DPI worker configuration" {
+						id	"STRING"	"Worker identifier"
+						core	"INT"		"Worker CPU core affinity"
+						
+					}
+
+
+				}
+				// targets
+				targets CONST "Target list" {
+					// target definition
+					target * "LABEL" "Target configuration" {
+						value		"STRING"	"Target string, protocol specific"	
+						active		"BOOL"		"Activity status"
+						type		"TARGET_TYPE"	"Target protocol type"
+						ts_from		"TSTAMP"	"Validity FROM period"
+						ts_to		"TSTAMP"	"Validity TO period"
+						liid		"STRING"	"Lawful interception identifier"
+						hi2		"BOOL"		"Handover interface port 2 activity flag"
+						hi3		"BOOL"		"Handover interface port 3 activity flag"
+						hi3type		"HI3_TYPE"	"HI3 delivery format"
+						hi2dir		"STRING"	"HI2 data directory (overrides mediation)"
+						hi3dir		"STRING"	"HI3 data directory (overrides mediation)"
+						hi3aggr		"INT"		"HI3 payload aggregation factor (payload count)"
+						hi2conn		"STRING"	"Handover interface 2 connection id"
+						hi3conn		"STRING"	"Handover interface 3 connection id"
+						hi3_timeout     "INT"           "HI3 delivery timeout"
+
+
+						cid CONST "Communication identifier" {
+							nid CONST "Network identifier" {
+								opid	"STRING_OPID"	"Operator id (overrides mediation)"
+								neid	"STRING"	"Network element id"
+							}	
+
+							cin	"STRING"	"Communication identifier number"
+						}
+						
+					}
+				
+				}
+
+			}
+		
+		}	
+	}
+
+	// MNO - Mobile Network Operator
+	mno CONST "Mobile Network Operator configuration" {
+	        // dr config
+	        dr CONST "Data retention nodeset configuration" {
+	                drnode * "STRING_15" "Data retention node" {
+	                        db CONST "DB configuration" {
+	                                address         "IP"            "DB server IP address"
+	                                port            "INT"           "DB server port (default = 3306)"
+	                                dbname          "STRING"        "DB name"
+	                                username        "STRING"        "DB username"
+	                                password        "STRING"        "DB password"
+	                                batch           "INT"           "Number of inserts per batch (default = 1)"
+	                                pool            "INT"           "DB record pool size (default = batch * 10)"
+	                        }
+	                        // tcap
+	                        tcap_timeout    "INT"   "TCAP message correlation timeout in seconds (default = 5 seconds)"
+				tcap_max_size	"INT"	"Max number of buffered TCAP transactions"
+	
+	                }
+	
+	
+	        }
+		// psgn config
+		psgn CONST "Passive signalling nodeset configuration" {
+			// psgn node
+			psgn_node * "STRING_15" "Passive signalling node" {
+				log		"LOG_LEVEL"	"Logging level"
+                                
+				// interfaces
+                                interfaces CONST "Network interfaces" {
+                                        // interface
+                                        interface * "LABEL"    "Network interface" {
+                                                if              "STRING"        "Interface identifier"
+                                                pbacklog        "INT"           "Max packet backlog size"
+                                                pcap_buffer     "INT"           "libpcap capture handle buffer size"
+                                                pcap_cpu        "INT"           "Packet capture thread CPU core affinity"
+                                                snaplen         "INT"           "Max packet snapshot length (MTU)"
+                                                worker_cpu      "INT"           "Worker thread CPU core affinity"
+
+                                        }
+                                }
+					
+			}
+		
+		}
+
+		// sgn config
+		sgn CONST "Signalling nodeset configuration" {
+			sgn_node * "STRING_15" "Signalling node" {
+				// loop protection
+				//lp_list_max	"INT"	"Maximum number of elements in loop protection list (default = 1000)"
+				lp_list_ttl	"INT"	"Maximum loop protection list TTL in seconds (default = 5)"
+				loop_protection	"BOOL"	"Enable loop protection"
+				dprocessors 	"INT"	"Number of data processors (defaults to number of CPU cores)"
+				local_ports	"RANGE"	"Local port range used for CLIENT connections (override per connection)"
+				
+				// pcap
+				pcap CONST "Passive packet capture" {
+					mtu	"INT"	"M3UA payload max size (default = 1024)"
+					pool	"INT"	"Payload pool size (default = 4096)"
+
+                                        // tcp settings
+                                        tcp CONST "TCP connection tracking" {
+                                            syn_only    "BOOL"  "Start TCP tracking on SYN only or anytime (mid-stream) (default = true)"
+                                            max_conns   "INT"   "Maximum number of track connections (default = 1000)"
+                                            max_segms   "INT"   "Max number of buffered segments per connection (default = 100)"
+                                            timeout     "INT"   "Connection inactivity timeout in seconds (default = 300)"
+                                        }
+
+					// instances
+					instances CONST "Packet capture instances" {
+						// instance
+						instance * "LABEL"    "Packet capture instance" {
+							if              "PCAP_IF"       "Network interface"
+							mtu		"INT"		"Packet max size (default = 1024)"
+							pool		"INT"		"Packet pool size (default = 4096)"
+							pcap_buffer     "INT"           "libpcap capture handle buffer size"
+                                                        pcap_type       "PCAP_TYPE"     "Packet capture type (default = 0 [M3UA])"
+							description	"STRING"	"Instance description"
+
+                                                        // tcp settings
+                                                        tcp CONST "TCP connection tracking" {
+                                                                syn_only    "BOOL"  "Start TCP tracking on SYN only or anytime (mid-stream)"
+                                                                max_conns   "INT"   "Maximum number of tracked connections"
+                                                                max_segms   "INT"   "Maximum number of buffered segments per connection"
+                                                                timeout     "INT"   "Connection inactivity timeout in seconds"
+                                                        }
+						}
+					}
+				}
+		
+				// m3ua
+				m3ua CONST "MTP Level 3 (MTP3) User Adaptation Layer" {
+					mtu	"INT"	"M3UA payload max size (default = 1024)"
+					pool	"INT"	"Payload pool size (default = 4096)"
+					// ASP list
+					asp CONST "Application server processes" {
+						// ASP
+						asp_conn * "ASP_NAME" "Application server process" {
+							mtu	"INT"	"M3UA payload max size (default = 1024)"
+							pool	"INT"	"Payload pool size (default = 4096)"
+							// sctp
+							sctp CONST "Stream Control Transmission Protocol" {
+								local CONST "Local address" {
+									ip1 	"IP" 	"Primary IP Address"
+									ip2	"IP"	"Secondary IP Address"
+									port	"INT"	"Port number"	
+								}
+		
+								remote CONST "Remote address" {
+									ip1 	"IP" 	"Primary IP Address"
+									ip2	"IP"	"Secondary IP Address"
+									port	"INT"	"Port number"
+								}
+	
+								timers CONST "SCTP timers" {
+									hb-interval		"INT"	"Heartbeat interval in msec"
+									max-burst		"INT"	"Maximum number of new data packets that can be sent in a burst"
+									max-init-retransmit	"INT"	"Maximum number of retries for INIT message (0 - 255)"
+									path-max-retrans	"INT"	"Maximum number of consecutive retransmissions over a destination transport address"
+									rto-initial		"INT"	"Initial value of retransmission timeout RTO in msec (1 - 65535)"
+									rto-max			"INT"	"Maximum value used for RTO in msec (1 - 65535)"
+									rto-min			"INT"	"Minimum value used for RTO in msec (1 - 65535)"
+									sack-timeout		"INT"	"Delayed SACK timeout in msec"
+									sack-freq		"INT"	"Delayed SACK frequency"
+									valid-cookie-life	"INT"	"Maximum lifespan in msec of Cookie sent in an INIT ACK chunk "
+							
+								}
+	
+							}
+	
+							// m3ua	
+							m3ua CONST "MTP Level 3 (MTP3) User Adaptation Layer" {
+								opc 	"INT"	"Originating point code"
+								dpc	"INT"	"Destination point code"
+								//si	"INT"	"Service indicator"
+								//ni	"INT"	"Network indicator"
+								//mp	"INT"	"Message priority"
+								//sls	"INT"	"Signalling link selection code"
+								//nap	"INT"	"Network appearance"
+								hbeat	"INT"	"Heartbeat interval in seconds"
+	
+							}
+
+							// global
+							mode 		"CONN_MODE"	"Connection mode (0 - client, 1 - server)"
+							shutdown 	"BOOL"		"Shutdown m3ua and sctp"
+							block		"BOOL"		"Shutdown m3ua only"	
+							qos-class	"INT"		"Quality of service class number"
+							log		"LOG_LEVEL"	"Logging level"
+							description	"STRING"	"Connection description"
+							//r14p-label	"STRING"	"Send to this R14p Label"
+							dr		"BOOL"		"Data retention status"
+	
+						}
+					}
+					// AS list
+	        			as CONST "Application servers"{
+	                			// AS
+				                as_conn * "AS_NAME" "Application server" {
+	                        			// ASP connection list
+				                        asp CONST "Application server processes" {
+	                        			        // ASP connection
+				                                asp_conn * "ASP_NAME" "Application server process" {
+	                        			                active          "BOOL"          "Activity flag"
+				                                        weight          "INT"           "Priority"
+	                        			                //sparing         "SPARING_MODE"  "m - master, s - slave"
+				                                }
+	
+	                        			}
+	
+				                        // global as routing key
+	                        			routing-key CONST "Routing key definition" {
+				                                routing-context "INT"   "Routing context"
+				                                //dpc             "INT"   "Destination point code"
+	                        			        //opc             "INT"   "Originating point code"
+				                                //si              "INT"   "Service indicator"
+	                        			        //gtt             "INT"   "SCCP Global title address information digits"
+	
+	                        			}
+	
+				                        // traffic mode
+	                        			traffic-mode CONST "Traffic mode" {
+				                                type            "M3UA_TF_MODE"  "Traffic mode type (1 - Override, 2 - Loadshare, 3 - Broadcast)"
+	                        			        //loadshare-type  "M3UA_LS_TYPE"  "Loadshare type (1 - Weighted Round robin, 2 - Round robin, 3 - TCAP Stateful)"
+	
+	
+				                        }
+	
+	                        			// decoding     
+				                        decoder CONST "Layer decoding parameters" {
+	                        			        sccp            "BOOL"          "Stream Control Transmission Protocol"
+				                                isup            "BOOL"          "ISDN User Part"
+				                                tcap            "BOOL"          "Transaction Capabilities Application Part"
+				                                gsm-map         "BOOL"          "GSM Mobile Application Part"
+	                        			        sms-tpdu        "BOOL"          "SMS-TPDU"
+	
+				                        }
+	
+	                        			// global
+				                        qos-class               "INT"           "Quality of service class number"
+	                        			recovery-timeout        "INT"           "Recovery timeout in msec"
+				                        burst-recovery          "INT"           "Burst recovery timeout in msec"
+							description		"STRING"	"Description"
+				                        log                     "LOG_LEVEL"     "Logging level"
+				                        //r14p-label              "STRING"        "Send to this R14P Label - optional"
+	
+				                }
+				        }
+				}		
+				// smpp
+				smpp CONST "Short Message Peer-to-Peer" {
+					mtu	"INT"	"SMPP payload max size (default = 1024)"
+					pool	"INT"	"Payload pool size (default = 4096)"
+					// ASP list
+					asp CONST "Application server processes" {
+						asp_conn * "SMPP_CONN" "Application server process" {
+							mtu	"INT"	"SMPP payload max size (default = 1024)"
+							pool	"INT"	"Payload pool size (default = 4096)"
+							// tcp
+							tcp CONST "Transmission Control Protocol" {
+                                                                local CONST "Local address" {
+                                                                        ip     "IP"    "IP Address"
+                                                                        port   "INT"   "Port number"
+                                                                }
+
+                                                                remote CONST "Remote address" {
+                                                                        ip     "IP"    "IP Address"
+                                                                        port   "INT"   "Port number"
+                                                        	}
+
+							}
+							// smpp
+                                                        smpp CONST "SMPP Bind parameters" {
+								bind_method	"SMPP_BIND"	"SMPP BIND method"
+
+                                                                timers CONST "SMPP timers" {
+                                                                        session_init_timer      "INT"   "Maximum time allowed between a network connection being established and a bind request being sent (seconds)"
+                                                                        enquire_link_timer      "INT"   "Maximum time allowed between operations after which an SMPP entity should check if session is still active (seconds)"
+                                                                        inactivity_timer        "INT"   "Maximum time allowed between operations (seconds)"
+                                                                        response_timer          "INT"   "Maximum time allowed between request and response (seconds)"
+
+
+                                                                }
+
+
+								users CONST "SMPP users" {
+									user * "SMPP_USER" "SMPP user" {
+										system_type		"SMPP_SYST"	"ESME type"
+                                                                		password  	      	"SMPP_PWD"     	"ESME authentication password"
+										interface_version	"INT"		"Interface version"
+										max_conns		"INT"		"Maximum number of inbound connections"
+										addr_ton		"SMPP_TON"	"ESME type of number"
+										addr_npi		"SMPP_NPI"	"ESME numbering plan"
+									}
+								}
+                                                        }
+
+
+	                        			active          "BOOL"          "Activity flag"
+                                                        mode            "CONN_MODE"     "Connection mode (0 - client, 1 - server)"
+                                                        log             "LOG_LEVEL"     "Logging level"
+                                                        description     "STRING"        "Connection description"
+                                                        dr              "BOOL"          "Data retention status"
+						
+						
+						}
+					
+					} 
+					// AS list
+	        			as CONST "Application servers"{
+	                			// AS
+				                as_conn * "AS_NAME" "Application server" {
+	                        			// ASP connection list
+				                        asp CONST "Application server processes" {
+	                        			        // ASP connection
+				                                asp_conn * "ASP_NAME" "Application server process" {
+	                        			                active          "BOOL"          "Activity flag"
+				                                        weight          "INT"           "Priority"
+				                                }
+	
+	                        			}
+							description	"STRING"	"Connection description"
+				                }
+				        }
+				}
+			}
+		}
+		// FGN configuration
+		fgn CONST "Filtering Gateway Node nodeset configuration" {
+			// STP node
+			fgn_node * "STRING_15" "FGN Node" {
+				// pools
+				pool 		"INT"	"Correlation and rule processor pool size"
+				timeout		"INT"	"Default correlation timeout"
+				timer_res	"INT"	"Timer resolution in seconds"
+				fworkers	"INT"	"Number of rule processor threads"
+				sl_list_max	"INT"	"Maximum number of elements in standard list (default = 1000)"
+				fl_list_max	"INT"	"Maximum number of elements in flood list (default = 1000)"
+				fl_list_ttl	"INT"	"Maximum flood list TTL in seconds (default = 3600)"
+
+				// routing configuration
+				routing CONST "Routing nodeset configuration" {
+					routing_node * "STRING_15" "Routing node" {
+						remote CONST "Remote address" {
+							address "IP" 	"IP address"
+							port	"INT"	"Port"
+						}
+
+						local CONST "Local address" {
+							address "IP" 	"IP address"
+							port	"INT"	"Port"
+						}
+
+						weight	"INT"	"Priority"	
+					}
+
+				}
+
+				// rating configuration
+				rating CONST "Rating nodeset configuration" {
+					rating_node * "STRING_15" "Rating node" {
+                                                remote CONST "Remote address" {
+                                                        address "IP"    "IP address"
+                                                        port    "INT"   "Port"
+                                                }
+
+                                                local CONST "Local address" {
+                                                        address "IP"    "IP address"
+                                                        port    "INT"   "Port"
+                                                }
+
+                                                weight  "INT"   "Priority"
+
+					}
+				}
+
+
+				// filtering lists
+        			lists CONST "Filtering lists"{
+			                list * "STRING" "Filtering list" {
+			                        values CONST "List values"{
+                        			        value * "STRING" "Item value"{...}
+
+                        			}			
+                			}			
+
+
+        			}
+
+
+				// filtering rules
+				rules CONST "Filter configuration" {
+					// rules
+					rule * "STRING" "Rule" {
+						//hunt-stop	"BOOL"		"Stop matching on success"
+						description	"STRING"	"Rule description"
+						/S/priority	"INT"		"Priority level"
+						filter_result	"FILTER_RES"	"Default filtering result"
+	
+						// rule definition
+						definition CONST "Rule configuration" {
+	
+							// match
+							match CONST "Match configuration" {
+								// dummy field (generic scripting)
+                                                                dummy CONST "Dummy field for generic scripting" {
+                                                                    args CONST "Script arguments" {
+                                                                        arg * "STRING" "Argument" {
+                                                                            value "STRING"  "Argument value"
+                                                                        }
+
+                                                                    }
+
+                                                                    script "STRING"     "Inline/External script"
+
+                                                                }
+
+								// special commands
+								commands CONST "Special commands" {
+									// sri-for-sm request
+									sri-for-sm CONST "Result from Send routing info for short message command" {
+										// calling party
+										cgpa CONST "Calling Party" {
+											ssn		"INT_RGX_CONST"		"SubSystem Number"
+											// global title
+											gt CONST "Global Title" {
+												tt	"INT_RGX_CONST"		"Translation type"
+												np	"INT_RGX_CONST"		"Numbering plan"
+												nai	"INT_RGX_CONST"		"Nature Of Address"
+												address	"STRING"		"GT Address"	
+											}
+										
+										}
+										// called party
+										cdpa CONST "Called Party" {
+											ssn		"INT_RGX_CONST"   	"SubSystem Number"
+											// global title
+											gt CONST "Global Title" {
+												tt      "INT_RGX_CONST"         "Translation type"
+												np      "INT_RGX_CONST"         "Numbering plan"
+												nai     "INT_RGX_CONST"         "Nature of address indicator"
+												address "STRING"    		"GT Address"
+											}
+										}
+										imsi	"STRING"	"International mobile Subscriber Identity"
+										
+										nnn CONST "Network node number" {
+											nai	"INT_RGX_CONST"		"Nature of address indicator"
+											np	"INT_RGX_CONST"		"Numbering plan"
+											address	"STRING"		"Address"
+										}
+	
+										an CONST "Additional number" {
+											nai	"INT_RGX_CONST"		"Nature of address indicator"
+											np	"INT_RGX_CONST"		"Numbering plan"
+											address	"STRING"		"Address"
+										}
+										msisdn CONST "Mobile Station International Subscriber Directory Number" {
+											nai	"INT_RGX_CONST"		"Nature of address indicator"
+											np	"INT_RGX_CONST"		"Numbering plan"
+											address	"STRING"		"Address"
+										}
+	
+										sca CONST "Service centre address" {
+											nai	"INT_RGX_CONST"		"Nature of address indicator"
+											np	"INT_RGX_CONST"		"Numbering plan"
+											address	"STRING"		"Address"
+										}
+
+									}
+								
+								}
+
+
+								// r14p
+								r14p CONST "R14P pMINK framework data" {
+									trunk_label	"STRING"	"Trunk label"
+									service_id	"INT_RGX_CONST"	"Service id"
+									src_type	"STRING"	"Source daemon type"
+									src_id		"STRING"	"Source daemon id"
+									cmd_id		"INT_RGX_CONST"	"Command id"
+									conn_type	"INT_RGX_CONST"	"Source connection type"
+									loop_count	"INT_RGX_CONST"	"Loop count"
+								}
+
+								// m3ua
+								m3ua CONST "MTP Level 3 (MTP3) User Adaptation Layer" {
+									opc	"INT_RGX_CONST"	"Originating Point Code"
+									dpc	"INT_RGX_CONST"	"Destination Point Code"
+	                                				si 	"INT_RGX_CONST"	"Service indicator"
+	                                				ni 	"INT_RGX_CONST"	"Network indicator"
+	                                				mp 	"INT_RGX_CONST" "Message priority"
+	                                				sls 	"INT_RGX_CONST"	"Signalling link selection code"
+									as	"STRING"	"Application Server label"
+									asp	"STRING"	"Application Server Process label"
+								}
+	
+								// sccp
+								sccp CONST "Signalling Connection Control Part" {
+									// calling party
+									cgpa CONST "Calling Party" {
+										routing-indicator	"INT_RGX_CONST"	"Routing indicator"
+										gti			"INT_RGX_CONST"	"Global Title Indicator"
+										ssn			"INT_RGX_CONST"	"SubSystem Number"
+										point-code		"INT_RGX_CONST"	"Point code"
+										
+										// global title
+										gt CONST "Global Title" {
+											tt	"INT_RGX_CONST"		"Translation type"
+											np	"INT_RGX_CONST"		"Numbering plan"
+											nai	"INT_RGX_CONST"		"Nature Of Address"
+											address	"STRING"		"GT Address"	
+										}
+		
+										
+									}
+									// called party
+	                                                                cdpa CONST "Called Party" {
+	                                                                        routing-indicator       "INT_RGX_CONST"   "Routing indicator"
+	                                                                        gti                     "INT_RGX_CONST"   "Global Title Indicator"
+	                                                                        ssn                     "INT_RGX_CONST"   "SubSystem Number"
+	                                                                        point-code              "INT_RGX_CONST"   "Point code"
+	
+	                                                                        // global title
+	                                                                        gt CONST "Global Title" {
+	                                                                                tt      "INT_RGX_CONST"         "Translation type"
+	                                                                                np      "INT_RGX_CONST"         "Numbering plan"
+	                                                                                nai     "INT_RGX_CONST"         "Nature of address indicator"
+	                                                                                address "STRING"    		"GT Address"
+	                                                                        }
+	                                                                }
+								}
+                                                                // tcap
+                                                                tcap CONST "Transaction Capabilities Application Part" {
+									tcmt	"INT_RGX_CONST"		"TC message type"
+									sid	"INT_RGX_CONST"		"Source transaction id"
+									did	"INT_RGX_CONST"		"Destination transaction id"	
+									cc	"INT_RGX_CONST"		"Component count"
+									ct	"INT_RGX_CONST"		"Component type"	
+									iid	"INT_RGX_CONST"		"Component invoke id"
+									opcode	"INT_RGX_CONST"		"Component operation code"
+									dlg_ctx	"STRING"		"Dialogue application context"
+									
+								}
+
+                                                                // map 
+			                                        map CONST "Mobile Application Part" {
+									// component context
+									context CONST "Mobile application component context" {
+										// SRI for SM
+										// opcode 45
+										sri-for-sm CONST "Send routing info for short message" {
+											msisdn CONST "Mobile Station International Subscriber Directory Number" {
+												nai	"INT_RGX_CONST"		"Nature of address indicator"
+												np	"INT_RGX_CONST"		"Numbering plan"
+												address	"STRING"		"Address"
+											}
+	
+											sca CONST "Service centre address" {
+												nai	"INT_RGX_CONST"		"Nature of address indicator"
+												np	"INT_RGX_CONST"		"Numbering plan"
+												address	"STRING"		"Address"
+											}
+	
+											imsi	"STRING"	"International mobile Subscriber Identity"
+											
+											nnn CONST "Network node number" {
+												nai	"INT_RGX_CONST"		"Nature of address indicator"
+												np	"INT_RGX_CONST"		"Numbering plan"
+												address	"STRING"		"Address"
+											}
+	
+											an CONST "Additional number" {
+												nai	"INT_RGX_CONST"		"Nature of address indicator"
+												np	"INT_RGX_CONST"		"Numbering plan"
+												address	"STRING"		"Address"
+											}
+	
+										}
+		
+										// short message
+										// opcode 44, 46
+										sm CONST "Short message" {
+											imsi	"STRING"	"International mobile Subscriber Identity"
+	
+											scda CONST "Service centre destination address" {
+												nai	"INT_RGX_CONST"		"Nature of address indicator"
+												np	"INT_RGX_CONST"		"Numbering plan"
+												address	"STRING"		"Address"
+											}
+	
+											scoa CONST "Service centre originating address" {
+												nai	"INT_RGX_CONST"		"Nature of address indicator"
+												np	"INT_RGX_CONST"		"Numbering plan"
+												address	"STRING"		"Address"
+											}
+	
+											msisdn CONST "Mobile Station International Subscriber Directory Number" {
+												nai	"INT_RGX_CONST"		"Nature of address indicator"
+												np	"INT_RGX_CONST"		"Numbering plan"
+												address	"STRING"		"Address"
+											}
+										}
+									}
+								}
+
+								// SMS TPDU
+								smstpdu CONST "Short message TPDU 3GPP TS 23.040" {
+									tp-rp		"INT_RGX_CONST"		"Reply path indicator"
+									tp-udhi		"INT_RGX_CONST"		"TP-UD header indicator"
+									tp-srr		"INT_RGX_CONST"		"MS status report request"
+									tp-vpf		"INT_RGX_CONST"		"TP-VP field format"
+									tp-rd		"INT_RGX_CONST"		"Reject duplicates"
+									tp-mti		"INT_RGX_CONST"		"Message type indicator"
+									tp-mr		"INT_RGX_CONST"		"Message reference"
+									tp-sri		"INT_RGX_CONST"		"SME status report indicator"
+									tp-mms		"INT_RGX_CONST"		"More message to send indicator"
+										
+									tp-da CONST "Destination address" {
+										ton	"INT_RGX_CONST"		"Type of number"
+										np	"INT_RGX_CONST"		"Numbering plan"
+										address	"STRING"		"Address"
+									}
+
+									tp-oa CONST "Originating address" {
+										ton	"INT_RGX_CONST"		"Type of number"
+										np	"INT_RGX_CONST"		"Numbering plan"
+										address	"STRING"		"Address"
+									}
+
+									tp-pid		"INT_RGX_CONST"		"Protocol identifier"
+									tp-dcs		"INT_RGX_CONST"		"Data coding scheme"
+									tp-vp		"INT_RGX_CONST"		"Validity period"
+									tp-udl		"INT_RGX_CONST"		"Length of user data TP-UD"
+									tp-scts		"INT_RGX_CONST"		"Service centre time stamp"
+									ie-msg-id	"INT_RGX_CONST"		"Concatenated short message reference number"
+									ie-msg-parts	"INT_RGX_CONST"		"Concatenated short message total parts"
+									ie-msg-part	"INT_RGX_CONST"		"Concatenated short message part number"
+								}
+
+								// SMPP
+								smpp CONST "Short Message Peer-to-Peer" {
+									as			"STRING"		"Application Server label"
+									asp			"STRING"		"Application Server Process label"
+									command_id		"INT_RGX_CONST"		"SMPP PDU message type"
+									//command_status	"INT_RGX_CONST"		"SMPP response status"
+									//sequence_number	"INT_RGX_CONST"		"Sequence number"
+									//system_id		"STRING"		"Bind time identification for EMSE or SMSC"
+									//password		"STRING"		"Bind time password"
+									//system_type		"STRING"		"ESME type"
+									//interface_version	"INT_RGX_CONST"		"SMPP protocol version"
+									//addr_ton		"INT_RGX_CONST"		"Address type of number"
+									source_addr_ton		"INT_RGX_CONST"		"Address type of number"
+									dest_addr_ton		"INT_RGX_CONST"		"Address type of number"
+									//esme_addr_ton		"INT_RGX_CONST"		"Address type of number"
+									//addr_npi		"INT_RGX_CONST"		"Address numeric plan indicator"
+									source_addr_npi		"INT_RGX_CONST"		"Address numbering plan indicator"
+									dest_addr_npi		"INT_RGX_CONST"		"Address numbering plan indicator"
+									//esme_addr_npi		"INT_RGX_CONST"		"Address numeric plan indicator"
+									source_addr		"STRING"		"SME originating address"
+									destination_addr	"STRING"		"SME destination address"
+									//esme_addr		"STRING"		"ESME address to which an alert_notification should be routed"
+									esm_class_mm		"INT_RGX_CONST"		"ESM class message mode"
+									esm_class_mt		"INT_RGX_CONST"		"ESM class message type"
+									esm_class_gsm		"INT_RGX_CONST"		"ESM class GSM network specific features"
+									protocol_id		"INT_RGX_CONST"		"Protocol identifier according to GSM 03.40"
+									priority_flag		"INT_RGX_CONST"		"Short message priority level"
+									delivery_time		"INT_RGX_CONST"		"Scheduled time at which the message delivery should be first attempted"
+									validity_period		"INT_RGX_CONST"		"Validity period"
+									rd_smsc_dlvr_rcpt	"INT_RGX_CONST"		"SMSC Delivery Receipt"
+									rd_sme_orig_ack		"INT_RGX_CONST"		"SME originated Acknowledgement"
+									rd_intrmd_ntf		"INT_RGX_CONST"		"Intermediate Notification"
+									replace_if_present_flag	"INT_RGX_CONST"		"Request SMSC to replace a previously submitted message"
+									data_coding		"INT_RGX_CONST"		"Short message data coding"
+									sm_default_msg_id	"INT_RGX_CONST"		"SMSC index of a pre-defined (canned) message"
+									sm_length		"INT_RGX_CONST"		"Length of short_message parameter in octets"
+									//message_id		"INT_RGX_CONST"		"Unique message identifier reference assigned by the SMSC"
+									//message_state		"INT_RGX_CONST"		"Short message state (part of the query_sm_resp PDU)"
+									sar_msg_ref_num		"INT_RGX_CONST"		"Reference number for a particular concatenated short message"	
+									sar_total_segments	"INT_RGX_CONST"		"Total number of short messages within the concatenated short message"
+									sar_segment_seqnum	"INT_RGX_CONST"		"Sequence number of a particular short message within the concatenated short message"
+								}
+
+							}
+	
+							// translate
+							translate CONST "Translation configuration" {
+								// filtering result if matched
+								filter_result	"FILTER_RES"	"Filtering result"
+								filter_jump	"STRING"	"Jump to rule label"
+
+								// special commands
+								commands CONST "Special commands" {
+									// sri-for-sm request
+									sri-for-sm CONST "Generate Send routing info for short message command" {
+                                                                		// map 
+					                                        map CONST "Mobile Application Part" {
+											version		"INT_RGX_CONST"		"Map version"
+										
+										}
+										// calling party
+										cgpa CONST "Calling Party" {
+											ssn		"INT_RGX_CONST"		"SubSystem Number"
+											// global title
+											gt CONST "Global Title" {
+												tt	"INT_RGX_CONST"		"Translation type"
+												np	"INT_RGX_CONST"		"Numbering plan"
+												nai	"INT_RGX_CONST"		"Nature Of Address"
+												address	"STRING"		"GT Address"	
+											}
+										
+										}
+										// called party
+										cdpa CONST "Called Party" {
+											ssn		"INT_RGX_CONST"   	"SubSystem Number"
+											// global title
+											gt CONST "Global Title" {
+												tt      "INT_RGX_CONST"         "Translation type"
+												np      "INT_RGX_CONST"         "Numbering plan"
+												nai     "INT_RGX_CONST"         "Nature of address indicator"
+												address "STRING"    		"GT Address"
+											}
+										}
+										msisdn CONST "Mobile Station International Subscriber Directory Number" {
+											nai	"INT_RGX_CONST"		"Nature of address indicator"
+											np	"INT_RGX_CONST"		"Numbering plan"
+											address	"STRING"		"Address"
+										}
+	
+										sca CONST "Service centre address" {
+											nai	"INT_RGX_CONST"		"Nature of address indicator"
+											np	"INT_RGX_CONST"		"Numbering plan"
+											address	"STRING"		"Address"
+										}
+	
+									
+									}
+								
+								}
+
+								// r14p
+								r14p CONST "R14P pmink framework data" {
+									trunk_label	"STRING"	"Trunk label"
+									service_id	"INT_RGX_CONST"	"Service id"
+								}
+
+								// m3ua
+								m3ua CONST "MTP Level 3 (MTP3) User Adaptation Layer" {
+									opc     "INT_RGX_CONST"   "Originating Point Code"
+									dpc     "INT_RGX_CONST"   "Destination Point Code"
+									si      "INT_RGX_CONST"   "Service indicator"
+									ni      "INT_RGX_CONST"   "Network indicator"
+									mp      "INT_RGX_CONST"   "Message priority"
+									sls     "INT_RGX_CONST"   "Signalling link selection code"
+								}
+
+								// sccp
+								sccp CONST "Signalling Connection Control Part" {
+									// calling party
+									cgpa CONST "Calling Party" {
+										routing-indicator       "INT_RGX_CONST"   "Routing indicator"
+										gti                     "INT_RGX_CONST"   "Global Title Indicator"
+										ssn                     "INT_RGX_CONST"   "SubSystem Number"
+										point-code              "INT_RGX_CONST"   "Point code"
+
+										// global title
+										gt CONST "Global Title" {
+											tt      "INT_RGX_CONST"           "Translation type"
+											np      "INT_RGX_CONST"           "Numbering plan"
+											nai     "INT_RGX_CONST"           "Nature Of Address"
+											address "STRING"		  "GT Address"
+										}
+
+
+									}
+									// called prty
+									cdpa CONST "Called Party" {
+										routing-indicator       "INT_RGX_CONST"   "Routing indicator"
+										gti                     "INT_RGX_CONST"   "Global Title Indicator"
+										ssn                     "INT_RGX_CONST"   "SubSystem Number"
+										point-code              "INT_RGX_CONST"   "Point code"
+
+										// global title
+										gt CONST "Global Title" {
+											tt      "INT_RGX_CONST"           "Translation type"
+											np      "INT_RGX_CONST"           "Numbering plan"
+											nai     "INT_RGX_CONST"           "Nature Of Address"
+											address "STRING"  	 	  "GT Address"
+										}
+									}
+								}
+	
+							}
+							/*
+							// destination
+							destination CONST "Destination configuration" {
+								// rules
+								dest_node * "STRING" "Destination" {
+									priority	"INT"		"Priority"
+									as		"STRING_15"	"Application Server label (M3UA or SMPP)"
+									r14p		"STRING_15"	"R14P daemon type label"	
+								}
+							}*/
+	
+						}
+					}
+				}
+			}
+		}	
+		// STP configuration
+		stp CONST "Signalling Transfer Point nodeset configuration" {
+			// STP node
+			stp_node * "STRING_15" "STP Node" {
+				// m3ua
+				m3ua CONST "MTP Level 3 (MTP3) User Adaptation Layer" {
+					variant 	"INT"	"M3UA variant type"
+					pc		"INT"	"Point code"
+	                                si 		"INT"   "Service indicator"
+	                                ni    		"INT"   "Network indicator"
+	                                mp    		"INT"   "Message priority"
+	                                sls   		"INT"   "Signalling link selection code"
+	
+				}
+	
+				// sccp
+				sccp CONST "Signalling Connection Control Part" {
+				
+				}
+	
+	                	// AS list
+	                	as CONST "Application servers"{
+	                        	// AS
+	                        	as_conn * "STRING" "Application server" {
+	        				active          "BOOL"          "Activity flag"
+					}
+				}
+
+				// filtering lists
+        			lists CONST "Filtering lists"{
+			                list * "STRING" "Filtering list" {
+			                        values CONST "List values"{
+                        			        value * "STRING" "Item value"{...}
+
+                        			}			
+                			}			
+
+
+        			}
+
+
+				// routing
+				routing CONST "Routing configuration" {
+					// rules
+					rule * "STRING" "Rule" {
+						hunt-stop	"BOOL"		"Stop matching on success"
+						description	"STRING"	"Rule description"
+						/S/priority	"INT"		"Priority level"
+	
+						// route
+						route CONST "Route configuration" {
+	
+							// match
+							match CONST "Match configuration" {
+	
+								// r14p
+								r14p CONST "R14P pMINK framework data" {
+									trunk_label	"STRING"	"Trunk label"
+									service_id	"INT_RGX_CONST"	"Service id"
+									src_type	"STRING"	"Source daemon type"
+									src_id		"STRING"	"Source daemon id"
+									cmd_id		"INT_RGX_CONST"	"Command id"
+									conn_type	"INT_RGX_CONST"	"Source connection type"
+									loop_count	"INT_RGX_CONST"	"Loop count"
+								}
+
+								// m3ua
+								m3ua CONST "MTP Level 3 (MTP3) User Adaptation Layer" {
+									opc	"INT_RGX_CONST"	"Originating Point Code"
+									dpc	"INT_RGX_CONST"	"Destination Point Code"
+	                                				si 	"INT_RGX_CONST"	"Service indicator"
+	                                				ni 	"INT_RGX_CONST"	"Network indicator"
+	                                				mp 	"INT_RGX_CONST" "Message priority"
+	                                				sls 	"INT_RGX_CONST"	"Signalling link selection code"
+									as	"STRING"	"Application Server label"
+									asp	"STRING"	"Application Server Process label"
+								}
+	
+								// sccp
+								sccp CONST "Signalling Connection Control Part" {
+									// calling party
+									cgpa CONST "Calling Party" {
+										routing-indicator	"INT_RGX_CONST"	"Routing indicator"
+										gti			"INT_RGX_CONST"	"Global Title Indicator"
+										ssn			"INT_RGX_CONST"	"SubSystem Number"
+										point-code		"INT_RGX_CONST"	"Point code"
+										
+										// global title
+										gt CONST "Global Title" {
+											tt	"INT_RGX_CONST"		"Translation type"
+											np	"INT_RGX_CONST"		"Numbering plan"
+											nai	"INT_RGX_CONST"		"Nature Of Address"
+											address	"STRING"		"GT Address"	
+										}
+		
+										
+									}
+									// called party
+	                                                                cdpa CONST "Called Party" {
+	                                                                        routing-indicator       "INT_RGX_CONST"   "Routing indicator"
+	                                                                        gti                     "INT_RGX_CONST"   "Global Title Indicator"
+	                                                                        ssn                     "INT_RGX_CONST"   "SubSystem Number"
+	                                                                        point-code              "INT_RGX_CONST"   "Point code"
+	
+	                                                                        // global title
+	                                                                        gt CONST "Global Title" {
+	                                                                                tt      "INT_RGX_CONST"         "Translation type"
+	                                                                                np      "INT_RGX_CONST"         "Numbering plan"
+	                                                                                nai     "INT_RGX_CONST"         "Nature of address indicator"
+	                                                                                address "STRING"    		"GT Address"
+	                                                                        }
+	                                                                }
+								}
+                                                                // tcap
+                                                                tcap CONST "Transaction Capabilities Application Part" {
+									tcmt	"INT_RGX_CONST"		"TC message type"
+									sid	"INT_RGX_CONST"		"Source transaction id"
+									did	"INT_RGX_CONST"		"Destination transaction id"	
+									cc	"INT_RGX_CONST"		"Component count"
+									ct	"INT_RGX_CONST"		"Component type"	
+									iid	"INT_RGX_CONST"		"Component invoke id"
+									opcode	"INT_RGX_CONST"		"Component operation code"
+									dlg_ctx	"STRING"		"Dialogue application context"
+									
+								}
+
+                                                                // map 
+			                                        map CONST "Mobile Application Part" {
+									// component context
+									context CONST "Mobile application component context" {
+										// SRI for SM
+										// opcode 45
+										sri-for-sm CONST "Send routing info for short message" {
+											msisdn CONST "Mobile Station International Subscriber Directory Number" {
+												nai	"INT_RGX_CONST"		"Nature of address indicator"
+												np	"INT_RGX_CONST"		"Numbering plan"
+												address	"STRING"		"Address"
+											}
+	
+											sca CONST "Service centre address" {
+												nai	"INT_RGX_CONST"		"Nature of address indicator"
+												np	"INT_RGX_CONST"		"Numbering plan"
+												address	"STRING"		"Address"
+											}
+	
+											imsi	"STRING"	"International mobile Subscriber Identity"
+											
+											nnn CONST "Network node number" {
+												nai	"INT_RGX_CONST"		"Nature of address indicator"
+												np	"INT_RGX_CONST"		"Numbering plan"
+												address	"STRING"		"Address"
+											}
+	
+											an CONST "Additional number" {
+												nai	"INT_RGX_CONST"		"Nature of address indicator"
+												np	"INT_RGX_CONST"		"Numbering plan"
+												address	"STRING"		"Address"
+											}
+	
+										}
+		
+										// short message
+										// opcode 44, 46
+										sm CONST "Short message" {
+											imsi	"STRING"	"International mobile Subscriber Identity"
+	
+											scda CONST "Service centre destination address" {
+												nai	"INT_RGX_CONST"		"Nature of address indicator"
+												np	"INT_RGX_CONST"		"Numbering plan"
+												address	"STRING"		"Address"
+											}
+	
+											scoa CONST "Service centre originating address" {
+												nai	"INT_RGX_CONST"		"Nature of address indicator"
+												np	"INT_RGX_CONST"		"Numbering plan"
+												address	"STRING"		"Address"
+											}
+	
+											msisdn CONST "Mobile Station International Subscriber Directory Number" {
+												nai	"INT_RGX_CONST"		"Nature of address indicator"
+												np	"INT_RGX_CONST"		"Numbering plan"
+												address	"STRING"		"Address"
+											}
+										}
+									}
+								}
+
+								// SMS TPDU
+								smstpdu CONST "Short message TPDU 3GPP TS 23.040" {
+									tp-rp		"INT_RGX_CONST"		"Reply path indicator"
+									tp-udhi		"INT_RGX_CONST"		"TP-UD header indicator"
+									tp-srr		"INT_RGX_CONST"		"MS status report request"
+									tp-vpf		"INT_RGX_CONST"		"TP-VP field format"
+									tp-rd		"INT_RGX_CONST"		"Reject duplicates"
+									tp-mti		"INT_RGX_CONST"		"Message type indicator"
+									tp-mr		"INT_RGX_CONST"		"Message reference"
+									tp-sri		"INT_RGX_CONST"		"SME status report indicator"
+									tp-mms		"INT_RGX_CONST"		"More message to send indicator"
+										
+									tp-da CONST "Destination address" {
+										ton	"INT_RGX_CONST"		"Type of number"
+										np	"INT_RGX_CONST"		"Numbering plan"
+										address	"STRING"		"Address"
+									}
+
+									tp-oa CONST "Originating address" {
+										ton	"INT_RGX_CONST"		"Type of number"
+										np	"INT_RGX_CONST"		"Numbering plan"
+										address	"STRING"		"Address"
+									}
+
+									tp-pid		"INT_RGX_CONST"		"Protocol identifier"
+									tp-dcs		"INT_RGX_CONST"		"Data coding scheme"
+									tp-vp		"INT_RGX_CONST"		"Validity period"
+									tp-udl		"INT_RGX_CONST"		"Length of user data TP-UD"
+									tp-scts		"INT_RGX_CONST"		"Service centre time stamp"
+									ie-msg-id	"INT_RGX_CONST"		"Concatenated short message reference number"
+									ie-msg-parts	"INT_RGX_CONST"		"Concatenated short message total parts"
+									ie-msg-part	"INT_RGX_CONST"		"Concatenated short message part number"
+								}
+
+								// SMPP
+								smpp CONST "Short Message Peer-to-Peer" {
+									as			"STRING"		"Application Server label"
+									asp			"STRING"		"Application Server Process label"
+									command_id		"INT_RGX_CONST"		"SMPP PDU message type"
+									//command_status		"INT_RGX_CONST"		"SMPP response status"
+									//sequence_number		"INT_RGX_CONST"		"Sequence number"
+									//system_id		"STRING"		"Bind time identification for EMSE or SMSC"
+									//password		"STRING"		"Bind time password"
+									//system_type		"STRING"		"ESME type"
+									//interface_version	"INT_RGX_CONST"		"SMPP protocol version"
+									//addr_ton		"INT_RGX_CONST"		"Address type of number"
+									source_addr_ton		"INT_RGX_CONST"		"Address type of number"
+									dest_addr_ton		"INT_RGX_CONST"		"Address type of number"
+									//esme_addr_ton		"INT_RGX_CONST"		"Address type of number"
+									//addr_npi		"INT_RGX_CONST"		"Address numeric plan indicator"
+									source_addr_npi		"INT_RGX_CONST"		"Address numeric plan indicator"
+									dest_addr_npi		"INT_RGX_CONST"		"Address numeric plan indicator"
+									//esme_addr_npi		"INT_RGX_CONST"		"Address numeric plan indicator"
+									source_addr		"STRING"		"SME originating address"
+									destination_addr	"STRING"		"SME destination address"
+									//esme_addr		"STRING"		"ESME address to which an alert_notification should be routed"
+									esm_class_mm		"INT_RGX_CONST"		"ESM class message mode"
+									esm_class_mt		"INT_RGX_CONST"		"ESM class message type"
+									esm_class_gsm		"INT_RGX_CONST"		"ESM class GSM network specific features"
+									protocol_id		"INT_RGX_CONST"		"Protocol identifier according to GSM 03.40"
+									priority_flag		"INT_RGX_CONST"		"Short message priority level"
+									delivery_time		"INT_RGX_CONST"		"Scheduled time at which the message delivery should be first attempted"
+									validity_period		"INT_RGX_CONST"		"Validity period"
+									rd_smsc_dlvr_rcpt	"INT_RGX_CONST"		"SMSC Delivery Receipt"
+									rd_sme_orig_ack		"INT_RGX_CONST"		"SME originated Acknowledgement"
+									rd_intrmd_ntf		"INT_RGX_CONST"		"Intermediate Notification"
+									replace_if_present_flag	"INT_RGX_CONST"		"Request SMSC to replace a previously submitted message"
+									data_coding		"INT_RGX_CONST"		"Short message data coding"
+									sm_default_msg_id	"INT_RGX_CONST"		"SMSC index of a pre-defined (canned) message"
+									sm_length		"INT_RGX_CONST"		"Length of short_message parameter in octets"
+									//message_id		"INT_RGX_CONST"		"Unique message identifier reference assigned by the SMSC"
+									//message_state		"INT_RGX_CONST"		"Short message state (part of the query_sm_resp PDU)"
+									sar_msg_ref_num		"INT_RGX_CONST"		"Reference number for a particular concatenated short message"	
+									sar_total_segments	"INT_RGX_CONST"		"Total number of short messages within the concatenated short message"
+									sar_segment_seqnum	"INT_RGX_CONST"		"Sequence number of a particular short message within the concatenated short message"
+								}
+
+							}
+	
+							// translate
+							translate CONST "Translation configuration" {
+								// rules
+								//rule * "STRING" "Rule" {
+									//hunt-stop	"BOOL"		"Stop matching on success"
+									//description	"STRING"	"Rule description"
+									//priority	"INT"		"Priority level"
+									
+									// r14p
+									r14p CONST "R14P pmink framework data" {
+										trunk_label	"STRING"	"Trunk label"
+										service_id	"INT_RGX_CONST"	"Service id"
+									}
+
+	                                                        	// m3ua
+	                                                        	m3ua CONST "MTP Level 3 (MTP3) User Adaptation Layer" {
+	                                                               		opc     "INT_RGX_CONST"   "Originating Point Code"
+	                                                          		dpc     "INT_RGX_CONST"   "Destination Point Code"
+	                                                                	si      "INT_RGX_CONST"   "Service indicator"
+	                                                                	ni      "INT_RGX_CONST"   "Network indicator"
+	                                                                	mp      "INT_RGX_CONST"   "Message priority"
+	                                                                	sls     "INT_RGX_CONST"   "Signalling link selection code"
+	                                                        	}
+	
+	                                                                // sccp
+	                                                                sccp CONST "Signalling Connection Control Part" {
+	                                                                        // calling party
+		                                                                cgpa CONST "Calling Party" {
+	        	                                                                routing-indicator       "INT_RGX_CONST"   "Routing indicator"
+	                	                                                        gti                     "INT_RGX_CONST"   "Global Title Indicator"
+	                        	                                                ssn                     "INT_RGX_CONST"   "SubSystem Number"
+	                                	                                        point-code              "INT_RGX_CONST"   "Point code"
+	
+	                                                                                // global title
+	                                                                                gt CONST "Global Title" {
+		                                                                                tt      "INT_RGX_CONST"           "Translation type"
+	        	                                                                        np      "INT_RGX_CONST"           "Numbering plan"
+	                	                                                                nai     "INT_RGX_CONST"           "Nature Of Address"
+	                        	                                                        address "STRING"		  "GT Address"
+	                                	                                        }
+	
+	
+	                                                                        }
+	                                                                        // called prty
+		                                                                cdpa CONST "Called Party" {
+	        	                                                                routing-indicator       "INT_RGX_CONST"   "Routing indicator"
+	                	                                                        gti                     "INT_RGX_CONST"   "Global Title Indicator"
+	                        	                                                ssn                     "INT_RGX_CONST"   "SubSystem Number"
+	                                	                                        point-code              "INT_RGX_CONST"   "Point code"
+	
+	                                                                                // global title
+	                                                                                gt CONST "Global Title" {
+		                                                                                tt      "INT_RGX_CONST"           "Translation type"
+	        	                                                                        np      "INT_RGX_CONST"           "Numbering plan"
+	                	                                                                nai     "INT_RGX_CONST"           "Nature Of Address"
+	                        	                                                        address "STRING"  	 	  "GT Address"
+	                                	                                        }
+	                                        	                        }
+	                                                	        }
+
+	
+								//}
+	
+							}
+							// destination
+							destination CONST "Destination configuration" {
+								// rules
+								dest_node * "STRING" "Destination" {
+									/S/priority	"INT"		"Priority"
+									as		"STRING_15"	"Application Server label (M3UA or SMPP)"
+									r14p		"STRING_15"	"R14P daemon type label"	
+									service_id	"INT_RGX_CONST"	"Service id"
+									//dest		"STRING"	"Routing destination"
+									//type		"STP_DEST_TYPE"	"Routing destination type"
+								}
+							}
+	
+						}
+					}
+				}
+			}
+		}
+                // SMS Hub configuration
+                smshub CONST "Short Message Service Hub nodeset configuration" {
+                        // SMS Hub node
+                        smshub_node * "STRING_15" "Short Message Service Hub node" {
+				// pools
+				pool 		"INT"	"Correlation pool size"
+				timeout		"INT"	"Default correlation timeout"
+				timer_res	"INT"	"Timer resolution in seconds"
+
+				// routing configuration
+				routing CONST "Routing nodeset configuration" {
+					routing_node * "STRING_15" "Routing node" {
+						remote CONST "Remote address" {
+							address "IP" 	"IP address"
+							port	"INT"	"Port"
+						}
+
+						local CONST "Local address" {
+							address "IP" 	"IP address"
+							port	"INT"	"Port"
+						}
+
+						weight	"INT"	"Priority"	
+					}
+
+				}
+
+				// rating configuration
+				rating CONST "Rating nodeset configuration" {
+					rating_node * "STRING_15" "Rating node" {
+                                                remote CONST "Remote address" {
+                                                        address "IP"    "IP address"
+                                                        port    "INT"   "Port"
+                                                }
+
+                                                local CONST "Local address" {
+                                                        address "IP"    "IP address"
+                                                        port    "INT"   "Port"
+                                                }
+
+                                                weight  "INT"   "Priority"
+
+					}
+				}
+
+				// drm configuration
+				drm CONST "DRM nodeset configuration" {
+					drm_node * "STRING_15" "DRM node" {
+                                                remote CONST "Remote address" {
+                                                        address "IP"    "IP address"
+                                                        port    "INT"   "Port"
+                                                }
+
+                                                local CONST "Local address" {
+                                                        address "IP"    "IP address"
+                                                        port    "INT"   "Port"
+                                                }
+
+                                                weight  "INT"   "Priority"
+
+					}	
+				}
+				// mnp configuration
+				mnp CONST "MNP nodeset configuration" {
+					mnp_node * "STRING_15" "MNP node" {
+                                                remote CONST "Remote address" {
+                                                        address "IP"    "IP address"
+                                                        port    "INT"   "Port"
+                                                }
+
+                                                local CONST "Local address" {
+                                                        address "IP"    "IP address"
+                                                        port    "INT"   "Port"
+                                                }
+
+						trunk_label	"STRING"	"Trunk label"
+
+					}	
+				}
+
+
+			}
+		}		
+	}
+}

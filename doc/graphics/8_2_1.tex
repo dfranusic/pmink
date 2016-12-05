@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{msc}
+\usepackage{geometry}
+\geometry{margin=0cm}
+
+
+\begin{document}
+\ttfamily
+\renewcommand\msckeyword{} 
+
+\begin{msc}{}
+\setlength{\instdist}{5cm}
+\setlength{\instwidth}{2cm}
+\setlength{\actionwidth}{4.1cm}
+\setlength{\regionbarwidth}{3.8cm}
+\setlength{\conditionoverlap}{2.5cm}
+
+% instances
+\declinst{sms}{network}{SMS}
+\declinst{r1}{rule}{rule-00000}
+\declinst{r2}{rule}{allowed}
+\declinst{r3}{rule}{blocked}
+
+% flow
+\mess{execute rules}{sms}{r1}
+\nextlevel
+\action{filter\textunderscore{}result = 2}{r1}
+\nextlevel[2]
+\condition{tp-oa.ton == alphanumeric}{r1}
+\nextlevel[2]
+\inlinestart[0.9cm][0.9cm]{match}{alt}{sms}{r3}
+\nextlevel
+\setlength{\actionwidth}{4.5cm}\action{filter\textunderscore{}jump = "blocked"}{r1}
+\nextlevel[2]
+\mess{jump to "blocked"}{r1}{r3}
+\nextlevel[1]
+\setlength{\actionwidth}{3.7cm}\action{filter\textunderscore{}result = 1}{r3}
+\nextlevel[2]
+\mess{DROP(1)}{r3}{sms}
+\nextlevel[1]
+\inlineseparator{match}
+\nextlevel[2]
+\mess{CONTINUE(2)}{r1}{r2}
+\nextlevel[1]
+\action{filter\textunderscore{}result = 0}{r2}
+\nextlevel[2]
+\mess{ACCEPT(0)}{r2}{sms}
+\nextlevel[2]
+\inlineend{match}
+\nextlevel[2]
+
+\end{msc}
+\end{document}

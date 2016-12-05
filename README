@@ -1,0 +1,27 @@
++==============================+
+| ProjectMINK                  |
+| Copyright (c) Release14 Ltd. |
++==============================+
+
++=================================+
+| pMINK framework core components |
++=================================+
+ * libr14p        - R14P protocol library
+ * r14ptrapc      - R14P trap client
+ * libpmcfg       - Configuration parser library
+ * libpmpcap      - Packet capture library
+ * pm_plg_cli_cfg - Configuration daemon CLI plugin
+ * configd        - Configuration daemon
+ * cli_service    - CLI client shell
+ * asn1c          - ASN.1 c++ compiler
+ * routingd       - R14P Routing deamon
+ * configdc       - Config daemon client
+
++====================================+
+| Mobile Network Operator components |
++====================================+
+ * sgnd          - Signalling Gateway Node deamon
+ * stpd          - Signal Transfer Point daemon
+ * drd           - Data Retention daemon
+ * fgnd          - Filtering Gateway Node daemon
+ * pdnd          - Pattern Detection Node daemon

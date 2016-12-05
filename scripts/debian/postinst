@@ -1,0 +1,4 @@
+#!/bin/bash
+set -e
+echo "/usr/local/pmink/lib" > /etc/ld.so.conf.d/99pmink.conf && ldconfig
+exit 0

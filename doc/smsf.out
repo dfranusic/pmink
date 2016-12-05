@@ -1,0 +1,85 @@
+\BOOKMARK [1][-]{section.1}{Legal notices}{}% 1
+\BOOKMARK [1][-]{section.2}{Introduction}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Intended audience}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Document conventions}{section.2}% 4
+\BOOKMARK [1][-]{section.3}{Using the CLI}{}% 5
+\BOOKMARK [2][-]{subsection.3.1}{Command modes}{section.3}% 6
+\BOOKMARK [2][-]{subsection.3.2}{Accessing the CLI}{section.3}% 7
+\BOOKMARK [2][-]{subsection.3.3}{Predefined user account}{section.3}% 8
+\BOOKMARK [2][-]{subsection.3.4}{Command prompts}{section.3}% 9
+\BOOKMARK [2][-]{subsection.3.5}{Command completion}{section.3}% 10
+\BOOKMARK [2][-]{subsection.3.6}{Command history}{section.3}% 11
+\BOOKMARK [2][-]{subsection.3.7}{Command editing}{section.3}% 12
+\BOOKMARK [2][-]{subsection.3.8}{Command timeout}{section.3}% 13
+\BOOKMARK [1][-]{section.4}{Configuration basics}{}% 14
+\BOOKMARK [2][-]{subsection.4.1}{Terminology}{section.4}% 15
+\BOOKMARK [2][-]{subsection.4.2}{Configuration hierarchy}{section.4}% 16
+\BOOKMARK [2][-]{subsection.4.3}{Entering and exiting configuration mode}{section.4}% 17
+\BOOKMARK [2][-]{subsection.4.4}{Navigating in configuration mode}{section.4}% 18
+\BOOKMARK [2][-]{subsection.4.5}{Commands for navigating in configuration mode}{section.4}% 19
+\BOOKMARK [2][-]{subsection.4.6}{Viewing the configuration}{section.4}% 20
+\BOOKMARK [1][-]{section.5}{Changing configuration information}{}% 21
+\BOOKMARK [2][-]{subsection.5.1}{Adding or modifying configuration}{section.5}% 22
+\BOOKMARK [2][-]{subsection.5.2}{Deleting configuration}{section.5}% 23
+\BOOKMARK [2][-]{subsection.5.3}{Committing configuration changes}{section.5}% 24
+\BOOKMARK [2][-]{subsection.5.4}{Discarding configuration changes}{section.5}% 25
+\BOOKMARK [1][-]{section.6}{Managing system configuration}{}% 26
+\BOOKMARK [2][-]{subsection.6.1}{Saving the running configuration}{section.6}% 27
+\BOOKMARK [2][-]{subsection.6.2}{Loading the saved configuration}{section.6}% 28
+\BOOKMARK [2][-]{subsection.6.3}{Archiving configuration versions on commit}{section.6}% 29
+\BOOKMARK [2][-]{subsection.6.4}{Rolling back to previous version}{section.6}% 30
+\BOOKMARK [2][-]{subsection.6.5}{Show configuration commands}{section.6}% 31
+\BOOKMARK [1][-]{section.7}{Commands for working with configuration}{}% 32
+\BOOKMARK [1][-]{section.8}{SMS filtering}{}% 33
+\BOOKMARK [2][-]{subsection.8.1}{Filtering gateway node}{section.8}% 34
+\BOOKMARK [3][-]{subsubsection.8.1.1}{Manual start-up procedure}{subsection.8.1}% 35
+\BOOKMARK [3][-]{subsubsection.8.1.2}{Init script start-up procedure}{subsection.8.1}% 36
+\BOOKMARK [3][-]{subsubsection.8.1.3}{Runtime node configuration}{subsection.8.1}% 37
+\BOOKMARK [4][-]{paragraph.8.1.3.1}{Performance and memory}{subsubsection.8.1.3}% 38
+\BOOKMARK [4][-]{paragraph.8.1.3.2}{Rating}{subsubsection.8.1.3}% 39
+\BOOKMARK [4][-]{paragraph.8.1.3.3}{Static filtering lists}{subsubsection.8.1.3}% 40
+\BOOKMARK [2][-]{subsection.8.2}{Filtering rules processing system}{section.8}% 41
+\BOOKMARK [3][-]{subsubsection.8.2.1}{Filtering rules}{subsection.8.2}% 42
+\BOOKMARK [3][-]{subsubsection.8.2.2}{Rule match part}{subsection.8.2}% 43
+\BOOKMARK [4][-]{paragraph.8.2.2.1}{r14p matching}{subsubsection.8.2.2}% 44
+\BOOKMARK [4][-]{paragraph.8.2.2.2}{MTP Level 3 \(MTP3\) User Adaptation Layer \(M3UA\) matching}{subsubsection.8.2.2}% 45
+\BOOKMARK [4][-]{paragraph.8.2.2.3}{Signalling Connection Control Part \(SCCP\) matching}{subsubsection.8.2.2}% 46
+\BOOKMARK [4][-]{paragraph.8.2.2.4}{Transaction Capabilities Application Part \(TCAP\) matching}{subsubsection.8.2.2}% 47
+\BOOKMARK [4][-]{paragraph.8.2.2.5}{Mobile Application Part \(MAP\) matching}{subsubsection.8.2.2}% 48
+\BOOKMARK [4][-]{paragraph.8.2.2.6}{Short message TPDU 3GPP TS 23.040 \(SMSTPDU\) matching}{subsubsection.8.2.2}% 49
+\BOOKMARK [4][-]{paragraph.8.2.2.7}{Short Message Peer-to-Peer \(SMPP\) matching}{subsubsection.8.2.2}% 50
+\BOOKMARK [3][-]{subsubsection.8.2.3}{Basic matching}{subsection.8.2}% 51
+\BOOKMARK [4][-]{paragraph.8.2.3.1}{Basic matching syntax}{subsubsection.8.2.3}% 52
+\BOOKMARK [4][-]{paragraph.8.2.3.2}{Operand types}{subsubsection.8.2.3}% 53
+\BOOKMARK [5][-]{subparagraph.8.2.3.2.1}{NUMBER type operand}{paragraph.8.2.3.2}% 54
+\BOOKMARK [5][-]{subparagraph.8.2.3.2.2}{STRING type operand}{paragraph.8.2.3.2}% 55
+\BOOKMARK [5][-]{subparagraph.8.2.3.2.3}{REGEX type operand}{paragraph.8.2.3.2}% 56
+\BOOKMARK [5][-]{subparagraph.8.2.3.2.4}{VARIABLE type operand}{paragraph.8.2.3.2}% 57
+\BOOKMARK [5][-]{subparagraph.8.2.3.2.5}{LIST type operand}{paragraph.8.2.3.2}% 58
+\BOOKMARK [5][-]{subparagraph.8.2.3.2.6}{LUA type operand}{paragraph.8.2.3.2}% 59
+\BOOKMARK [4][-]{paragraph.8.2.3.3}{Operator types}{subsubsection.8.2.3}% 60
+\BOOKMARK [5][-]{subparagraph.8.2.3.3.1}{Equality '==' operator}{paragraph.8.2.3.3}% 61
+\BOOKMARK [5][-]{subparagraph.8.2.3.3.2}{Inequality '!=' operator}{paragraph.8.2.3.3}% 62
+\BOOKMARK [5][-]{subparagraph.8.2.3.3.3}{Greater than '>' operator}{paragraph.8.2.3.3}% 63
+\BOOKMARK [5][-]{subparagraph.8.2.3.3.4}{Greater than equal '>=' operator}{paragraph.8.2.3.3}% 64
+\BOOKMARK [5][-]{subparagraph.8.2.3.3.5}{Less than '<' operator}{paragraph.8.2.3.3}% 65
+\BOOKMARK [5][-]{subparagraph.8.2.3.3.6}{Less than equal '<=' operator}{paragraph.8.2.3.3}% 66
+\BOOKMARK [5][-]{subparagraph.8.2.3.3.7}{Add to list '>>' operator}{paragraph.8.2.3.3}% 67
+\BOOKMARK [5][-]{subparagraph.8.2.3.3.8}{Remove from list '<<' operator}{paragraph.8.2.3.3}% 68
+\BOOKMARK [5][-]{subparagraph.8.2.3.3.9}{Remove list '\205\205' operator}{paragraph.8.2.3.3}% 69
+\BOOKMARK [4][-]{paragraph.8.2.3.4}{Predefined constants and variables}{subsubsection.8.2.3}% 70
+\BOOKMARK [3][-]{subsubsection.8.2.4}{Advanced matching}{subsection.8.2}% 71
+\BOOKMARK [4][-]{paragraph.8.2.4.1}{Inline scripting}{subsubsection.8.2.4}% 72
+\BOOKMARK [4][-]{paragraph.8.2.4.2}{External scripting}{subsubsection.8.2.4}% 73
+\BOOKMARK [4][-]{paragraph.8.2.4.3}{Lua pMINK module}{subsubsection.8.2.4}% 74
+\BOOKMARK [5][-]{subparagraph.8.2.4.3.1}{Variant parameter management}{paragraph.8.2.4.3}% 75
+\BOOKMARK [5][-]{subparagraph.8.2.4.3.2}{Standard dynamic filtering lists}{paragraph.8.2.4.3}% 76
+\BOOKMARK [5][-]{subparagraph.8.2.4.3.3}{Flood management}{paragraph.8.2.4.3}% 77
+\BOOKMARK [5][-]{subparagraph.8.2.4.3.4}{Predefined constants}{paragraph.8.2.4.3}% 78
+\BOOKMARK [3][-]{subsubsection.8.2.5}{Rule translate part}{subsection.8.2}% 79
+\BOOKMARK [4][-]{paragraph.8.2.5.1}{REGEX\137SR type operand}{subsubsection.8.2.5}% 80
+\BOOKMARK [4][-]{paragraph.8.2.5.2}{R14P translations}{subsubsection.8.2.5}% 81
+\BOOKMARK [4][-]{paragraph.8.2.5.3}{MTP Level 3 \(MTP3\) User Adaptation Layer \(M3UA\) translations}{subsubsection.8.2.5}% 82
+\BOOKMARK [4][-]{paragraph.8.2.5.4}{Signalling Connection Control Part \(SCCP\) translations}{subsubsection.8.2.5}% 83
+\BOOKMARK [1][-]{section*.2}{Acronyms}{}% 84
+\BOOKMARK [1][-]{section*.4}{Glossary}{}% 85

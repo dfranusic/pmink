@@ -1,0 +1,160 @@
+/*
+ * This file is part of Project MINK <http://www.release14.org>.
+ *
+ * Copyright (C) 2012 Release14 Ltd.
+ * http://www.release14.org/
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
+// types
+TYPES {
+	"LOG_LEVEL"     PTRN[3467]PTRN                                  "3 - ERROR, 4 - WARNING, 6 - INFO, 7 - DEBUG"
+	"STRING" 	PTRN.*PTRN					"Textual value"					
+	"INT"		PTRN\d+PTRN					"Numerical value"
+	"IP"		PTRN\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}PTRN	"xxx.xxx.xxx.xxx"
+	"BOOL"		PTRN[01]PTRN					"0 - False, 1 - True"
+	"CONN_MODE"	PTRN[01]PTRN					"0 - Client mode, 1 - Server mode"
+	"SPARING_MODE"	PTRN[ms]PTRN					"m - master, s - slave"
+	"M3UA_TF_MODE"	PTRN[123]PTRN					"1 - Override, 2 - Loadshare, 3 - Broadcast"
+	"M3UA_LS_TYPE"	PTRN[123]PTRN					"1 - Weighted Round robin, 2 - Round robin, 3 - TCAP Stateful"
+	//"ASP_LST"	PTRN:pmcfg:[^ ^ ^ asp]PTRN			// no description, special type, auto generated	
+
+
+}
+
+
+// config definition example
+CONFIG {
+	// sgn config
+	sgn CONST "Signalling nodes" {
+		sgn_node * "STRING" "Signalling node" {
+			// m3ua
+			m3ua CONST "MTP Level 3 (MTP3) User Adaptation Layer" {
+				// ASP list
+				asp CONST "Application server processes" {
+					// ASP
+					asp_conn * "STRING" "Application server process" {
+						// sctp
+						sctp CONST "Stream Control Transmission Protocol" {
+							local CONST "Local address" {
+								ip1 	"IP" 	"Primary IP Address"
+								ip2	"IP"	"Secondary IP Address"
+								port	"INT"	"Port number"	
+							}
+	
+							remote CONST "Remote address" {
+								ip1 	"IP" 	"Primary IP Address"
+								ip2	"IP"	"Secondary IP Address"
+								port	"INT"	"Port number"
+							}
+
+							timers CONST "SCTP timers" {
+								hb-interval		"INT"	"Heartbeat interval in msec"
+								max-burst		"INT"	"Maximum number of new data packets that can be sent in a burst"
+								max-init-retransmit	"INT"	"Maximum number of retries for INIT message (0 - 255)"
+								path-max-retrans	"INT"	"Maximum number of consecutive retransmissions over a destination transport address"
+								rto-initial		"INT"	"Initial value of retransmission timeout RTO in msec (1 - 65535)"
+								rto-max			"INT"	"Maximum value used for RTO in msec (1 - 65535)"
+								rto-min			"INT"	"Minimum value used for RTO in msec (1 - 65535)"
+								sack-timeout		"INT"	"Delayed SACK timeout in msec"
+								valid-cookie-life	"INT"	"Maximum lifespan in msec of Cookie sent in an INIT ACK chunk "
+						
+							}
+
+						}
+
+						// m3ua	
+						m3ua CONST "MTP Level 3 (MTP3) User Adaptation Layer" {
+							opc 	"INT"	"Originating point code"
+							dpc	"INT"	"Destination point code"
+							si	"INT"	"Service indicator"
+							ni	"INT"	"Network indicator"
+							mp	"INT"	"Message priority"
+							sls	"INT"	"Signalling link selection code"
+							nap	"INT"	"Network appearance"
+
+						}
+
+						// global
+						mode 		"CONN_MODE"	"Connection mode (0 - client, 1 - server)"
+						shutdown 	"BOOL"		"Shutdown m3ua and sctp"
+						block		"BOOL"		"Shutdown m3ua only"	
+						qos-class	"INT"		"Quality of service class number"
+						log		"LOG_LEVEL"	"Logging level"
+						description	"STRING"	"Connection description"
+						r14p-label	"STRING"	"Send to this R14p Label"
+
+					}
+				}
+
+		
+			}		
+	
+		}
+	}
+	as CONST "Application servers"{
+		// AS
+		as_conn * "STRING" "Application server" {
+			// ASP connection list
+			asp CONST "Application server processes" {
+				// ASP connection
+				asp_conn * "STRING" "Application server process" {
+					active		"BOOL"		"Activity flag"
+					weight		"INT"		"Connection priority factor"
+					sparing		"SPARING_MODE"	"m - master, s - slave"
+				}
+			
+			}
+
+			// global as routing key
+			routing-key CONST "Routing key definition" {
+				routing-context	"INT"	"Routing context"
+				dpc		"INT"	"Destination point code"
+				opc		"INT"	"Originating point code"
+				si		"INT"	"Service indicator"
+				gtt		"INT"	"SCCP Global title address information digits"
+					
+			}
+
+			// traffic mode
+			traffic-mode CONST "Traffic mode" {
+				type		"M3UA_TF_MODE"  "Traffic mode type (1 - Override, 2 - Loadshare, 3 - Broadcast)"
+				loadshare-type	"M3UA_LS_TYPE"	"Loadshare type (1 - Weighted Round robin, 2 - Round robin, 3 - TCAP Stateful)"
+						
+				
+			}
+					
+			// decoding	
+			decoder CONST "Layer decoding parameters" {
+				sccp		"BOOL"		"Stream Control Transmission Protocol"
+				isup		"BOOL"		"ISDN User Part"
+				tcap		"BOOL"		"Transaction Capabilities Application Part"
+				gsm-map		"BOOL"		"GSM Mobile Application Part"
+				sms-tpdu	"BOOL"		"SMS-TPDU"
+
+			}
+
+			// global
+			qos-class		"INT"		"Quality of service class number"
+			recovery-timeout	"INT"		"Recovery timeout in msec"
+			burst-recovery		"INT"		"Burst recovery timeout in msec"
+			log			"LOG_LEVEL"	"Logging level"
+			r14p-label		"STRING"	"Send to this R14p Label - optional"
+
+		}
+	}
+
+}

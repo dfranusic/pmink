@@ -1,0 +1,657 @@
+-- ===================================================================================================================
+-- R14P protocol definition
+-- ------------------------
+-- 	- registered with IANA:	http://www.iana.org/assignments/sctp-parameters/sctp-parameters.xml#sctp-parameters-25
+-- 	- used by R14 products:	http://www.release14.org/products
+--
+-- Release14.org 
+-- -------------
+-- 	Damir Franusic 	<df@release14.org>
+--	Josip Djuricic	<jd@release14.org>
+--
+-- ===================================================================================================================
+R14P {iso(1) identified-organization(3) 6 1 4 release14(40051) protocol(1) version(1) release(1)}
+
+DEFINITIONS   
+IMPLICIT TAGS
+::=
+
+
+BEGIN 
+
+-- ===========
+-- R14P Header
+-- ===========
+-- version		- R14P version
+-- source 		- source information
+-- destination		- destination information
+-- uuid			- universally unique identifier (UUID)
+-- sequence-num		- sequence number
+-- sequence-flag	- packet sequence information (stateful/stateless/etc.)
+-- enc-info		- encryption information
+-- hop-info		- hop counter
+-- status		- error code
+Header ::= SEQUENCE {
+	version		[0] INTEGER,
+	source 		[1] EndPointDescriptor,
+	destination 	[2] EndPointDescriptor,
+	uuid		[3] OCTET STRING,
+	sequenceNum	[4] INTEGER,
+	sequenceFlag	[5] SequenceFlag,
+	encInfo		[6] EncryptionInfo OPTIONAL,
+	hopInfo		[7] HopInfo OPTIONAL,
+	status		[8] ErrorCode OPTIONAL,
+	...
+
+}
+
+-- ======================================================
+-- SequenceFlag	- stateful/stateless sequence information
+-- ======================================================
+-- sf-start			- stateful start of sequence
+-- sf-continue			- stateful sequence continuation
+-- sf-end			- stateful end of sequence
+-- sf-stateless-no-reply	- stateless packet, no reply is received to confirm successful delivery, reliability is sctp dependant
+-- sf-stateless			- stateless packet, sf-end reply is received to confirm successful delivery
+SequenceFlag ::= INTEGER {
+	sf-start		(0),
+	sf-continue		(1),
+	sf-end			(2),
+	sf-stateless-no-reply	(3),
+	sf-stateless		(4)
+
+}
+
+
+-- ==================
+-- EndPointDescriptor
+-- ==================
+-- type		- daemon type
+-- id		- daemon id
+EndPointDescriptor ::= SEQUENCE {
+	type 	[1] OCTET STRING,
+	id	[2] OCTET STRING OPTIONAL,
+	...
+}
+
+
+-- =========
+-- R14P Body
+-- =========
+-- encrypted-data				- Encrypted R14P body, used only when content is encrypted (header.encryption)
+-- packet-fwd			 		- General packet forwarding, used for routing and failovers
+-- filter					- Filtering service, mostly used but not limited to SMS
+-- data-retention				- Data retention service, used for DB storage
+-- general					- Reserved for custom daemons and/or future use
+-- conf						- Configuration daemon service
+-- stats					- Statistical data exchange
+-- auth						- Authentication messages, used for daemon authentication
+-- reg						- Registration messages, used for daemon discovery and various registration procedures (daemons, events, etc.)
+-- ntfy						- Various notification/alarm/etc. messages
+-- data						- payload data exchange
+-- routing					- routing related messages
+Body ::= CHOICE {
+	encryptedData	[1] OCTET STRING,
+	packetFwd	[2] PacketFwdMessage,
+	filter		[3] FilterMessage,
+	dataRetention	[4] DataRetentionMessage,
+	general		[5] EXPLICIT GeneralMessage,
+	conf		[6] ConfigMessage,
+	stats		[7] StatsMessage,
+	auth		[8] AuthMessage,
+	reg		[9] RegistrationMessage,
+	ntfy		[10] NotifyMessage,
+	data		[11] DataMessage,
+	routing		[12] RoutingMessage,
+	...
+
+	
+	
+
+}
+
+-- ==================================================
+-- RoutingMessage - used for routing related messages
+-- ==================================================
+RoutingMessage ::= SEQUENCE {
+	routingAction	RoutingAction,
+	params		Parameters OPTIONAL,
+	...
+
+}
+
+-- =============
+-- RoutingAction
+-- =============
+RoutingAction ::= INTEGER {
+	roua-route-set		(0),
+	roua-route-get		(1),
+	roua-route-result	(2)
+}
+
+
+-- ================================================================
+-- RegistrationMessage - used for daemon discovery and registration
+-- ================================================================
+-- reg-action	- registration action
+-- params	- registration parameters
+RegistrationMessage ::= SEQUENCE {
+	regAction	RegistrationAction,
+	params		Parameters OPTIONAL,
+	...
+}
+
+-- ==================
+-- RegistrationAction
+-- ==================
+RegistrationAction ::= INTEGER {
+	ra-reg-request	(0),
+	ra-reg-result	(1)
+}
+
+-- ========================================
+-- StatsMessage - Statistical data exchange
+-- ========================================
+-- stats-action	- stats action
+-- params	- stats parameters
+StatsMessage ::= SEQUENCE {
+	statsAction	StatsAction,
+	params		Parameters OPTIONAL,
+	...
+}
+
+-- ===========
+-- StatsAction
+-- ===========
+StatsAction ::= INTEGER {
+	sa-request	(0),
+	sa-result	(1)
+}
+
+-- ============================================
+-- AuthMessage - used for daemon authentication
+-- ============================================
+-- auth-action	- authentication action
+-- params	- authentication parameters
+AuthMessage ::= SEQUENCE {
+	authAction	AuthAction,
+	params		Parameters OPTIONAL,
+	...
+}
+
+-- ==========
+-- AuthAction
+-- ==========
+AuthAction ::= INTEGER {
+	aa-auth-request	(0),
+	aa-auth-result	(1)
+
+}
+
+-- ==========================================
+-- DataRetentionMessage - used for DB storage
+-- ==========================================
+-- payload-type	- payload type
+-- payload	- payload
+-- dr-action	- data retention action
+-- params	- data retention parameters
+DataRetentionMessage ::= SEQUENCE {
+	payloadType	PayloadType OPTIONAL,
+	payload		OCTET STRING OPTIONAL,
+	drAction	DataRetentionAction,
+	params		Parameters OPTIONAL,
+	...
+}
+
+-- ===================
+-- DataRetentionAction
+-- ===================
+DataRetentionAction ::= INTEGER {
+	ra-store	(0),
+	ra-delete	(1),
+	ra-fetch	(2),
+	ra-result	(3)
+}
+
+-- =================================
+-- FilterMessage - filtering service
+-- =================================
+-- filter-action	- filter action
+-- params		- filter parameters
+FilterMessage ::= SEQUENCE {
+	filterAction	FilterAction,
+	params		Parameters OPTIONAL,
+	...
+}
+
+-- ============
+-- FilterAction
+-- ============
+FilterAction ::= INTEGER {
+	fa-filter-request	(0),
+	fa-filter-result	(1)
+}
+
+
+
+-- =================================================
+-- PacketFwdMessage - used for routing and failovers
+-- =================================================
+-- payload-type	- payload type
+-- payload	- payload
+-- params	- extra parameters
+PacketFwdMessage ::= SEQUENCE {
+	payloadType	PayloadType,
+	payload		OCTET STRING OPTIONAL,
+	params		Parameters OPTIONAL,
+	...
+
+}
+
+
+-- =================================================================
+-- NotifyMessage - used for various notification/alarm/etc. messages
+-- =================================================================
+-- message-type	- notification message type
+-- message	- notification message
+-- params	- extra notification parameters
+NotifyMessage ::= SEQUENCE {
+	messageType	NotifyMessageType,
+	message 	OCTET STRING OPTIONAL,
+	params		Parameters OPTIONAL,
+	...
+}
+
+-- =================
+-- NotifyMessageType
+-- =================
+NotifyMessageType ::= INTEGER
+
+
+-- ============================================
+-- DataMessage - used for payload data exchange
+-- ============================================
+-- type		- payload type
+-- payload	- actual payload
+-- params	- extra parameters (used instead of payload or as an extra payload information)
+DataMessage ::= SEQUENCE {
+	payload-type	PayloadType,
+	payload		OCTET STRING OPTIONAL,
+	params  	Parameters OPTIONAL,
+	...
+
+}
+
+-- ===========
+-- PayloadType
+-- ===========
+PayloadType ::= INTEGER {
+	dmt-unknown	(1000),	-- UNKNOWN
+	dmt-r14p	(2000),	-- R14P
+	dmt-layer2	(0),	-- General layer 2
+	dmt-ip		(1),	-- Internet Protocol (IP)
+	dmt-sctp	(2),	-- Stream Control Transmission Protocol (SCTP)
+	dmt-tcp		(3),	-- Transmission Control Protocol (TCP)
+	dmt-udp		(4),	-- User Datagram Protocol (UDP)
+	dmt-m3ua	(5),	-- MTP Level 3 (MTP3) User Adaptation Layer
+	dmt-m2ua	(6),	-- Message Transfer Part 2 User Adaptation Layer (M2UA)
+	dmt-mtp3	(7),	-- MTP Level 3 (MTP3)
+	dmt-isup	(8),	-- ISDN User Part (ISUP)
+	dmt-h248	(9),	-- H.248 or Megaco or Gateway Control Protocol
+	dmt-sccp	(10),	-- Signalling Connection Control Part (SCCP)
+	dmt-smstpdu	(11),	-- SMS TPDU 3GPP TS 23.040
+	dmt-smpp	(12),	-- Short Message Peer-to-Peer (SMPP)
+	dmt-tcap	(13),	-- Transaction Capabilities Application Part (TCAP)
+	dmt-rtp		(14),	-- Real-time Transport Protocol (RTP)
+	dmt-sip		(15),	-- Session Initiation Protocol (SIP)
+	dmt-pop3	(16),	-- Post Office Protocol (POP3)
+	dmt-imap	(17),	-- Internet message access protocol (IMAP)
+	dmt-http	(18),	-- Hypertext Transfer Protocol (HTTP)
+	dmt-radius	(19),	-- Remote Authentication Dial In User Service (RADIUS)
+	dmt-dhcp	(20),	-- Dynamic Host Configuration Protocol (DHCP)
+	dmt-smtp	(21),	-- Simple Mail Transfer Protocol (SMTP)
+	dmt-m2pa	(22),	-- Message Transfer Part 2 (MTP) User Peer-to-Peer Adaptation Layer (M2PA)
+	dmt-mtp2	(23)	-- MTP Level 2 (MTP2)
+
+	
+}
+
+
+-- ====================================================
+-- ConfigMessage - used for configuration data exchange
+-- ====================================================
+-- action	- action required from config daemon
+-- payload	- result generated by config daemon, action dependant
+-- params	- extra parameters, optional
+ConfigMessage ::= SEQUENCE {
+	action	ConfigAction,
+	payload	OCTET STRING OPTIONAL,
+	params	Parameters OPTIONAL,
+	...
+
+}
+
+-- ============
+-- ConfigAction
+-- ============
+-- ca-cfg-get	- get configuration item
+-- ca-cfg-set	- set configuration item
+-- ca-cfg-del	- delete configuration item
+-- ca-cfg-ac	- auto complete configuration item (mostly used by CLI service)
+ConfigAction ::= INTEGER {
+	ca-cfg-get	(0),
+	ca-cfg-set	(1),
+	ca-cfg-del	(2),
+	ca-cfg-ac	(3),
+	ca-cfg-result	(4)
+
+
+}
+
+-- =====================================
+-- Parameter - general purpose parameter
+-- =====================================
+-- id 		- parameter id
+-- value 	- parameter values
+Parameter ::= SEQUENCE {
+	id 	ParameterType,
+	value	SEQUENCE OF OCTET STRING OPTIONAL,
+	...
+
+}
+
+-- ==========
+-- Parameters
+-- ==========
+Parameters ::= SEQUENCE OF Parameter
+
+
+-- =============
+-- ParameterType
+-- =============
+ParameterType ::= INTEGER {
+        -- pMINK general 					(6000 - 6100)
+	-- ------------------------------------------------------------------
+	pt-pmink-daemon-type					(6000), -- daemon type
+	pt-pmink-daemon-id					(6001), -- daemon id
+	pt-pmink-auth-id					(6002), -- authentication identification
+	pt-pmink-auth-password					(6003), -- authentication password
+	pt-pmink-daemon-ip					(6004), -- daemon ip address
+	pt-pmink-daemon-port					(6005), -- daemon port
+	pt-pmink-daemon-description				(6006), -- daemon description
+	pt-pmink-action						(6007), -- extra action
+	pt-pmink-dpi						(6008), -- deep packet inspection (DPI) flag
+	pt-pmink-spi						(6009), -- shallow/stateful packet inspection (SPI) flag
+
+	-- pMINK routing 					(6100 - 6200)
+	-- ------------------------------------------------------------------
+	pt-pmink-routing-destination				(6100), -- routing destination address
+	pt-pmink-routing-source					(6101), -- routing source address
+	pt-pmink-routing-gateway				(6102), -- routing gateway address
+	pt-pmink-routing-interface				(6103), -- routing network interface
+	pt-pmink-routing-priority				(6104), -- routing priority
+
+	-- pMINK events 					(6200 - 6300)
+	-- ------------------------------------------------------------------
+	pt-pmink-event-id					(6200), -- daemon event identification
+	pt-pmink-event-description				(6201), -- daemon event description
+	pt-pmink-event-callback-id				(6202), -- daemon event callback identification
+	pt-pmink-event-callback-priority			(6203), -- daemon event callback priority
+
+	-- pMINK encryption 					(6300 - 6400)
+	-- ------------------------------------------------------------------
+	pt-pmink-enc-public-key					(6300), -- public encryption key
+	pt-pmink-enc-private-key				(6301), -- private encryption key
+	pt-pmink-enc-type					(6302), -- encryption type
+
+	-- pMINK statistics 					(6400 - 7400)
+	-- ------------------------------------------------------------------
+	pt-pmink-stats-all					(6400), -- ALL statistical data
+
+	-- pMINK configuration 					(7400 - 7500)
+	-- ------------------------------------------------------------------
+	pt-pmink-config-param-name				(7400), -- configiration parameter name
+	pt-pmink-config-param-value				(7401), -- configuration parameter value
+
+	-- pMINK openLI 					(7500 - 7600)
+	-- ------------------------------------------------------------------
+
+
+	-- ETH header						(6xx)
+	-- ----------------------------------------------------------
+	pt-eth-destination-mac					(600), -- ETH header destination mac address
+	pt-eth-source-mac					(601), -- ETH header source mac address
+
+	-- IP header						(7xx)
+	-- ----------------------------------------------------------
+	pt-ip-destination-ip					(700), -- IP header destination ip address
+	pt-ip-source-ip						(701), -- IP header source ip address
+
+	-- TCP header						(8xx)
+	-- ----------------------------------------------------------
+	pt-tcp-destination-port					(800), -- TCP header destination port
+	pt-tcp-source-port					(801), -- TCP header source port
+
+	-- UDP header						(9xx)
+	-- ----------------------------------------------------------
+	pt-udp-destination-port					(900), -- UDP header destination port
+	pt-udp-source-port					(901), -- UDP header source port
+
+	-- SCTP header						(1xxx)
+	pt-sctp-destination-port				(1000), -- SCTP header destination port
+	pt-sctp-source-port					(1001), -- SCTP header source port
+
+	-- GSM MAP related					(5xx)
+	-- ----------------------------------------------------------
+	pt-gsmmap-scoa-digits					(500), -- serviceCentreAddressOA digits
+	pt-gsmmap-scoa-type-of-number				(501), -- serviceCentreAddressOA type of number
+	pt-gsmmap-scoa-numbering-plan				(502), -- serviceCentreAddressOA numbering plan
+	pt-gsmmap-scda-digits					(503), -- serviceCentreAddressDA digits
+	pt-gsmmap-scda-type-of-number				(504), -- serviceCentreAddressDA type of number
+	pt-gsmmap-scda-numbering-plan				(505), -- serviceCentreAddressDA numbering plan
+	pt-gsmmap-imsi						(506), -- IMSI
+	pt-gsmmap-msisdn-digits					(507), -- MSISDN digits
+	pt-gsmmap-msisdn-type-of-number				(508), -- MSISDN type of number
+	pt-gsmmap-msisdn-numbering-plan				(509), -- MSISDN numbering plan
+
+	-- GSM SMS TPDU (GSM 03.40) related			(4xx)
+	-- ----------------------------------------------------------
+	pt-smstpdu-tp-udhi					(400), -- 9.2.3.23 TP-User-Data-Header-Indicator (TP-UDHI)
+	pt-smstpdu-tp-sri					(401), -- 9.2.3.4 TP-Status-Report-Indication (TP-SRI)
+	pt-smstpdu-tp-mms					(402), -- 9.2.3.2 TP-More-Messages-to-Send (TP-MMS)
+	pt-smstpdu-tp-mti					(403), -- 9.2.3.1 TP-Message-Type-Indicator (TP-MTI)
+	pt-smstpdu-tp-oa-type-of-number				(404), -- 9.2.3.7 TP-Originating-Address (TP-OA) type of number
+	pt-smstpdu-tp-oa-numbering-plan				(405), -- 9.2.3.7 TP-Originating-Address (TP-OA) numbering plan
+	pt-smstpdu-tp-oa-digits					(406), -- 9.2.3.7 TP-Originating-Address (TP-OA) digits
+	pt-smstpdu-tp-pid					(407), -- 9.2.3.9 TP-Protocol-Identifier (TP-PID)
+	pt-smstpdu-tp-dcs					(408), -- 9.2.3.10 TP-Data-Coding-Scheme (TP-DCS)
+	pt-smstpdu-tp-scts					(409), -- 9.2.3.11 TP-Service-Centre-Time-Stamp (TP-SCTS)
+	pt-smstpdu-tp-udl					(410), -- 9.2.3.16 TP-User-Data-Length (TP-UDL) 
+	pt-smstpdu-tp-ud					(411), -- 9.2.3.24 TP-User Data (TP-UD)
+	pt-smstpdu-tp-rp					(412), -- 9.2.3.17 TP-Reply-Path (TP-RP) 
+	pt-smstpdu-tp-srr					(413), -- 9.2.3.5 TP-Status-Report-Request (TP-SRR)
+	pt-smstpdu-tp-vpf					(414), -- 9.2.3.3 TP-Validity-Period-Format (TP-VPF)
+	pt-smstpdu-tp-rd					(415), -- 9.2.3.25 TP-Reject-Duplicates (TP-RD)
+        pt-smstpdu-tp-da-type-of-number                         (416), -- 9.2.3.8 TP-Destination-Address (TP-DA) type of number
+        pt-smstpdu-tp-da-numbering-plan                         (417), -- 9.2.3.8 TP-Destination-Address (TP-DA) numbering plan
+        pt-smstpdu-tp-da-digits                                 (418), -- 9.2.3.8 TP-Destination-Address (TP-DA) digits
+	pt-smstpdu-tp-vp					(419), -- 9.2.3.12 TP-Validity-Period (TP-VP)
+
+	-- SCCP related						(3xx)
+	-- ----------------------------------------------------------
+	pt-sccp-destination-local-reference			(300), -- Destination local reference
+	pt-sccp-source-local-reference				(301), -- Source local reference
+	pt-sccp-called-party					(301), -- Called party address
+	pt-sccp-calling-party					(302), -- Calling party address
+	pt-sccp-protocol-class					(303), -- Protocol class
+	pt-sccp-segmenting-reassembling				(304), -- Segmenting/reassembling
+	pt-sccp-receive-sequence-number				(305), -- Receive sequence number
+	pt-sccp-sequencing-segmenting				(306), -- Sequencing/segmenting
+	pt-sccp-credit						(307), -- Credit
+	pt-sccp-release-cause					(308), -- Release cause
+	pt-sccp-return-cause					(309), -- Return cause
+	pt-sccp-reset-cause					(310), -- Reset cause
+	pt-sccp-error-cause					(311), -- Error cause
+	pt-sccp-refusal-cause					(312), -- Refusal cause
+	pt-sccp-data						(313), -- Data
+	pt-sccp-segmentation					(314), -- Segmentation
+	pt-sccp-hop-counter					(315), -- Hop counter
+	pt-sccp-importance					(316), -- Importance
+	pt-sccp-long-data					(317), -- Long data
+	pt-sccp-called-pa-routing-indicator			(318), -- Called party routing indicator
+	pt-sccp-called-pa-global-title-indicator		(319), -- Called party global title indicator
+	pt-sccp-called-pa-ssn-indicator				(320), -- Called party subsystem number indicator
+	pt-sccp-called-pa-point-code-indicator			(321), -- Called party point code indicator
+	pt-sccp-called-pa-point-code-number			(322), -- Called party point code number
+	pt-sccp-called-pa-subsystem-number			(323), -- Called party subsystem number
+	pt-sccp-called-pa-gt-numbering-plan			(324), -- Called party GT numbering plan
+	pt-sccp-called-pa-gt-encoding-scheme			(325), -- Called party GT encoding scheme
+	pt-sccp-called-pa-gt-nature-of-address			(326), -- Called party GT nature of address
+	pt-sccp-called-pa-gt-address				(327), -- Called party GT address
+	pt-sccp-called-pa-gt-translation-type			(328), -- Called party GT translation type
+        pt-sccp-calling-pa-routing-indicator                    (329), -- Calling party routing indicator
+        pt-sccp-calling-pa-global-title-indicator               (330), -- Calling party global title indicator
+        pt-sccp-calling-pa-ssn-indicator                        (331), -- Calling party subsystem number indicator
+        pt-sccp-calling-pa-point-code-indicator                 (332), -- Calling party point code indicator
+        pt-sccp-calling-pa-point-code-number                    (333), -- Calling party point code number
+        pt-sccp-calling-pa-subsystem-number                     (334), -- Calling party subsystem number
+        pt-sccp-calling-pa-gt-numbering-plan                    (335), -- Calling party GT numbering plan
+        pt-sccp-calling-pa-gt-encoding-scheme                   (336), -- Calling party GT encoding scheme 
+        pt-sccp-calling-pa-gt-nature-of-address                 (337), -- Calling party GT nature of address
+        pt-sccp-calling-pa-gt-address                           (338), -- Calling party GT address
+        pt-sccp-calling-pa-gt-translation-type                  (339), -- Calling party GT translation type
+
+	-- M3UA related						(2xx)
+	-- ----------------------------------------------------------
+	pt-m3ua-info-string					(200), -- INFO String
+	pt-m3ua-routing-context					(201), -- Routing Context
+	pt-m3ua-diagnostic-info					(202), -- Diagnostic Information
+	pt-m3ua-heartbeat					(203), -- Heartbeat Data
+	pt-m3ua-traffic-mode-type				(204), -- Traffic Mode Type
+	pt-m3ua-error-code					(205), -- Error Code
+	pt-m3ua-status						(206), -- Status
+	pt-m3ua-asp-identifier					(207), -- ASP Identifier
+	pt-m3ua-affected-point-code				(208), -- Affected Point Code
+	pt-m3ua-correlation-id					(209), -- Correlation ID
+	pt-m3ua-network-appearance				(210), -- Network Appearance
+	pt-m3ua-user-cause					(211), -- User/Cause
+	pt-m3ua-congestion-indications				(212), -- Congestion Indications
+	pt-m3ua-concerned-destination				(213), -- Concerned Destination
+	pt-m3ua-routing-key					(214), -- Routing Key
+	pt-m3ua-registration-result				(215), -- Registration Result
+	pt-m3ua-deregistration-result				(216), -- Deregistration Result
+	pt-m3ua-local-routing-key-identifier			(217), -- Local-Routing Key Identifier
+	pt-m3ua-destination-point-code				(218), -- Destination Point Code
+	pt-m3ua-service-indicators				(219), -- Service Indicators
+	pt-m3ua-origination-point-code-list			(220), -- Originating Point Code List
+	pt-m3ua-circuit-range					(221), -- Circuit Range
+	pt-m3ua-protocol-data					(222), -- Protocol Data
+	pt-m3ua-protocol-data-network-indicator			(223), -- Protocol Data network indicator (NI)
+	pt-m3ua-protocol-data-message-priority			(224), -- Protocol Data message priority (MP)
+	pt-m3ua-protocol-data-destination-point-code		(225), -- Protocol Data destination point code (DPC)
+	pt-m3ua-protocol-data-originating-point-code		(226), -- Protocol Data originating point code (OPC)
+	pt-m3ua-protocol-data-signalling-link-selection-code	(227), -- Protocol Data signalling link selection code (SLS)
+	pt-m3ua-registration-status				(228), -- Registration Status
+	pt-m3ua-deregistration-status				(229), -- Deregistration Status
+
+	-- SMPP related						(1xx)
+	-- ----------------------------------------------------------
+	pt-smpp-system-id					(100), -- system-id
+	pt-smpp-password					(101), -- password
+	pt-smpp-service-type					(102), -- service-type
+	pt-smpp-originator-ton					(103), -- source type of number
+	pt-smpp-originator-np					(104), -- source numbering plan
+	pt-smpp-originator-address				(105), -- source address
+	pt-smpp-recipient-ton					(106), -- destination type of number
+	pt-smpp-recipient-np					(107), -- destination numbering plan
+	pt-smpp-recipient-address				(108), -- destination address
+	pt-smpp-esm-message-mode				(109), -- esm-class messaging mode
+	pt-smpp-esm-message-type				(110), -- esm-class message type 
+	pt-smpp-esm-gsm-features				(111), -- esm-class GSM network specific features
+	pt-smpp-protocol-id					(112), -- protocol-id
+	pt-smpp-priority-flag					(113), -- priority-flag
+	pt-smpp-delivery-time					(114), -- delivery-time
+	pt-smpp-validity-period					(115), -- validity-period
+	pt-smpp-rd-smsc-receipt					(116), -- registered delivery SMSC Delivery Receipt 
+	pt-smpp-rd-sme-ack					(117), -- registered delivery SME originated Acknowledgement
+	pt-smpp-ed-intermediate-notification			(118), -- registered delivery Intermediate Notification
+	pt-smpp-replace-if-present-flag				(119), -- replace-if-present-flag
+	pt-smpp-data-coding					(120), -- data-coding
+	pt-smpp-sm-defaut-msg-id				(121), -- sm-default-msg-id
+	pt-smpp-sm-length					(122), -- sm-length
+	pt-smpp-sm						(123)  -- sm
+	
+}
+
+
+-- ==============================================================
+-- GeneralMessage - reserved for custom daemons and/or future use
+-- ==============================================================
+-- reserved for future use and/or custom daemons
+GeneralMessage ::= OCTET STRING
+
+-- =======
+-- HopInfo
+-- =======
+-- current-hop	- current hop
+-- max-hops	- max hops
+HopInfo ::= SEQUENCE {
+	currentHop	[1] INTEGER,
+	maxHops		[2] INTEGER,
+	...
+
+}
+
+-- =========
+-- ErrorCode
+-- =========
+ErrorCode ::= INTEGER {
+	err-ok			(0),
+	err-out-of-sequence	(1),
+	err-unknown-error	(255)
+
+}
+
+-- ============
+-- R14P Message
+-- ============
+-- header 	- packet header
+-- body		- packet body
+R14PMessage ::= SEQUENCE {
+	header		Header,
+	body		Body OPTIONAL,
+	...
+
+}
+
+
+-- ================================================================================================================
+-- EncryptionInfo												 
+-- ================================================================================================================
+-- enc-type 										- cipher type
+-- ----------------------------------------------------------------------------------------------------------------
+-- base64										- Base64 Encoding
+-- bf bf-cbc bf-cfb bf-ecb bf-ofb							- Blowfish Cipher
+-- cast cast-cbc									- CAST Cipher
+-- cast5-cbc cast5-cfb cast5-ecb cast5-ofb						- CAST5 Cipher
+-- des des-cbc des-cfb des-ecb des-ede des-ede-cbc des-ede-cfb des-ede-ofb des-ofb	- DES Cipher
+-- des3 desx des-ede3 des-ede3-cbc des-ede3-cfb des-ede3-ofb				- Triple-DES Cipher
+-- idea idea-cbc idea-cfb idea-ecb idea-ofb						- IDEA Cipher
+-- rc2 rc2-cbc rc2-cfb rc2-ecb rc2-ofb							- RC2 Cipher
+-- rc4											- RC4 Cipher
+-- rc5 rc5-cbc rc5-cfb rc5-ecb rc5-ofb							- RC5 Cipher
+-- ----------------------------------------------------------------------------------------------------------------
+-- params 										- cipher related parameters
+-- ----------------------------------------------------------------------------------------------------------------
+
+EncryptionInfo ::= SEQUENCE {
+	encType		OCTET STRING,
+	params		Parameters OPTIONAL,
+	...
+
+
+}
+
+
+
+END 

@@ -1,0 +1,2 @@
+#!/bin/bash
+sudo /usr/local/pmink/bin/cli_service -i cli1 -f /usr/local/pmink/conf/cli_default.pmcfg -c 127.0.0.1:10000

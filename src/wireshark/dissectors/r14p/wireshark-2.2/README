@@ -1,0 +1,7 @@
+Release14 R14P Wireshark plugin
+===============================
+1. copy files in this directory to WIRESHARK_ROOT/plugins/r14p
+2. add plugin name to ../Makefile.am (SUBDIRS)
+3. add plugin name to ../../configure.ac (add "plugins/r14p/Makefile" to AC_CONFIG_FILES)
+4. run autoreconf at top level
+5. run configure and make at top level

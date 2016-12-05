@@ -1,0 +1,63 @@
+/*
+ * This file is part of Project MINK <http://www.release14.org>.
+ *
+ * Copyright (C) 2012 Release14 Ltd.
+ * http://www.release14.org/
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
+// types
+TYPES {
+	"LOG_LEVEL"	PTRN[3467]PTRN					"3 - ERROR, 4 - WARNING, 6 - INFO, 7 - DEBUG"
+	"STRING" 	PTRN.*PTRN					"Alphanumeric value"					
+	"LABEL"		PTRN[^@].*PTRN					"Alphanumeric value"
+	"STRING_2" 	PTRN.{2}PTRN					"Two alphanumeric values"					
+	"INT"		PTRN\d+PTRN					"Numeric value"
+	"IP"		PTRN\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}PTRN	"xxx.xxx.xxx.xxx"
+	"BOOL"		PTRN[01]PTRN					"0 - False, 1 - True"
+	"TSTAMP"	PTRN\d{4}-\d{2}-\d{2}-\d{2}:\d{2}:\d{2}PTRN	"Timestamp value in YYYY-MM-DD-hh:mm:ss format"
+	"PROBE_TYPE"	PTRN[0123456]PTRN				"0 - layer2, 1 - layer3, 2 - smtp, 3 - pop3, 4 - imap, 5 - dhcp, 6 - radius"
+	"FN_METHOD"	PTRN[01]PTRN					"0 - File naming method A (per target), 1 - File naming method B (per MF node)"
+	"HI3_TYPE"	PTRN[01]PTRN					"0 - x.690, 1 - pcap"
+	"TARGET_TYPE"	PTRN[0123467]PTRN				"0 - pop3, 1 - smtp, 2 - imap, 3 - radius, 4 - dhcp (mac or o82 remote agent id, 6 - layer2 (mac), 7 - layer3 (ip)"
+	"HIF_LST"       PTRN:pmcfg:[/openli mediation hiconns]PTRN	
+
+
+}
+
+
+// config definition example
+CONFIG {
+	// openli config
+	openli CONST "openLI configuration" {
+		leac CONST "LEA collector" {
+			hi2_in		"STRING"	"HI2 input directory"
+			hi3_in		"STRING"	"HI3 x.690 input directory"
+			hi3_out		"STRING"	"HI3 pcap output directory"
+			pcap_ppf	"INT"		"HI3 pcap packets per file"
+			pcap_timeout	"INT"		"HI3 pcap flush timeout in seconds"
+
+			db CONST "HI1/HI2 DB configuration" {
+        	                address      "IP"            "DB server IP address"
+                	        port         "INT"           "DB server port"
+                        	name         "STRING"        "DB name"
+	                        user         "STRING"        "DB username"
+        	                password     "STRING"        "DB password"
+			}
+		}
+
+	}		
+}

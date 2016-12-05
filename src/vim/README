@@ -1,0 +1,2 @@
+CREATE ~/.vim
+COPY ftdetect and syntax folder to ~./vim

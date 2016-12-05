@@ -1,0 +1,24 @@
+Original wslua_pinfo.c changed:
+..
++static int Address_string(lua_State* L) {
++    Address addr = g_malloc(sizeof(address));
++
++    const gchar* name = luaL_checkstring(L, 1);
++
++    SET_ADDRESS(addr, AT_STRINGZ, strlen(name)+1 , g_strdup(name));
++
++    pushAddress(L,addr);
++    WSLUA_RETURN(1);
++    //return 1;
++}
+..
+..
+WSLUA_METHODS Address_methods[] = {
+    WSLUA_CLASS_FNREG(Address,ip),
+    WSLUA_CLASS_FNREG_ALIAS(Address,ipv4,ip),
++   WSLUA_CLASS_FNREG(Address,string),
+..
+
+
+# Compile with:
+./configure --enable-setcap-install --with-dumpcap-group=wireshark --with-lua

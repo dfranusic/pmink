@@ -1,0 +1,86 @@
+\select@language {english}
+\contentsline {section}{\numberline {1}Legal notices}{3}{section.1}
+\contentsline {section}{\numberline {2}Introduction}{3}{section.2}
+\contentsline {subsection}{\numberline {2.1}Intended audience}{3}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Document conventions}{3}{subsection.2.2}
+\contentsline {section}{\numberline {3}Using the CLI}{3}{section.3}
+\contentsline {subsection}{\numberline {3.1}Command modes}{3}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Accessing the CLI}{3}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Predefined user account}{3}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.4}Command prompts}{4}{subsection.3.4}
+\contentsline {subsection}{\numberline {3.5}Command completion}{4}{subsection.3.5}
+\contentsline {subsection}{\numberline {3.6}Command history}{4}{subsection.3.6}
+\contentsline {subsection}{\numberline {3.7}Command editing}{4}{subsection.3.7}
+\contentsline {subsection}{\numberline {3.8}Command timeout}{4}{subsection.3.8}
+\contentsline {section}{\numberline {4}Configuration basics}{4}{section.4}
+\contentsline {subsection}{\numberline {4.1}Terminology}{4}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Configuration hierarchy}{5}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Entering and exiting configuration mode}{5}{subsection.4.3}
+\contentsline {subsection}{\numberline {4.4}Navigating in configuration mode}{5}{subsection.4.4}
+\contentsline {subsection}{\numberline {4.5}Commands for navigating in configuration mode}{5}{subsection.4.5}
+\contentsline {subsection}{\numberline {4.6}Viewing the configuration}{5}{subsection.4.6}
+\contentsline {section}{\numberline {5}Changing configuration information}{7}{section.5}
+\contentsline {subsection}{\numberline {5.1}Adding or modifying configuration}{7}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}Deleting configuration}{7}{subsection.5.2}
+\contentsline {subsection}{\numberline {5.3}Committing configuration changes}{8}{subsection.5.3}
+\contentsline {subsection}{\numberline {5.4}Discarding configuration changes}{8}{subsection.5.4}
+\contentsline {section}{\numberline {6}Managing system configuration}{8}{section.6}
+\contentsline {subsection}{\numberline {6.1}Saving the running configuration}{8}{subsection.6.1}
+\contentsline {subsection}{\numberline {6.2}Loading the saved configuration}{9}{subsection.6.2}
+\contentsline {subsection}{\numberline {6.3}Archiving configuration versions on commit}{9}{subsection.6.3}
+\contentsline {subsection}{\numberline {6.4}Rolling back to previous version}{9}{subsection.6.4}
+\contentsline {subsection}{\numberline {6.5}Show configuration commands}{9}{subsection.6.5}
+\contentsline {section}{\numberline {7}Commands for working with configuration}{12}{section.7}
+\contentsline {section}{\numberline {8}SMS filtering}{12}{section.8}
+\contentsline {subsection}{\numberline {8.1}Filtering gateway node}{13}{subsection.8.1}
+\contentsline {subsubsection}{\numberline {8.1.1}Manual start-up procedure}{13}{subsubsection.8.1.1}
+\contentsline {subsubsection}{\numberline {8.1.2}Init script start-up procedure}{14}{subsubsection.8.1.2}
+\contentsline {subsubsection}{\numberline {8.1.3}Runtime node configuration}{16}{subsubsection.8.1.3}
+\contentsline {paragraph}{\numberline {8.1.3.1}Performance and memory}{16}{paragraph.8.1.3.1}
+\contentsline {paragraph}{\numberline {8.1.3.2}Rating}{17}{paragraph.8.1.3.2}
+\contentsline {paragraph}{\numberline {8.1.3.3}Static filtering lists}{17}{paragraph.8.1.3.3}
+\contentsline {subsection}{\numberline {8.2}Filtering rules processing system}{18}{subsection.8.2}
+\contentsline {subsubsection}{\numberline {8.2.1}Filtering rules}{19}{subsubsection.8.2.1}
+\contentsline {subsubsection}{\numberline {8.2.2}Rule match part}{22}{subsubsection.8.2.2}
+\contentsline {paragraph}{\numberline {8.2.2.1}\acrfull {r14p} matching}{22}{paragraph.8.2.2.1}
+\contentsline {paragraph}{\numberline {8.2.2.2}MTP Level 3 (MTP3) User Adaptation Layer (M3UA) matching}{23}{paragraph.8.2.2.2}
+\contentsline {paragraph}{\numberline {8.2.2.3}Signalling Connection Control Part (SCCP) matching}{24}{paragraph.8.2.2.3}
+\contentsline {paragraph}{\numberline {8.2.2.4}Transaction Capabilities Application Part (TCAP) matching}{26}{paragraph.8.2.2.4}
+\contentsline {paragraph}{\numberline {8.2.2.5}Mobile Application Part (MAP) matching}{26}{paragraph.8.2.2.5}
+\contentsline {paragraph}{\numberline {8.2.2.6}Short message TPDU 3GPP TS 23.040 (SMSTPDU) matching}{28}{paragraph.8.2.2.6}
+\contentsline {paragraph}{\numberline {8.2.2.7}Short Message Peer-to-Peer (SMPP) matching}{31}{paragraph.8.2.2.7}
+\contentsline {subsubsection}{\numberline {8.2.3}Basic matching}{35}{subsubsection.8.2.3}
+\contentsline {paragraph}{\numberline {8.2.3.1}Basic matching syntax}{35}{paragraph.8.2.3.1}
+\contentsline {paragraph}{\numberline {8.2.3.2}Operand types}{37}{paragraph.8.2.3.2}
+\contentsline {subparagraph}{\numberline {8.2.3.2.1}NUMBER type operand}{37}{subparagraph.8.2.3.2.1}
+\contentsline {subparagraph}{\numberline {8.2.3.2.2}STRING type operand}{37}{subparagraph.8.2.3.2.2}
+\contentsline {subparagraph}{\numberline {8.2.3.2.3}REGEX type operand}{37}{subparagraph.8.2.3.2.3}
+\contentsline {subparagraph}{\numberline {8.2.3.2.4}VARIABLE type operand}{37}{subparagraph.8.2.3.2.4}
+\contentsline {subparagraph}{\numberline {8.2.3.2.5}LIST type operand}{38}{subparagraph.8.2.3.2.5}
+\contentsline {subparagraph}{\numberline {8.2.3.2.6}LUA type operand}{38}{subparagraph.8.2.3.2.6}
+\contentsline {paragraph}{\numberline {8.2.3.3}Operator types}{38}{paragraph.8.2.3.3}
+\contentsline {subparagraph}{\numberline {8.2.3.3.1}Equality '==' operator}{38}{subparagraph.8.2.3.3.1}
+\contentsline {subparagraph}{\numberline {8.2.3.3.2}Inequality '!=' operator}{39}{subparagraph.8.2.3.3.2}
+\contentsline {subparagraph}{\numberline {8.2.3.3.3}Greater than '\textgreater ' operator}{39}{subparagraph.8.2.3.3.3}
+\contentsline {subparagraph}{\numberline {8.2.3.3.4}Greater than equal '\textgreater {}=' operator}{39}{subparagraph.8.2.3.3.4}
+\contentsline {subparagraph}{\numberline {8.2.3.3.5}Less than '\textless ' operator}{39}{subparagraph.8.2.3.3.5}
+\contentsline {subparagraph}{\numberline {8.2.3.3.6}Less than equal '\textless {}=' operator}{39}{subparagraph.8.2.3.3.6}
+\contentsline {subparagraph}{\numberline {8.2.3.3.7}Add to list '\textgreater \textgreater ' operator}{40}{subparagraph.8.2.3.3.7}
+\contentsline {subparagraph}{\numberline {8.2.3.3.8}Remove from list '\textless \textless ' operator}{40}{subparagraph.8.2.3.3.8}
+\contentsline {subparagraph}{\numberline {8.2.3.3.9}Remove list '\textendash \textendash ' operator}{40}{subparagraph.8.2.3.3.9}
+\contentsline {paragraph}{\numberline {8.2.3.4}Predefined constants and variables}{40}{paragraph.8.2.3.4}
+\contentsline {subsubsection}{\numberline {8.2.4}Advanced matching}{48}{subsubsection.8.2.4}
+\contentsline {paragraph}{\numberline {8.2.4.1}Inline scripting}{48}{paragraph.8.2.4.1}
+\contentsline {paragraph}{\numberline {8.2.4.2}External scripting}{49}{paragraph.8.2.4.2}
+\contentsline {paragraph}{\numberline {8.2.4.3}Lua pMINK module}{49}{paragraph.8.2.4.3}
+\contentsline {subparagraph}{\numberline {8.2.4.3.1}Variant parameter management}{49}{subparagraph.8.2.4.3.1}
+\contentsline {subparagraph}{\numberline {8.2.4.3.2}Standard dynamic filtering lists}{52}{subparagraph.8.2.4.3.2}
+\contentsline {subparagraph}{\numberline {8.2.4.3.3}Flood management}{56}{subparagraph.8.2.4.3.3}
+\contentsline {subparagraph}{\numberline {8.2.4.3.4}Predefined constants}{58}{subparagraph.8.2.4.3.4}
+\contentsline {subsubsection}{\numberline {8.2.5}Rule translate part}{62}{subsubsection.8.2.5}
+\contentsline {paragraph}{\numberline {8.2.5.1}REGEX\_SR type operand}{62}{paragraph.8.2.5.1}
+\contentsline {paragraph}{\numberline {8.2.5.2}R14P translations}{63}{paragraph.8.2.5.2}
+\contentsline {paragraph}{\numberline {8.2.5.3}MTP Level 3 (MTP3) User Adaptation Layer (M3UA) translations}{63}{paragraph.8.2.5.3}
+\contentsline {paragraph}{\numberline {8.2.5.4}Signalling Connection Control Part (SCCP) translations}{64}{paragraph.8.2.5.4}
+\contentsline {section}{Acronyms}{66}{section*.2}
+\contentsline {section}{Glossary}{66}{section*.4}
