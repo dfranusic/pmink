@@ -244,6 +244,7 @@ libpmcfg_la_LDFLAGS = -version-info 1:0:0
 libpmpcap_la_CPPFLAGS = $(COMMON_INCLUDES) $(PF_RING_CFLAGS)
 libpmpcap_la_SOURCES = src/pcap/pmpcap.cpp
 libpmpcap_la_LDFLAGS = -version-info 1:0:0
+libpmpcap_la_LIBADD = -lpcap $(PF_RING_LIBS)
 
 #+------------------+
 #| pMINK unit tests |
@@ -288,8 +289,10 @@ pmink_test_LDADD = $(BOOST_LDLIBS) \
 		   $(BOOST_UNIT_TEST_FRAMEWORK_LIB) \
 		   $(ICU_LIBS)
 
-# -rpath must be set for LUAJIT since LUAJIT_LIBS and LUAJIT_CFLAGS
-#  are defined in configure.ac
+# - extra rpath must be set for LUAJIT since it is a bundled package
+#   with its own Makefile
+# - if we didn't set extra rpath for LuaJIT, pmink_test binary would
+#   not be able to start on "make check"
 if ENABLE_LUAJITBUNDLED
 pmink_test_LDFLAGS = -rpath `readlink -f lib/LuaJIT-2.0.3/src`
 endif
@@ -445,8 +448,7 @@ sgnd_LDADD = $(BOOST_LDLIBS) \
 	     libpmpcap.la \
 	     $(ANTLR_LDLIBS) \
 	     $(ICU_LIBS) \
-	     $(ICONV_LDLIBS) \
-	     $(PF_RING_LIBS)
+	     $(ICONV_LDLIBS)
 
 
 
@@ -627,8 +629,11 @@ fgnd_CPPFLAGS = $(FGN_CPP14_FLAGS) \
 		$(ICU_CPPFLAGS) \
 		$(NCURSES_CFLAGS)
 
-# -rpath must be set for LUAJIT since LUAJIT_LIBS and LUAJIT_CFLAGS
-#  are defined in configure.ac
+# - extra rpath must be set for LUAJIT since it is a bundled package
+#   with its own Makefile
+# - if we didn't set extra rpath for LuaJIT, fgnd binary would
+#   not be able to start without installing everything first with
+#   "make install"
 if ENABLE_LUAJITBUNDLED
 fgnd_LDFLAGS = -rpath `readlink -f lib/LuaJIT-2.0.3/src`
 endif
