@@ -290,8 +290,8 @@ pmink_test_LDADD = $(BOOST_LDLIBS) \
 		   $(ICU_LIBS)
 
 # - extra "-rpath" must be set for LuaJIT since it isn't using libtool
-#   for building libluajit shared library; fgnd libtool generated wrapper 
-#   script will not include a path to LuaJIT shared library
+#   for building libluajit shared library; pmink_test libtool generated
+#   wrapper script will not include a path to LuaJIT shared library
 # - if we didn't set extra rpath for LuaJIT, pmink_test binary would
 #   not be able to start on "make check"
 if ENABLE_LUAJITBUNDLED
