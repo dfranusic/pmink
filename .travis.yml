@@ -1,0 +1,3 @@
+laguage: cpp
+compiler:
+    - gcc
