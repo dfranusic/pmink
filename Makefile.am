@@ -189,9 +189,9 @@ libr14pstats_a_CPPFLAGS = $(COMMON_INCLUDES)
 # pMINK libraries and plugins
 lib_LTLIBRARIES = libr14p.la \
 		  libpmcfg.la  \
-		  pm_plg_cli_cfg.la \
 		  libpmpcap.la
 
+pkglib_LTLIBRARIES = pm_plg_cli_cfg.la
 
 #+-------------------------+
 #| pMINK CLI config plugin |
@@ -289,8 +289,9 @@ pmink_test_LDADD = $(BOOST_LDLIBS) \
 		   $(BOOST_UNIT_TEST_FRAMEWORK_LIB) \
 		   $(ICU_LIBS)
 
-# - extra rpath must be set for LUAJIT since it is a bundled package
-#   with its own Makefile
+# - extra "-rpath" must be set for LuaJIT since it isn't using libtool
+#   for building libluajit shared library; fgnd libtool generated wrapper 
+#   script will not include a path to LuaJIT shared library
 # - if we didn't set extra rpath for LuaJIT, pmink_test binary would
 #   not be able to start on "make check"
 if ENABLE_LUAJITBUNDLED
@@ -629,8 +630,9 @@ fgnd_CPPFLAGS = $(FGN_CPP14_FLAGS) \
 		$(ICU_CPPFLAGS) \
 		$(NCURSES_CFLAGS)
 
-# - extra rpath must be set for LUAJIT since it is a bundled package
-#   with its own Makefile
+# - extra "-rpath" must be set for LuaJIT since it isn't using libtool
+#   for building libluajit shared library; fgnd libtool generated wrapper 
+#   script will not include a path to LuaJIT shared library
 # - if we didn't set extra rpath for LuaJIT, fgnd binary would
 #   not be able to start without installing everything first with
 #   "make install"
@@ -639,7 +641,7 @@ fgnd_LDFLAGS = -rpath `readlink -f lib/LuaJIT-2.0.3/src`
 endif
 
 
-# rename data files
+# post install actions
 install-data-hook:
 	cd $(confdir) && \
-	$(SED) -i -e "s#@PREFIX@#$(libdir)#g" cli_default.pmcfg
+	$(SED) -i -e "s#@PREFIX@#$(pkglibdir)#g" cli_default.pmcfg
