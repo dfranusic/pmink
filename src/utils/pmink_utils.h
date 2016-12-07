@@ -1291,11 +1291,11 @@ namespace pmink_utils {
 
 	    // types
 	    typedef boost::fast_pool_allocator<std::pair<const ID_TYPE, DataWrapper> > cmap_alloc_t;
-	    typedef boost::unordered::unordered_map<ID_TYPE,
-						    DataWrapper,
-						    fnv1a_hash,
-						    std::equal_to<ID_TYPE>,
-						    cmap_alloc_t> cmap_type;
+	    typedef boost::unordered_map<ID_TYPE,
+                                         DataWrapper,
+                                         fnv1a_hash,
+                                         std::equal_to<ID_TYPE>,
+                                         cmap_alloc_t> cmap_type;
 
 	    typedef typename cmap_type::iterator cmap_it_type;
 	    typedef typename cmap_type::value_type cmap_value_type;

@@ -1,3 +1,31 @@
-laguage: cpp
+language: cpp
 compiler:
-    - gcc
+  - gcc
+sudo: required
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+      - deadsnakes
+      - boost-latest
+    packages:
+      - gcc-4.9
+      - g++-4.9
+      - libboost1.55-all-dev
+      - libpcap-dev
+      - libsctp-dev
+      - libsnmp-dev
+      - libcap-dev
+      - libmysqlclient-dev
+      - gperf
+
+install:
+  - if [ "$CXX" = "g++"  ]; then export CXX="g++-4.9" CC="gcc-4.9"; fi
+  - wget https://downloads.mysql.com/archives/get/file/mysql-connector-c++-1.1.6.tar.gz
+  - tar xzf mysql-connector-c++-1.1.6.tar.gz
+  - mkdir mysql-connector-c++-1.1.6/build
+  - pushd mysql-connector-c++-1.1.6/build && cmake .. && make && sudo make install && popd
+
+script:
+  - ./autogen.sh && ./configure --with-boost-libdir=/usr/lib/x86_64-linux-gnu 
+    --enable-luajitbundled && make && make check

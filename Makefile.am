@@ -212,7 +212,8 @@ pm_plg_cli_cfg_la_LDFLAGS = -version-info 1:0:0 \
 
 pm_plg_cli_cfg_la_LIBADD = $(BOOST_LDLIBS) \
 			   $(NCURSES_LIBS) \
-			   libr14p.la
+			   libr14p.la \
+			   -ldl
 
 
 #+-----------------------+
@@ -272,7 +273,6 @@ pmink_test_CPPFLAGS = $(FGN_CPP14_FLAGS) \
 		      $(NCURSES_CFLAGS)
 
 pmink_test_LDADD = $(BOOST_LDLIBS) \
-		   -ldl \
 		   $(NCURSES_LIBS) \
 		   libr14p.la \
 		   libpmdaemon.a \
@@ -284,6 +284,7 @@ pmink_test_LDADD = $(BOOST_LDLIBS) \
 		   libr14putils.a \
 		   librrp.a \
 		   libpmcfg.la \
+		   -ldl \
 		   $(ANTLR_LDLIBS) \
 		   $(LUAJIT_LIBS) \
 		   $(BOOST_UNIT_TEST_FRAMEWORK_LIB) \
@@ -328,7 +329,6 @@ pdnd_CPPFLAGS = $(COMMON_INCLUDES) \
 		$(ICU_CPPFLAGS)
 
 pdnd_LDADD = $(BOOST_LDLIBS) \
-	    -ldl \
 	    $(NCURSES_LIBS) \
 	    libr14p.la \
 	    libpmutils.a \
@@ -339,6 +339,7 @@ pdnd_LDADD = $(BOOST_LDLIBS) \
 	    libantlrutils.a \
 	    libr14pstats.a \
 	    libpmcfg.la \
+	    -ldl \
 	    $(ANTLR_LDLIBS) \
 	    $(ICU_LIBS)
 
@@ -362,7 +363,6 @@ stpd_CPPFLAGS = $(COMMON_INCLUDES) \
 		$(ICU_CPPFLAGS)
 	
 stpd_LDADD = $(BOOST_LDLIBS) \
-	    -ldl \
 	    $(NCURSES_LIBS) \
 	    libr14p.la \
 	    libpmutils.a \
@@ -373,6 +373,7 @@ stpd_LDADD = $(BOOST_LDLIBS) \
 	    libantlrutils.a \
 	    libr14pstats.a \
 	    libpmcfg.la \
+	    -ldl \
 	    $(ANTLR_LDLIBS) \
 	    $(ICU_LIBS)
 
@@ -394,7 +395,6 @@ drd_CPPFLAGS = $(COMMON_INCLUDES) \
 		$(LIBMYSQLCPPCONN_CXXFLAGS)
 
 drd_LDADD = $(BOOST_LDLIBS) \
-	    -ldl \
 	    $(NCURSES_LIBS) \
 	    libr14p.la \
 	    libpmutils.a \
@@ -406,6 +406,7 @@ drd_LDADD = $(BOOST_LDLIBS) \
 	    libr14pstats.a \
 	    libpmdb.a \
 	    libpmcfg.la \
+	    -ldl \
 	    $(ANTLR_LDLIBS) \
 	    $(ICU_LIBS) \
 	    $(LIBMYSQLCPPCONN_LDFLAGS)
@@ -432,7 +433,6 @@ sgnd_CPPFLAGS = $(COMMON_INCLUDES) \
 		$(ICU_CPPFLAGS)
 
 sgnd_LDADD = $(BOOST_LDLIBS) \
-	     -ldl \
 	     $(NCURSES_LIBS) \
 	     libr14p.la \
 	     libpmutils.a \
@@ -447,6 +447,7 @@ sgnd_LDADD = $(BOOST_LDLIBS) \
 	     libtcpip.a \
 	     libpmcfg.la \
 	     libpmpcap.la \
+	     -ldl \
 	     $(ANTLR_LDLIBS) \
 	     $(ICU_LIBS) \
 	     $(ICONV_LDLIBS)
@@ -465,13 +466,13 @@ configdc_CPPFLAGS = $(COMMON_INCLUDES) \
 		    $(NCURSES_CFLAGS)
 
 configdc_LDADD = $(BOOST_LDLIBS) \
-		 -ldl \
 		 $(NCURSES_LIBS) \
 		 libr14p.la \
 		 libpmconfig.a \
 		 libpmdaemon.a \
 		 libpmutils.a \
 		 libpmcfg.la \
+		 -ldl \
 		 $(ANTLR_LDLIBS)
 
 
@@ -492,7 +493,6 @@ routingd_CPPFLAGS = $(COMMON_INCLUDES) \
 		    $(NCURSES_CFLAGS)
 
 routingd_LDADD = $(BOOST_LDLIBS) \
-		 -ldl \
 		 $(NCURSES_LIBS) \
 		 libr14p.la \
 		 libpmutils.a \
@@ -502,6 +502,7 @@ routingd_LDADD = $(BOOST_LDLIBS) \
 		 libpmcli.a \
 		 libr14pstats.a \
 		 libpmcfg.la \
+		 -ldl \
 		 $(ANTLR_LDLIBS)
 
 
@@ -534,14 +535,14 @@ cli_service_CPPFLAGS = $(COMMON_INCLUDES) \
 cli_service_CXXFLAGS = -rdynamic
 
 cli_service_LDADD = $(BOOST_LDLIBS) \
-		    -ldl \
 		    $(NCURSES_LIBS) \
 		    libr14p.la \
-		    libpmutils.a \
 		    libpmcli.a \
+		    libpmutils.a \
 		    libantlrutils.a \
 		    libpmconfig.a \
 		    libpmcfg.la \
+		    -ldl \
 		    $(ANTLR_LDLIBS)
 
 
@@ -557,10 +558,10 @@ r14ptrapc_CPPFLAGS = $(COMMON_INCLUDES) \
 		     $(NCURSES_CFLAGS)
 
 r14ptrapc_LDADD = $(BOOST_LDLIBS) \
-		  -ldl \
 		  $(NCURSES_LIBS) \
 		  libr14p.la \
 		  libpmutils.a \
+		  -ldl \
 		  $(ANTLR_LDLIBS)
 
 
@@ -578,7 +579,6 @@ configd_CPPFLAGS = $(COMMON_INCLUDES) \
 		   $(NCURSES_CFLAGS)
 
 configd_LDADD = $(BOOST_LDLIBS) \
-	        -ldl \
 		$(NCURSES_LIBS) \
 		libr14p.la \
 		libpmutils.a \
@@ -587,6 +587,7 @@ configd_LDADD = $(BOOST_LDLIBS) \
 		libpmcli.a \
 		libpmdaemon.a \
 		libpmcfg.la \
+		-ldl \
 		$(ANTLR_LDLIBS)
 
 
@@ -603,7 +604,6 @@ fgnd_SOURCES = src/daemons/fgn/fgnd.cpp \
 fgnd_CXXFLAGS = $(GCC_CPP14_FLAGS) -rdynamic
 
 fgnd_LDADD = $(BOOST_LDLIBS) \
-	     -ldl \
 	     $(NCURSES_LIBS) \
 	     libr14p.la \
 	     libpmdaemon.a \
@@ -615,6 +615,7 @@ fgnd_LDADD = $(BOOST_LDLIBS) \
 	     libr14putils.a \
 	     librrp.a \
 	     libpmcfg.la \
+	     -ldl \
 	     $(LUAJIT_LIBS) \
 	     $(ANTLR_LDLIBS) \
 	     $(ICU_LIBS)

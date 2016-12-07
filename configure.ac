@@ -97,6 +97,8 @@ AC_PROG_MAKE_SET
 AC_PROG_RANLIB
 AC_PROG_CPP
 AC_PROG_SED
+AC_CHECK_PROG(GPERF, gperf, gperf)
+AS_IF([test -z "$GPERF"], [AC_MSG_ERROR([gperf not found!])])
 AC_USE_SYSTEM_EXTENSIONS
 PKG_PROG_PKG_CONFIG
 LT_INIT
@@ -117,8 +119,8 @@ fi
 # ********** check for libraries **********
 # clock_gettime
 AC_CHECK_LIB([rt], [clock_gettime], , AC_MSG_ERROR([clock_gettime not found!]))
-# check for boost 1.49.0
-AX_BOOST_BASE([1.49.0], , [AC_MSG_ERROR([Boost library not found!])])
+# check for boost 1.46.0
+AX_BOOST_BASE([1.46.0], , [AC_MSG_ERROR([Boost library not found!])])
 # check for boost-regex
 AX_BOOST_REGEX
 # check for boost-system
