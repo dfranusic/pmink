@@ -119,8 +119,8 @@ fi
 # ********** check for libraries **********
 # clock_gettime
 AC_CHECK_LIB([rt], [clock_gettime], , AC_MSG_ERROR([clock_gettime not found!]))
-# check for boost 1.46.0
-AX_BOOST_BASE([1.46.0], , [AC_MSG_ERROR([Boost library not found!])])
+# check for boost 1.47.0
+AX_BOOST_BASE([1.47.0], , [AC_MSG_ERROR([Boost library not found!])])
 # check for boost-regex
 AX_BOOST_REGEX
 # check for boost-system
