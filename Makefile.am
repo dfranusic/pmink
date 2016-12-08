@@ -105,85 +105,87 @@ CHANGELOG:
 
 
 # pMINK convenience libraries
-noinst_LIBRARIES = libpmutils.a \
-		   libpmnet.a \
-		   libantlrutils.a \
-		   libpmdaemon.a \
-		   libpmconfig.a \
-		   libr14putils.a \
-		   libr14pstats.a \
-		   libpmcli.a \
-		   libpmdb.a \
-		   librrp.a \
-		   libtcpip.a \
-		   libgsm.a
+noinst_LTLIBRARIES = libpmutils.la \
+		     libpmnet.la \
+		     libpmconfig.la \
+		     libantlrutils.la \
+		     libpmdaemon.la \
+		     libr14putils.la \
+		     libr14pstats.la \
+		     libpmcli.la \
+		     libpmdb.la \
+		     librrp.la \
+		     libtcpip.la \
+		     libgsm.la
+
 
 # m3ua, sccp, smstpdu, smpp, tcap,  gsm map
-libgsm_a_SOURCES = src/smstpdu/smstpdu.cpp \
-		   src/m3ua/m3ua.cpp \
-		   src/sccp/sccp.cpp \
-		   src/smpp/smpp.cpp \
-		   src/asn1/itu_tcap/itu_tcap.cpp \
-		   src/asn1/tcap_dialogue/DialoguePDUs.cpp \
-		   src/asn1/gsm_map/GSMMAP.cpp \
-		   src/asn1/gsm_map/MAP-BS-Code.cpp \
-		   src/asn1/gsm_map/MAP-CH-DataTypes.cpp \
-		   src/asn1/gsm_map/MAP-CommonDataTypes.cpp \
-		   src/asn1/gsm_map/MAP-ER-DataTypes.cpp \
-		   src/asn1/gsm_map/MAP-ExtensionDataTypes.cpp \
-		   src/asn1/gsm_map/MAP-MS-DataTypes.cpp \
-		   src/asn1/gsm_map/MAP-OM-DataTypes.cpp \
-		   src/asn1/gsm_map/MAP-SM-DataTypes.cpp \
-		   src/asn1/gsm_map/MAP-SS-Code.cpp \
-		   src/asn1/gsm_map/MAP-SS-DataTypes.cpp \
-		   src/asn1/gsm_map/MAP-TS-Code.cpp
-		   
-libgsm_a_CPPFLAGS = $(COMMON_INCLUDES)
+libgsm_la_SOURCES = src/smstpdu/smstpdu.cpp \
+		    src/m3ua/m3ua.cpp \
+		    src/sccp/sccp.cpp \
+		    src/smpp/smpp.cpp \
+		    src/asn1/itu_tcap/itu_tcap.cpp \
+		    src/asn1/tcap_dialogue/DialoguePDUs.cpp \
+		    src/asn1/gsm_map/GSMMAP.cpp \
+		    src/asn1/gsm_map/MAP-BS-Code.cpp \
+		    src/asn1/gsm_map/MAP-CH-DataTypes.cpp \
+		    src/asn1/gsm_map/MAP-CommonDataTypes.cpp \
+		    src/asn1/gsm_map/MAP-ER-DataTypes.cpp \
+		    src/asn1/gsm_map/MAP-ExtensionDataTypes.cpp \
+		    src/asn1/gsm_map/MAP-MS-DataTypes.cpp \
+		    src/asn1/gsm_map/MAP-OM-DataTypes.cpp \
+		    src/asn1/gsm_map/MAP-SM-DataTypes.cpp \
+		    src/asn1/gsm_map/MAP-SS-Code.cpp \
+		    src/asn1/gsm_map/MAP-SS-DataTypes.cpp \
+		    src/asn1/gsm_map/MAP-TS-Code.cpp
+
+libgsm_la_CPPFLAGS = $(COMMON_INCLUDES)
 
 # tcp ip
-libtcpip_a_SOURCES = src/tcp_ip/tcp_ip.cpp
-libtcpip_a_CPPFLAGS = $(COMMON_INCLUDES)
+libtcpip_la_SOURCES = src/tcp_ip/tcp_ip.cpp
+libtcpip_la_CPPFLAGS = $(COMMON_INCLUDES)
 
 # rrp
-librrp_a_SOURCES = src/routing_rating/rrp.cpp \
-		   src/routing_rating/rrp_events.cpp
-librrp_a_CPPFLAGS = $(COMMON_INCLUDES)	
+librrp_la_SOURCES = src/routing_rating/rrp.cpp \
+                    src/routing_rating/rrp_events.cpp
+librrp_la_CPPFLAGS = $(COMMON_INCLUDES)	
 
 # db
-libpmdb_a_SOURCES = src/db/pmdb.cpp
-libpmdb_a_CPPFLAGS = $(COMMON_INCLUDES)
+libpmdb_la_SOURCES = src/db/pmdb.cpp
+libpmdb_la_CPPFLAGS = $(COMMON_INCLUDES)
 
 # pmink_net
-libpmnet_a_SOURCES = src/utils/pmink_net.cpp
-libpmnet_a_CPPFLAGS = $(COMMON_INCLUDES)
+libpmnet_la_SOURCES = src/utils/pmink_net.cpp
+libpmnet_la_CPPFLAGS = $(COMMON_INCLUDES)
 
 # pmink_utils
-libpmutils_a_SOURCES = src/utils/pmink_utils.cpp
-libpmutils_a_CPPFLAGS = $(COMMON_INCLUDES)
+libpmutils_la_SOURCES = src/utils/pmink_utils.cpp
+libpmutils_la_CPPFLAGS = $(COMMON_INCLUDES)
 
 # antlr_utils
-libantlrutils_a_SOURCES = src/utils/antlr_utils.cpp
-libantlrutils_a_CPPFLAGS = $(COMMON_INCLUDES) \
-			   $(ANTLR_FLAGS)# pmink daemon
-libpmdaemon_a_SOURCES = src/daemon/daemon.cpp
-libpmdaemon_a_CPPFLAGS = $(COMMON_INCLUDES)
+libantlrutils_la_SOURCES = src/utils/antlr_utils.cpp
+libantlrutils_la_CPPFLAGS = $(COMMON_INCLUDES) \
+	  		    $(ANTLR_FLAGS)# pmink daemon
+libpmdaemon_la_SOURCES = src/daemon/daemon.cpp
+libpmdaemon_la_CPPFLAGS = $(COMMON_INCLUDES)
 
 # pmink config
-libpmconfig_a_SOURCES = src/config/config.cpp \
-			src/config/config_r14p.cpp
-libpmconfig_a_CPPFLAGS = $(COMMON_INCLUDES) \
-			 $(ANTLR_FLAGS)
+libpmconfig_la_SOURCES = src/config/config.cpp \
+			 src/config/config_r14p.cpp
+libpmconfig_la_CPPFLAGS = $(COMMON_INCLUDES) \
+			  $(ANTLR_FLAGS)
+
 # r14p utils
-libr14putils_a_SOURCES = src/r14p/r14p_utils.cpp
-libr14putils_a_CPPFLAGS = $(COMMON_INCLUDES)
+libr14putils_la_SOURCES = src/r14p/r14p_utils.cpp
+libr14putils_la_CPPFLAGS = $(COMMON_INCLUDES)
 
 # cli
-libpmcli_a_SOURCES = src/cli/cli.cpp
-libpmcli_a_CPPFLAGS = $(COMMON_INCLUDES) \
-		      $(ANTLR_FLAGS)
+libpmcli_la_SOURCES = src/cli/cli.cpp
+libpmcli_la_CPPFLAGS = $(COMMON_INCLUDES) \
+		       $(ANTLR_FLAGS)
 # r14p stats
-libr14pstats_a_SOURCES = src/stats/r14p_stats.cpp
-libr14pstats_a_CPPFLAGS = $(COMMON_INCLUDES)
+libr14pstats_la_SOURCES = src/stats/r14p_stats.cpp
+libr14pstats_la_CPPFLAGS = $(COMMON_INCLUDES)
 
 
 # pMINK libraries and plugins
@@ -213,6 +215,7 @@ pm_plg_cli_cfg_la_LDFLAGS = -version-info 1:0:0 \
 pm_plg_cli_cfg_la_LIBADD = $(BOOST_LDLIBS) \
 			   $(NCURSES_LIBS) \
 			   libr14p.la \
+			   libpmconfig.la \
 			   -ldl
 
 
@@ -275,14 +278,14 @@ pmink_test_CPPFLAGS = $(FGN_CPP14_FLAGS) \
 pmink_test_LDADD = $(BOOST_LDLIBS) \
 		   $(NCURSES_LIBS) \
 		   libr14p.la \
-		   libpmdaemon.a \
-		   libpmconfig.a \
-		   libpmutils.a \
-		   libantlrutils.a \
-		   libpmcli.a \
-		   libr14pstats.a \
-		   libr14putils.a \
-		   librrp.a \
+		   libpmdaemon.la \
+		   libpmconfig.la \
+		   libpmutils.la \
+		   libantlrutils.la \
+		   libpmcli.la \
+		   libr14pstats.la \
+		   libr14putils.la \
+		   librrp.la \
 		   libpmcfg.la \
 		   -ldl \
 		   $(ANTLR_LDLIBS) \
@@ -329,19 +332,19 @@ pdnd_CPPFLAGS = $(COMMON_INCLUDES) \
 		$(ICU_CPPFLAGS)
 
 pdnd_LDADD = $(BOOST_LDLIBS) \
-	    $(NCURSES_LIBS) \
-	    libr14p.la \
-	    libpmutils.a \
-	    libpmdaemon.a \
-	    libr14putils.a \
-	    libpmcli.a \
-	    libpmconfig.a \
-	    libantlrutils.a \
-	    libr14pstats.a \
-	    libpmcfg.la \
-	    -ldl \
-	    $(ANTLR_LDLIBS) \
-	    $(ICU_LIBS)
+	     $(NCURSES_LIBS) \
+	     libr14p.la \
+	     libpmutils.la \
+	     libpmdaemon.la \
+	     libr14putils.la \
+	     libpmcli.la \
+	     libpmconfig.la \
+	     libantlrutils.la \
+	     libr14pstats.la \
+	     libpmcfg.la \
+	     -ldl \
+	     $(ANTLR_LDLIBS) \
+	     $(ICU_LIBS)
 
 
 
@@ -363,19 +366,19 @@ stpd_CPPFLAGS = $(COMMON_INCLUDES) \
 		$(ICU_CPPFLAGS)
 	
 stpd_LDADD = $(BOOST_LDLIBS) \
-	    $(NCURSES_LIBS) \
-	    libr14p.la \
-	    libpmutils.a \
-	    libpmdaemon.a \
-	    libr14putils.a \
-	    libpmcli.a \
-	    libpmconfig.a \
-	    libantlrutils.a \
-	    libr14pstats.a \
-	    libpmcfg.la \
-	    -ldl \
-	    $(ANTLR_LDLIBS) \
-	    $(ICU_LIBS)
+	     $(NCURSES_LIBS) \
+	     libr14p.la \
+	     libpmutils.la \
+	     libpmdaemon.la \
+	     libr14putils.la \
+	     libpmcli.la \
+	     libpmconfig.la \
+	     libantlrutils.la \
+	     libr14pstats.la \
+	     libpmcfg.la \
+	     -ldl \
+	     $(ANTLR_LDLIBS) \
+	     $(ICU_LIBS)
 
 
 #+---------------------------------+
@@ -397,14 +400,14 @@ drd_CPPFLAGS = $(COMMON_INCLUDES) \
 drd_LDADD = $(BOOST_LDLIBS) \
 	    $(NCURSES_LIBS) \
 	    libr14p.la \
-	    libpmutils.a \
-	    libpmdaemon.a \
-	    libr14putils.a \
-	    libpmcli.a \
-	    libpmconfig.a \
-	    libantlrutils.a \
-	    libr14pstats.a \
-	    libpmdb.a \
+	    libpmutils.la \
+	    libpmdaemon.la \
+	    libr14putils.la \
+	    libpmcli.la \
+	    libpmconfig.la \
+	    libantlrutils.la \
+	    libr14pstats.la \
+	    libpmdb.la \
 	    libpmcfg.la \
 	    -ldl \
 	    $(ANTLR_LDLIBS) \
@@ -435,16 +438,16 @@ sgnd_CPPFLAGS = $(COMMON_INCLUDES) \
 sgnd_LDADD = $(BOOST_LDLIBS) \
 	     $(NCURSES_LIBS) \
 	     libr14p.la \
-	     libpmutils.a \
-	     libpmnet.a \
-	     libpmdaemon.a \
-	     libr14putils.a \
-	     libpmcli.a \
-	     libpmconfig.a \
-	     libantlrutils.a \
-	     libgsm.a \
-	     libr14pstats.a \
-	     libtcpip.a \
+	     libpmutils.la \
+	     libpmnet.la \
+	     libpmdaemon.la \
+	     libr14putils.la \
+	     libpmcli.la \
+	     libpmconfig.la \
+	     libantlrutils.la \
+	     libgsm.la \
+	     libr14pstats.la \
+	     libtcpip.la \
 	     libpmcfg.la \
 	     libpmpcap.la \
 	     -ldl \
@@ -468,9 +471,9 @@ configdc_CPPFLAGS = $(COMMON_INCLUDES) \
 configdc_LDADD = $(BOOST_LDLIBS) \
 		 $(NCURSES_LIBS) \
 		 libr14p.la \
-		 libpmconfig.a \
-		 libpmdaemon.a \
-		 libpmutils.a \
+		 libpmconfig.la \
+		 libpmdaemon.la \
+		 libpmutils.la \
 		 libpmcfg.la \
 		 -ldl \
 		 $(ANTLR_LDLIBS)
@@ -495,12 +498,12 @@ routingd_CPPFLAGS = $(COMMON_INCLUDES) \
 routingd_LDADD = $(BOOST_LDLIBS) \
 		 $(NCURSES_LIBS) \
 		 libr14p.la \
-		 libpmutils.a \
-		 libpmdaemon.a \
-		 libpmconfig.a \
-		 libantlrutils.a \
-		 libpmcli.a \
-		 libr14pstats.a \
+		 libpmutils.la \
+		 libpmdaemon.la \
+		 libpmconfig.la \
+		 libantlrutils.la \
+		 libpmcli.la \
+		 libr14pstats.la \
 		 libpmcfg.la \
 		 -ldl \
 		 $(ANTLR_LDLIBS)
@@ -537,10 +540,10 @@ cli_service_CXXFLAGS = -rdynamic
 cli_service_LDADD = $(BOOST_LDLIBS) \
 		    $(NCURSES_LIBS) \
 		    libr14p.la \
-		    libpmcli.a \
-		    libpmutils.a \
-		    libantlrutils.a \
-		    libpmconfig.a \
+		    libpmcli.la \
+		    libpmutils.la \
+		    libantlrutils.la \
+		    libpmconfig.la \
 		    libpmcfg.la \
 		    -ldl \
 		    $(ANTLR_LDLIBS)
@@ -560,7 +563,7 @@ r14ptrapc_CPPFLAGS = $(COMMON_INCLUDES) \
 r14ptrapc_LDADD = $(BOOST_LDLIBS) \
 		  $(NCURSES_LIBS) \
 		  libr14p.la \
-		  libpmutils.a \
+		  libpmutils.la \
 		  -ldl \
 		  $(ANTLR_LDLIBS)
 
@@ -581,11 +584,11 @@ configd_CPPFLAGS = $(COMMON_INCLUDES) \
 configd_LDADD = $(BOOST_LDLIBS) \
 		$(NCURSES_LIBS) \
 		libr14p.la \
-		libpmutils.a \
-		libantlrutils.a \
-		libpmconfig.a \
-		libpmcli.a \
-		libpmdaemon.a \
+		libpmutils.la \
+		libantlrutils.la \
+		libpmconfig.la \
+		libpmcli.la \
+		libpmdaemon.la \
 		libpmcfg.la \
 		-ldl \
 		$(ANTLR_LDLIBS)
@@ -606,14 +609,14 @@ fgnd_CXXFLAGS = $(GCC_CPP14_FLAGS) -rdynamic
 fgnd_LDADD = $(BOOST_LDLIBS) \
 	     $(NCURSES_LIBS) \
 	     libr14p.la \
-	     libpmdaemon.a \
-	     libpmconfig.a \
-	     libpmutils.a \
-	     libantlrutils.a \
-	     libpmcli.a \
-	     libr14pstats.a \
-	     libr14putils.a \
-	     librrp.a \
+	     libpmdaemon.la \
+	     libpmconfig.la \
+	     libpmutils.la \
+	     libantlrutils.la \
+	     libpmcli.la \
+	     libr14pstats.la \
+	     libr14putils.la \
+	     librrp.la \
 	     libpmcfg.la \
 	     -ldl \
 	     $(LUAJIT_LIBS) \
