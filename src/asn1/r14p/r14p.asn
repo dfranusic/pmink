@@ -478,7 +478,7 @@ SmsHubCommandId ::= INTEGER {
 PdCommandId ::= INTEGER {
 	pdci-add		(1),	-- add item to list
 	pdci-del		(2),	-- delete item from list
-	pdci-match		(3),	-- math item in list
+	pdci-match		(3)	-- math item in list
 }
 -- ==================
 -- Filter Result Type
@@ -807,11 +807,11 @@ ParameterType ::= INTEGER {
 	pt-smpp-dlvr-rcpt-err					(140), -- smpp delivery receipt error
 	pt-smpp-dlvr-rcpt-text					(141), -- smpp delivery receipt text msg (first 20 characters)
 	pt-smpp-message-id					(142), -- smpp message id
-	pt-smpp-command-status					(143)  -- smpp command status
+	pt-smpp-command-status					(143), -- smpp command status
 	pt-smpp-default-customer-encoding			(144), -- smpp default customer encoding
 	pt-smpp-default-vendor-encoding				(145), -- smpp default vendor encoding
 	pt-smpp-connection-id					(146), -- smpp connection id
-	pt-smpp-dlvr-rcpt-format				(147), -- smpp delivery receipt format
+	pt-smpp-dlvr-rcpt-format				(147)  -- smpp delivery receipt format
 
 }
 
