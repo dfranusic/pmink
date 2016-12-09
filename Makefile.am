@@ -85,6 +85,7 @@ COMMON_INCLUDES = -Isrc/pool \
 # pMINK directories
 confdir = $(sysconfdir)/pmink
 luadir = $(pkgdatadir)/lua
+dbdir = $(pkgdatadir)/db
 
 # pMINK data
 conf_DATA = src/config/pmink_def.pmcfg \
@@ -92,6 +93,7 @@ conf_DATA = src/config/pmink_def.pmcfg \
 lua_DATA = src/lua/pmink.lua
 doc_DATA = doc/smsf.pdf
 nodist_pkgdata_DATA = VERSION CHANGELOG
+db_DATA = scripts/db/pmink_db.sql
 
 # pMINK git generated files
 BUILT_SOURCES = VERSION CHANGELOG
