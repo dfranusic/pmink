@@ -604,7 +604,7 @@ daemons (e.g. STP and FGN) to focus on implementation of logic, and not data for
 - PCAP - Passive packet capture (M3UA and SMPP)
   - both libpcap and [PF_RING](http://github.com/ntop/PF\_RING) are supported (``--with-pfring`` configure flag)
 
-###### User data protocols currently supported and decoded:
+###### User data protocols currently supported:
 - [SCCP](https://en.wikipedia.org/wiki/Signalling_Connection_Control_Part) - Signalling Connection Control Part
   - Unitdata (UDT) and Extended Unitdata (XUDT)
 - [TCAP](https://en.wikipedia.org/wiki/Transaction_Capabilities_Application_Part) - Transaction Capabilities Application Part
