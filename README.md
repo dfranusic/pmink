@@ -14,7 +14,7 @@
   - [**asn1c**](#asn1-c-compiler) - ASN.1 c++ compiler                                                                                 
 
 - Mobile Network Operator components
-  - **sgnd** - Signalling Gateway Node daemon
+  - [**sgnd**](#signalling-gateway-node-daemon) - Signalling Gateway Node daemon
   - **stpd** - Signal Transfer Point daemon                                                                        
   - **drd** - Data Retention daemon                                                                               
   - [**fgnd**](#filtering-gateway-node-daemon) - Filtering Gateway Node daemon                                                                       
@@ -580,6 +580,60 @@ Filtering Gateway Node is a versatile rule based packet filtering system current
 - FGN documentation is distributed separately due to its complexity and size; user manual can be found 
 here: [**smsf.pdf**](http://github.com/dfranusic/pmink/blob/master/doc/smsf.pdf)
 
+### Signalling Gateway Node daemon
+---
+Project MINK's implementation of [Signal Transfer Point (STP)](https://en.wikipedia.org/wiki/Signal_Transfer_Point) 
+deviates from a standard STP blueprint in which a single software process is used for both connection handling and routing.
+
+Signalling Gateway Node (SGN) and Signal Transfer Point (STP) included in pMINK framework utilize a different approach; 
+the former is responsible for connection management (sockets and state machines), while the latter specializes in data
+routing and translations.
+
+There are two types of signalling categories available in pMINK; **internal** and **external**. External signalling is 
+context dependant and can vary greatly; pMINK platform uses **SGN** as the main data entry point and signalling converter.
+After successful conversion, external signalling is classified as internal signalling and transferred freely between 
+various nodes using context free **R14P** protocol.
+
+This type of approach creates a layer of abstraction around various external signalling protocols, and allows pMINK user
+daemons (e.g. STP and FGN) to focus on implementation of logic, and not data formats and conversions.
+
+
+###### The following types of connections are currently implemented in SGN:
+- [M3UA](http://en.wikipedia.org/wiki/M3UA) - MTP Level 3 (MTP3) User Adaptation Layer
+- [SMPP](http://en.wikipedia.org/wiki/Short_Message_Peer-to-Peer) - Short Message Peer-to-Peer         
+- PCAP - Passive packet capture (M3UA and SMPP)
+  - both libpcap and [PF_RING](http://github.com/ntop/PF\_RING) are supported (``--with-pfring`` configure flag)
+
+###### User data protocols currently supported and decoded:
+- [SCCP](https://en.wikipedia.org/wiki/Signalling_Connection_Control_Part) - Signalling Connection Control Part
+  - Unitdata (UDT) and Extended Unitdata (XUDT)
+- [TCAP](https://en.wikipedia.org/wiki/Transaction_Capabilities_Application_Part) - Transaction Capabilities Application Part
+- [GSM MAP 3GPP TS 29.002](https://en.wikipedia.org/wiki/Mobile_Application_Part) - GSM Mobile Application Part
+  - Supported application contexts:
+    - 0.4.0.0.1.0.25.3 - shortMsgMT-RelayContext-v3
+    - 0.4.0.0.1.0.25.2 - shortMsgMT-RelayContext-v2
+    - 0.4.0.0.1.0.20.3 - shortMsgGatewayContext-v3
+    - 0.4.0.0.1.0.20.2 - shortMsgGatewayContext-v2
+    - 0.4.0.0.1.0.20.1 - shortMsgGatewayContext-v1
+    - 0.4.0.0.1.0.21.3 - shortMsgMO-RelayContext-v3
+    - 0.4.0.0.1.0.21.2 - shortMsgMO-RelayContext-v2
+    - 0.4.0.0.1.0.21.1 - shortMsgRelayContext-v1
+  - Supported opcodes:
+    - 44 - mt-forward-SM
+    - 46 - mo-forward-SM
+    - 45 - sendRoutingInfoForSM
+- [SMS TPDU 3GPP TS 23.040](https://en.wikipedia.org/wiki/GSM_03.40)
+- [SMPP v3.4](http://en.wikipedia.org/wiki/Short_Message_Peer-to-Peer) - Short Message Peer-to-Peer 
+
+###### M3UA notes:
+Definition from Wikipedia:
+
+>M3UA stands for MTP Level 3 (MTP3) User Adaptation Layer as defined by the IETF SIGTRAN working group in RFC 4666
+(which replaces and supersedes RFC 3332). M3UA enables the SS7 protocol's User Parts (e.g. ISUP, SCCP and TUP) to
+run over IP instead of telephony equipment like ISDN and PSTN. It is recommended to use the services of SCTP to transmit M3UA.
+
+- Signalling Gateway Node (SGN) supports M3UA carried by SCTP; user part of M3UA indicated by **Service Indicator** is 
+currently limited to SCCP (**SI = 3**)
 
 ### License
 ----
