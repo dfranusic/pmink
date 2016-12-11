@@ -635,6 +635,137 @@ run over IP instead of telephony equipment like ISDN and PSTN. It is recommended
 - Signalling Gateway Node (SGN) supports M3UA carried by SCTP; user part of M3UA indicated by **Service Indicator** is 
 currently limited to SCCP (**SI = 3**)
 
+###### Connection configuration
+SGN connection configuration is organized using M3UA principles and terminology; 
+[Application Server Process (ASP)](https://tools.ietf.org/html/rfc3332#section-1.2) and
+[Application Server (AS)](https://tools.ietf.org/html/rfc3332#section-1.2) are used for both SMPP and M3UA configuration.
+
+AS Definition from M3UA RFC:
+>Application Server (AS) - A logical entity serving a specific Routing
+Key.  An example of an Application Server is a virtual switch element
+handling all call processing for a unique range of PSTN trunks,
+identified by an SS7 SIO/DPC/OPC/CIC_range.  Another example is a
+virtual database element, handling all HLR transactions for a
+particular SS7 DPC/OPC/SCCP_SSN combination.  The AS contains a set
+of one or more unique Application Server Processes, of which one or
+more is normally actively processing traffic.  Note that there is a
+1:1 relationship between an AS and a Routing Key.
+
+
+ASP Definition from M3UA RFC:
+>Application Server Process (ASP) - A process instance of an
+Application Server. An Application Server Process serves as an active
+or backup process of an Application Server (e.g., part of a
+distributed virtual switch or database).  Examples of ASPs are
+processes (or process instances) of MGCs, IP SCPs or IP HLRs.  An ASP
+contains an SCTP endpoint and may be configured to process signalling
+traffic within more than one Application Server.
+
+#### M3UA Connection
+##### ASP/AS configuration example
+The following configuration excerpts show a simple **1 AS with 1 ASP** setup; ASP **TEST-ASP-01**
+is assigned a **192.168.0.10:2906** local ip/port combination, and is connected to a **192.168.0.100:2906**
+remote peer. SCTP timers in this example are also defined explicitly, and M3UA **opc/dpc** is set to
+**1234/5678**.
+
+Each Application Server Process has to be assigned to one or more Application Servers; in this example,
+we have created an ASP named **TEST-ASP-01** and an AS named **TEST-AS-01**. The second step needed to 
+properly activate an ASP, is to add it to the Application Server's list of active Application Server Processes.
+
+###### ASP configuration subset (mno/sgn/sgn-test-01/m3ua/asp)
+```c
+TEST-ASP-01 {
+  sctp {
+    local {
+      ip1  "192.168.0.10"
+      port "2906"
+    }     
+    remote {
+      ip1  "192.168.0.100"
+      port "2906"
+    }     
+    timers {
+      hb-interval         "3000"
+      max-init-retransmit "8"
+      path-max-retrans    "5"   
+      rto-initial         "100" 
+      rto-max             "500" 
+      rto-min             "150" 
+      sack-timeout        "0"   
+      sack-freq           "1"   
+      valid-cookie-life   "60000"
+    }     
+  }     
+  m3ua {
+    opc   "1234"
+    dpc   "5678"
+    hbeat "1000"
+  }     
+  mode        "0"   
+  shutdown    "1"   
+  description "Testing ASP TEST-ASP-01"
+} 
+```
+
+###### AS configuration subset (mno/sgn/sgn-test-01/m3ua/as)
+```c
+TEST-AS-01 {
+  asp {
+    TEST-ASP-01 {
+      active "1"
+    }
+  }
+  routing-key {
+    routing-context "111"
+  }
+  traffic-mode {
+    type "2"
+  }
+  description "Testing AS TEST-AS-01"
+}
+```
+
+###### Step by step ASP/AS activation process using the [pMINK CLI](#cli-client-shell):
+1. Create new ASP named **TEST-ASP-01** on an SGN node named **sgn-test-01**
+   - set a new root node for easier editing: `edit mno sgn sgn-test-01 m3ua asp`
+   - create ASP and set connection parameters:
+
+     ```c
+     set TEST-ASP-01 sctp local ip1 192.168.0.10
+     set TEST-ASP-01 sctp local port 2906
+     set TEST-ASP-01 sctp remote ip1 192.168.0.100
+     set TEST-ASP-01 sctp remote port 2906
+     set TEST-ASP-01 sctp timers hb-interval 3000
+     set TEST-ASP-01 sctp timers max-init-retransmit 8
+     set TEST-ASP-01 sctp timers path-max-retrans 5
+     set TEST-ASP-01 sctp timers rto-initial 100
+     set TEST-ASP-01 sctp timers rto-max 500
+     set TEST-ASP-01 sctp timers rto-min 150
+     set TEST-ASP-01 sctp timers sack-timeout 0
+     set TEST-ASP-01 sctp timers sack-freq 1
+     set TEST-ASP-01 sctp timers valid-cookie-life 60000
+     set TEST-ASP-01 m3ua opc 1234
+     set TEST-ASP-01 m3ua dpc 5678
+     set TEST-ASP-01 m3ua hbeat 1000
+     set TEST-ASP-01 mode 0
+     set TEST-ASP-01 shutdown 1
+     set TEST-ASP-01 description "Testing ASP TEST-ASP-01"
+     ```
+  - commit changes: `commit`
+2. Create new AS names **TEST-AS-01** on an SGN node names **sgn-test-01**
+  - set a new root node for easier editing: `edit mno sgn sgn-test-01 m3ua as`
+  - create AS, set parameters and link it with ASP:
+
+    ```c
+    set TEST-AS-01 asp TEST-AS-01 active 1
+    set TEST-AS-01 routing-key routing-context 111
+    set TEST-AS-01 traffic-mode type 2
+    set TEST-AS-01 description "Testing AS TEST-AS-01"
+
+    ```
+  - commit changes: `commit`
+
+
 ### License
 ----
 This software is licensed under the GPL v3 license
