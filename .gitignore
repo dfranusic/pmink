@@ -19,6 +19,7 @@ test-suite.log
 .ycm_extra_conf.pyc
 VERSION
 CHANGELOG
+/AUTHORS
 autom4te.cache
 /config.h
 /configure

@@ -92,18 +92,21 @@ conf_DATA = src/config/pmink_def.pmcfg \
 	    src/cli/cli_default.pmcfg
 lua_DATA = src/lua/pmink.lua
 doc_DATA = doc/smsf.pdf
-nodist_pkgdata_DATA = VERSION CHANGELOG
+nodist_pkgdata_DATA = VERSION CHANGELOG AUTHORS
 db_DATA = scripts/db/pmink_db.sql
 
 # pMINK git generated files
-BUILT_SOURCES = VERSION CHANGELOG
-CLEANFILES = VERSION CHANGELOG
+BUILT_SOURCES = VERSION CHANGELOG AUTHORS
+CLEANFILES = VERSION CHANGELOG AUTHORS
 VERSION:
 	./version.sh
 	echo "Configured with: $(CONFIG_FLAGS)" >> VERSION
 
 CHANGELOG:
 	./changelog.sh
+
+AUTHORS:
+	./authors.sh
 
 
 # pMINK convenience libraries
