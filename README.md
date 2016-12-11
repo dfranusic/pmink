@@ -16,7 +16,7 @@
 - Mobile Network Operator components
   - [**sgnd**](#signalling-gateway-node-daemon) - Signalling Gateway Node daemon
   - **stpd** - Signal Transfer Point daemon                                                                        
-  - **drd** - Data Retention daemon                                                                               
+  - [**drd**](#data-retention-daemon) - Data Retention daemon                                                                               
   - [**fgnd**](#filtering-gateway-node-daemon) - Filtering Gateway Node daemon                                                                       
   - **pdnd** - Pattern Detection Node daemon
 
@@ -844,6 +844,103 @@ TEST-SMPP-AS-01 {
     ```
   - commit changes: `commit`
 
+### Data Retention daemon
+---
+Project MINK offers **two** solutions for passive traffic monitoring; **Data Retention daemon (DRD)**
+and **Signalling Gateway Node (SGN)**. Although they both provide a useful set of features when it
+comes to passive monitoring, there are some major differences to consider:
+
+- SGN supports both SIGTRAN and SMPP; DRD is, for the moment, limited to SIGTRAN 
+- SGN send passive data to STP; additional rule based routing is required on STP in order to 
+  forward the data to some other user daemon responsible for data storage
+- SGN uses libpcap or PF_RING to capture data; DRD can only receive data via R14P (e.g. from SGN)
+- DRD was designed for passive SMS TPDU 3GPP TS 23.04 and SRI-for-SM monitoring
+- DRD was designed to work with SGN when M3UA ASPs are used for receiving a **copy of live traffic**; this
+  feature is provided by some 3d party STPs and is usually used for debugging
+- DRD uses [MySQL](http://www.mysql.com) database for data storage
+- DRD implements various levels of data correlation and tracking (TCAP, GSM MAP, SCCP); it
+  is perfect for [Qos](https://en.wikipedia.org/wiki/Quality_of_service) monitoring
+
+##### Data Retention daemon (DRD) data fields for SMS:
+
+```bash
++------------------------------------------------------------------------+
+| Field name            | Field value                                    |
++------------------------------------------------------------------------+
+| DirectionId           | MO, MT                                         |
+| SmsSizeTypeId         | SINGLE, CONCATENATED                           |
+| SmsStatusId           | OK, Error                                      |
+| CalledGt              | SCCP Called Party GT                           |
+| CallingGt             | SCCP Calling Party GT                          |
+| Scda                  | GSM MAP Service Centre Destination address     |
+| Scoa                  | GSM MAP Service Centre Originating address     |
+| Imsi                  | GSM MAP IMSI                                   |
+| Msisdn                | GSM MAP MSISDN                                 |
+| SmsDestination        | SMS TPDU TP-Destination-Address                |
+| SmsOriginating        | SMS TPDU TP-Originating-Address                |
+| SmsText               | SMS TPDU TP-User-Data                          |
+| SmsTextEncId          | GSM 7bit, 8bit, UCS2                           |
+| SmsDestinationEncId   | SMS TPDU TP-Destination-Address Type-Of-Number |
+| SmsOriginatingEncId   | SMS TPDU TP-Originating-Address Type-Of-Number |
+| DestinationPointCode  | M3UA DPC                                       |
+| OriginatingPointCode  | M3UA OPC                                       |
+| TcapSid               | TCAP Source Transaction ID                     |
+| TcapDid               | TCAP Destination Transaction ID                |
+| AppCtxOid             | TCAP Dialogue application context OID          |
+| SmsPartnum            | CONCATENATED SMS Part number                   |
+| SmsParts              | CONCATENATED SMS Total parts                   |
+| SmsMessageId          | CONCATENATED SMS Message ID                    |
+| ErrorTypeId           | Error type                                     |
+| ErrorCode             | Error code                                     |
++------------------------------------------------------------------------+
+```
+
+###### Data Retention daemon (DRD) data fields for SRI-for-SM:
+
+```bash
++--------------------------------------------------------------+
+| Field name           | Field value                           |
++--------------------------------------------------------------+
+| OriginatingPointCode | M3UA OPC                              |
+| DestinationPointCode | M3UA DPC                              |
+| CalledGt             | SCCP Called Party GT                  |
+| CallingGt            | SCCP Calling Party GT                 |
+| TcapSid              | TCAP Source Transaction ID            |
+| TcapDid              | TCAP Destination Transaction ID       |
+| AppCtxOid            | TCAP Dialogue application context OID |
+| Imsi                 | GSM MAP IMSI                          |
+| Msisdn               | GSM MAP MSISDN                        |
+| Nnn                  | GSM MAP Network Node Number           |
+| An                   | GSM MAP Additional Number             |
+| Sca                  | GSM MAP Service Centre Address        |
+| ErrorTypeId          | Error type                            |
+| ErrorCode            | Error code                            |
++--------------------------------------------------------------+
+```
+            
+Data Retention daemon (DRD) offers detailed error tracking for **SMS TPDU 3GPP TS 23.04** and **SRI-for-SM**;
+the following error types are available:
+
+```bash
++--------------------------------------------+
+| Error type                                 |
++--------------------------------------------+
+| TCAP Component error national              |
+| TCAP Component error private               |
+| TCAP P-Abort error                         |
+| TCAP Dialogue error user                   |
+| TCAP Dialogue error service provider       |
+| TCAP Component Reject-General problem      |
+| TCAP Component Reject-Invoke problem       |
+| TCAP Component Reject-ReturnResult problem |
+| TCAP Component Reject-ReturnError problem  |
+| GSM MAP Error                              |
+| No reply                                   |
+| SMPP Error                                 |
+| SCCP Error                                 |
+| Unknown error                              |
++--------------------------------------------+
+```
 
 
 
