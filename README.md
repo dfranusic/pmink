@@ -752,18 +752,100 @@ TEST-AS-01 {
      set TEST-ASP-01 description "Testing ASP TEST-ASP-01"
      ```
   - commit changes: `commit`
-2. Create new AS names **TEST-AS-01** on an SGN node names **sgn-test-01**
+2. Create new AS named **TEST-AS-01** on an SGN node named **sgn-test-01**
   - set a new root node for easier editing: `edit mno sgn sgn-test-01 m3ua as`
   - create AS, set parameters and link it with ASP:
 
     ```c
-    set TEST-AS-01 asp TEST-AS-01 active 1
+    set TEST-AS-01 asp TEST-ASP-01 active 1
     set TEST-AS-01 routing-key routing-context 111
     set TEST-AS-01 traffic-mode type 2
     set TEST-AS-01 description "Testing AS TEST-AS-01"
 
     ```
   - commit changes: `commit`
+
+#### SMPP Connection
+##### ASP/AS configuration example
+The following configuration excerpts show a simple **1 AS with 1 ASP** setup; ASP **TEST-SMPP-ASP-01**
+is assigned a **192.168.0.10:2775** local ip/port combination, and is connected to a **192.168.0.100:2775**
+remote peer. SMPP BIND method, username and password used in the following example, are respectively 
+**Bind_transceiver**, **testuser** and **12345678**.
+
+Each Application Server Process has to be assigned to one or more Application Servers; in this example,
+we have created an ASP named **TEST-SMPP-ASP-01** and an AS named **TEST-SMPP-AS-01**. The second step needed to 
+properly activate an ASP, is to add it to the Application Server's list of active Application Server Processes.
+
+###### ASP configuration subset (mno/sgn/sgn-test-01/smpp/asp)
+```c
+TEST-SMPP-ASP-01 {
+  tcp {
+    local {
+      ip   "192.168.0.10"
+      port "2775"
+    }
+    remote {
+      ip   "192.168.0.100"
+      port "2775"
+    }     
+  }     
+  smpp {
+    timers {
+      enquire_link_timer "10"
+    }
+    users {
+      testuser {
+        password "12345678"
+      }
+    }
+  }     
+  mode        "0"   
+  description "Testing ASP TEST-SMPP-ASP-01"
+} 
+```
+
+###### AS configuration subset (mno/sgn/sgn-test-01/smpp/as)
+```c
+TEST-SMPP-AS-01 {
+  asp {
+    TEST-SMPP-ASP-01 {
+      active "1"
+    }
+  }
+  description "Testing AS TEST-SMPP-AS-01"
+}
+```
+
+###### Step by step ASP/AS activation process using the [pMINK CLI](#cli-client-shell):
+1. Create new ASP named **TEST-SMPP-ASP-01** on an SGN node named **sgn-test-01**
+   - set a new root node for easier editing: `edit mno sgn sgn-test-01 smpp asp`
+   - create ASP and set connection parameters:
+
+     ```c
+     set TEST-SMPP-ASP-01 tcp local ip 192.168.0.10
+     set TEST-SMPP-ASP-01 tcp local port 2775
+     set TEST-SMPP-ASP-01 tcp remote ip 192.168.0.100
+     set TEST-SMPP-ASP-01 tcp remote port 2775
+     set TEST-SMPP-ASP-01 smpp bind_method 9
+     set TEST-SMPP-ASP-01 smpp timers enquire_link_timer 10
+     set TEST-SMPP-ASP-01 smpp users testuser password 12345678
+     set TEST-SMPP-ASP-01 mode 0
+     set TEST-SMPP-ASP-01 description "Testing ASP TEST-SMPP-ASP-01"
+     ```
+  - commit changes: `commit`
+2. Create new AS named **TEST-SMPP-AS-01** on an SGN node named **sgn-test-01**
+  - set a new root node for easier editing: `edit mno sgn sgn-test-01 smpp as`
+  - create AS, set parameters and link it with ASP:
+
+    ```c
+    set TEST-SMPP-AS-01 asp TEST-SMPP-ASP-01 active "1"
+    set TEST-SMPP-AS-01 description "Testing AS TEST-SMPP-AS-01"
+
+    ```
+  - commit changes: `commit`
+
+
+
 
 
 ### License
