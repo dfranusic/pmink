@@ -764,40 +764,42 @@ TEST-AS-01 {
 
 ###### Step by step ASP/AS activation process using the [pMINK CLI](#cli-client-shell):
 1. Create new ASP named **TEST-ASP-01** on an SGN node named **sgn-test-01**
-   - set a new root node for easier editing: `edit mno sgn sgn-test-01 m3ua asp`
-   - create ASP and set connection parameters:
+   - create a new empty ASP node: `set mno sgn sgn-test-01 m3ua asp TEST-ASP-01`
+   - set a new root node for easier editing: `edit mno sgn sgn-test-01 m3ua asp TEST-ASP-01`
+   - set ASP connection parameters:
 
      ```c
-     set TEST-ASP-01 sctp local ip1 192.168.0.10
-     set TEST-ASP-01 sctp local port 2906
-     set TEST-ASP-01 sctp remote ip1 192.168.0.100
-     set TEST-ASP-01 sctp remote port 2906
-     set TEST-ASP-01 sctp timers hb-interval 3000
-     set TEST-ASP-01 sctp timers max-init-retransmit 8
-     set TEST-ASP-01 sctp timers path-max-retrans 5
-     set TEST-ASP-01 sctp timers rto-initial 100
-     set TEST-ASP-01 sctp timers rto-max 500
-     set TEST-ASP-01 sctp timers rto-min 150
-     set TEST-ASP-01 sctp timers sack-timeout 0
-     set TEST-ASP-01 sctp timers sack-freq 1
-     set TEST-ASP-01 sctp timers valid-cookie-life 60000
-     set TEST-ASP-01 m3ua opc 1234
-     set TEST-ASP-01 m3ua dpc 5678
-     set TEST-ASP-01 m3ua hbeat 1000
-     set TEST-ASP-01 mode 0
-     set TEST-ASP-01 shutdown 1
-     set TEST-ASP-01 description "Testing ASP TEST-ASP-01"
+     set sctp local ip1 192.168.0.10
+     set sctp local port 2906
+     set sctp remote ip1 192.168.0.100
+     set sctp remote port 2906
+     set sctp timers hb-interval 3000
+     set sctp timers max-init-retransmit 8
+     set sctp timers path-max-retrans 5
+     set sctp timers rto-initial 100
+     set sctp timers rto-max 500
+     set sctp timers rto-min 150
+     set sctp timers sack-timeout 0
+     set sctp timers sack-freq 1
+     set sctp timers valid-cookie-life 60000
+     set m3ua opc 1234
+     set m3ua dpc 5678
+     set m3ua hbeat 1000
+     set mode 0
+     set shutdown 1
+     set description "Testing ASP TEST-ASP-01"
      ```
   - commit changes: `commit`
 2. Create new AS named **TEST-AS-01** on an SGN node named **sgn-test-01**
-  - set a new root node for easier editing: `edit mno sgn sgn-test-01 m3ua as`
-  - create AS, set parameters and link it with ASP:
+  - create a new empty AS node: `set mno sgn sgn-test-01 m3ua as TEST-AS-01`
+  - set a new root node for easier editing: `edit mno sgn sgn-test-01 m3ua as TEST-AS-01`
+  - set AS parameters and link it with ASP:
 
     ```c
-    set TEST-AS-01 asp TEST-ASP-01 active 1
-    set TEST-AS-01 routing-key routing-context 111
-    set TEST-AS-01 traffic-mode type 2
-    set TEST-AS-01 description "Testing AS TEST-AS-01"
+    set asp TEST-ASP-01 active 1
+    set routing-key routing-context 111
+    set traffic-mode type 2
+    set description "Testing AS TEST-AS-01"
     ```
   - commit changes: `commit`
 
@@ -854,28 +856,30 @@ TEST-SMPP-AS-01 {
 
 ###### Step by step ASP/AS activation process using the [pMINK CLI](#cli-client-shell):
 1. Create new ASP named **TEST-SMPP-ASP-01** on an SGN node named **sgn-test-01**
-   - set a new root node for easier editing: `edit mno sgn sgn-test-01 smpp asp`
-   - create ASP and set connection parameters:
+   - create a new empty ASP node: `set mno sgn sgn-test-01 smpp asp TEST-SMPP-ASP-01`
+   - set a new root node for easier editing: `edit mno sgn sgn-test-01 smpp asp TEST-SMPP-ASP-01`
+   - set ASP connection parameters:
 
      ```c
-     set TEST-SMPP-ASP-01 tcp local ip 192.168.0.10
-     set TEST-SMPP-ASP-01 tcp local port 2775
-     set TEST-SMPP-ASP-01 tcp remote ip 192.168.0.100
-     set TEST-SMPP-ASP-01 tcp remote port 2775
-     set TEST-SMPP-ASP-01 smpp bind_method 9
-     set TEST-SMPP-ASP-01 smpp timers enquire_link_timer 10
-     set TEST-SMPP-ASP-01 smpp users testuser password 12345678
-     set TEST-SMPP-ASP-01 mode 0
-     set TEST-SMPP-ASP-01 description "Testing ASP TEST-SMPP-ASP-01"
+     set tcp local ip 192.168.0.10
+     set tcp local port 2775
+     set tcp remote ip 192.168.0.100
+     set tcp remote port 2775
+     set smpp bind_method 9
+     set smpp timers enquire_link_timer 10
+     set smpp users testuser password 12345678
+     set mode 0
+     set description "Testing ASP TEST-SMPP-ASP-01"
      ```
   - commit changes: `commit`
 2. Create new AS named **TEST-SMPP-AS-01** on an SGN node named **sgn-test-01**
-  - set a new root node for easier editing: `edit mno sgn sgn-test-01 smpp as`
-  - create AS, set parameters and link it with ASP:
+  - create a new empty AS node: `set mno sgn sgn-test-01 smpp as TEST-SMPP-AS-01`
+  - set a new root node for easier editing: `edit mno sgn sgn-test-01 smpp as TEST-SMPP-AS-01`
+  - set AS parameters and link it with ASP:
 
     ```c
-    set TEST-SMPP-AS-01 asp TEST-SMPP-ASP-01 active "1"
-    set TEST-SMPP-AS-01 description "Testing AS TEST-SMPP-AS-01"
+    set asp TEST-SMPP-ASP-01 active "1"
+    set description "Testing AS TEST-SMPP-AS-01"
     ```
   - commit changes: `commit`
 
