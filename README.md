@@ -18,7 +18,7 @@
   - [**stpd**](#signal-transfer-point-daemon) - Signal Transfer Point daemon                                                                        
   - [**drd**](#data-retention-daemon) - Data Retention daemon                                                                               
   - [**fgnd**](#filtering-gateway-node-daemon) - Filtering Gateway Node daemon                                                                       
-  - **pdnd** - Pattern Detection Node daemon
+  - [**pdnd**](#pattern-detection-node-daemon) - Pattern Detection Node daemon
 
 - [License](#license)
 
@@ -570,15 +570,6 @@ This will start **asn1c** with the following parameters set:
 - asn.1 input file = **src/asn1/r14p/r14p.asn**
 - **-g** = generate c++ header and source file
 - output directory for c++ generated files = **/tmp**
-
-### Filtering Gateway Node daemon
----
-Filtering Gateway Node is a versatile rule based packet filtering system currently used for 
-[SMS](http://en.wikipedia.org/wiki/Short_Message_Service) ([SIGTRAN](http://en.wikipedia.org/wiki/SIGTRAN) and 
-[SMPP](http://en.wikipedia.org/wiki/Short_Message_Peer-to-Peer)) filtering. 
-
-- FGN documentation is distributed separately due to its complexity and size; user manual can be found 
-here: [**smsf.pdf**](http://github.com/dfranusic/pmink/blob/master/doc/smsf.pdf)
 
 ### Signalling Gateway Node daemon
 ---
@@ -1140,6 +1131,18 @@ the following error types are available:
 +--------------------------------------------+
 ```
 
+### Filtering Gateway Node daemon
+---
+Filtering Gateway Node is a versatile rule based packet filtering system currently used for 
+[SMS](http://en.wikipedia.org/wiki/Short_Message_Service) ([SIGTRAN](http://en.wikipedia.org/wiki/SIGTRAN) and 
+[SMPP](http://en.wikipedia.org/wiki/Short_Message_Peer-to-Peer)) filtering. 
+
+- FGN documentation is distributed separately due to its complexity and size; user manual can be found 
+here: [**smsf.pdf**](http://github.com/dfranusic/pmink/blob/master/doc/smsf.pdf)
+
+### Pattern Detection Node daemon
+---
+Still in development, documentation coming soon...
 
 
 
