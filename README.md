@@ -940,8 +940,8 @@ This will start **stpd** with the following parameters set:
 - pMINK unique daemon id = **stp-test-01**
 
 
-
-##### Routing configuration example
+#### STP Routing
+##### Configuration example
 The following configuration excerpt shows a simple **1 rule** routing; all traffic
 having an **SCCP GT Calling Address** set to **12345678** will be routed back to 
 **Application Server (AS)** named **TEST-AS-01**, configured on pMINK daemon
@@ -1031,6 +1031,58 @@ rule_1 {
    - commit changes: `commit`
 
 
+#### STP Translations
+##### Configuration example
+Routing of traffic is one of the two most prominent features of Signal Transfer Point daemon; the second
+one is the ability to modify live traffic, or in terms of STP, to do translations. More information
+about the relationship between **match** and **translate** sections of routing rules can be found in 
+chapters **8.2** and **8.2.5** of
+the [FGN user's manual](http://github.com/dfranusic/pmink/blob/master/doc/smsf.pdf).
+
+The following configuration excerpt shows a modified version of **rule_1** with one extra **translation**
+added to the rule definition. **SCCP** translation used in this example will cause the packet to be **re-encoded**
+with **Calling GT Address** changed to **99999999**.
+
+
+###### Routing rules configuration subset (mno/stp/stp-test-01/routing/rule_1/route)
+```c
+match {
+  sccp {
+    cgpa {
+      gt {
+        address "12345678"
+      }
+    }
+  }
+}
+translate {
+  sccp {
+    cgpa {
+      gt {
+        address "99999999"
+      }
+    }
+  }
+}
+destination {
+  dest_1 {
+    priority   "0"
+    as         "TEST-AS-01"
+    r14p       "sgnd"
+  }
+}
+```
+
+###### Step by step Rule translation activation using the [pMINK CLI](#cli-client-shell):
+1. Create new **SCCP translation** in **rule_1** on an STP node named **stp-test-01**
+   - set a new root node for easier editing: `edit mno stp stp-test-01 routing rule_1 route translate`
+   - set translation parameters:
+   
+    ```c
+    set sccp cgpa gt address 99999999
+    ``` 
+
+   - commit changes: `commit`
 
 
 ### Data Retention daemon
