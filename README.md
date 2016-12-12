@@ -15,7 +15,7 @@
 
 - Mobile Network Operator components
   - [**sgnd**](#signalling-gateway-node-daemon) - Signalling Gateway Node daemon
-  - **stpd** - Signal Transfer Point daemon                                                                        
+  - [**stpd**](#signal-transfer-point-daemon) - Signal Transfer Point daemon                                                                        
   - [**drd**](#data-retention-daemon) - Data Retention daemon                                                                               
   - [**fgnd**](#filtering-gateway-node-daemon) - Filtering Gateway Node daemon                                                                       
   - **pdnd** - Pattern Detection Node daemon
@@ -661,6 +661,43 @@ processes (or process instances) of MGCs, IP SCPs or IP HLRs.  An ASP
 contains an SCTP endpoint and may be configured to process signalling
 traffic within more than one Application Server.
 
+###### sgnd command line arguments
+
+```bash
+sgnd - pMINK Signalling daemon
+Copyright (c) 2012 Release14.org
+
+Options:
+ -?	help
+ -i	unique daemon id
+ -t	daemon type override
+ -r	routing daemon address (ipv4:port)
+ -D	start in debug mode
+
+R14P Options:
+=============
+ --r14p-streams		R14P Session stream pool		(default = 10000)
+ --r14p-stimeout	R14P Stream timeout in seconds		(default = 5)
+ --r14p-smsg-pool	R14P Service message pool		(default = 1000)
+ --r14p-sparam-pool	R14P Service message parameter pool	(default = 100000)
+
+Dev Options:
+=============
+ --dev-m3ua-sm		Enable/Disable m3ua state machine	(0 - Disable, 1 - Enable)
+ --dev-smpp-sm		Enable/Disable smpp state machine	(0 - Disable, 1 - Enable)
+```
+
+###### sgnd example 
+
+```bash
+$ ./sgnd -i sgn-test-01 -r 127.0.0.1:10000
+```
+
+This will start **sgnd** with the following parameters set:
+
+- routingd IP address and listening port = **127.0.0.1:10000**
+- pMINK unique daemon id = **sgn-test-01**
+
 #### M3UA Connection
 ##### ASP/AS configuration example
 The following configuration excerpts show a simple **1 AS with 1 ASP** setup; ASP **TEST-ASP-01**
@@ -761,7 +798,6 @@ TEST-AS-01 {
     set TEST-AS-01 routing-key routing-context 111
     set TEST-AS-01 traffic-mode type 2
     set TEST-AS-01 description "Testing AS TEST-AS-01"
-
     ```
   - commit changes: `commit`
 
@@ -840,9 +876,167 @@ TEST-SMPP-AS-01 {
     ```c
     set TEST-SMPP-AS-01 asp TEST-SMPP-ASP-01 active "1"
     set TEST-SMPP-AS-01 description "Testing AS TEST-SMPP-AS-01"
-
     ```
   - commit changes: `commit`
+
+### Signal Transfer Point daemon
+---
+Signal Transfer Point (STP) is a **rule based** routing engine used for packet routing and translations.
+Some implementation details were already mentioned in the previous chapter; STP was designed to be
+used in combination with SGN, the former focuses on routing while the latter keeps connections alive
+and deals with sockets, state machines and data conversions.
+
+Although Filter Gateway Node (FGN) and Signal Transfer Point (STP) both share the same rule engine, FGN
+capabilities exceed basic routing and offer increased flexibility and customization. More information
+regarding STP's rule engine can be found in 
+[FGN user's manual](http://github.com/dfranusic/pmink/blob/master/doc/smsf.pdf); please note that unlike
+FGN, STP support is limited to **basic matching** and section **8.2.4** of the manual is not supported.
+
+###### Packet routing protocols available to STP's routing engine:
+- [M3UA](http://en.wikipedia.org/wiki/M3UA)
+- [SCCP](http://en.wikipedia.org/wiki/Short_Message_Peer-to-Peer)
+- [TCAP](https://en.wikipedia.org/wiki/Transaction_Capabilities_Application_Part)
+- [GSM MAP 3GPP TS 29.00](https://en.wikipedia.org/wiki/Mobile_Application_Part)
+    - Supported application contexts:
+      - 0.4.0.0.1.0.25.3 - shortMsgMT-RelayContext-v3
+      - 0.4.0.0.1.0.25.2 - shortMsgMT-RelayContext-v2
+      - 0.4.0.0.1.0.20.3 - shortMsgGatewayContext-v3
+      - 0.4.0.0.1.0.20.2 - shortMsgGatewayContext-v2
+      - 0.4.0.0.1.0.20.1 - shortMsgGatewayContext-v1
+      - 0.4.0.0.1.0.21.3 - shortMsgMO-RelayContext-v3
+      - 0.4.0.0.1.0.21.2 - shortMsgMO-RelayContext-v2
+      - 0.4.0.0.1.0.21.1 - shortMsgRelayContext-v1
+    - Supported opcodes:
+      - 44 - mt-forward-SM
+      - 46 - mo-forward-SM
+      - 45 - sendRoutingInfoForSM
+- [SMS TPDU 3GPP TS 23.040](https://en.wikipedia.org/wiki/GSM_03.40)
+- [SMPP v3.4](http://en.wikipedia.org/wiki/Short_Message_Peer-to-Peer)
+
+###### stpd command line arguments
+
+```bash
+stpd - pMINK Signalling Transfer Point daemon
+Copyright (c) 2012 Release14.org
+
+Options:
+ -?	help
+ -i	unique daemon id
+ -r	routing daemon address (ipv4:port)
+ -D	start in debug mode
+
+R14P Options:
+=============
+ --r14p-streams		R14P Session stream pool		(default = 10000)
+ --r14p-stimeout	R14P Stream timeout in seconds		(default = 5)
+ --r14p-smsg-pool	R14P Service message pool		(default = 1000)
+ --r14p-sparam-pool	R14P Service message parameter pool	(default = 100000)
+```
+
+###### stpd example 
+
+```bash
+$ ./stpd -i stp-test-01 -r 127.0.0.1:10000
+```
+
+This will start **stpd** with the following parameters set:
+
+- routingd IP address and listening port = **127.0.0.1:10000**
+- pMINK unique daemon id = **stp-test-01**
+
+
+
+##### Routing configuration example
+The following configuration excerpt shows a simple **1 rule** routing; all traffic
+having an **SCCP GT Calling Address** set to **12345678** will be routed back to 
+**Application Server (AS)** named **TEST-AS-01**, configured on pMINK daemon
+whose daemon type is set to **sgnd**. 
+
+Routing destinations consist of **priority** value and **two destinations**; 
+**R14P (Level 1 routing)** and **AS (Level 2 routing)**. They are processed in the following way:
+
+**1. Level 1 routing**
+
+  - destinations are sorted by their `priority` value and processed sequentially; if data
+    transmission fails, next destination will be used until successful transmission is achieved or
+    there are no more available destinations
+  - data is first sent to a pMINK daemon whose **daemon_type** (configurable with `-t` switch
+    for some daemons, e.g. SGN) is set to a value pointed out by the `r14p` configuration field
+
+
+**2. Level 2 routing**
+
+  - SGN daemon will receive the data and examine the destination (`dest_1`) which 
+    was used for current data transfer
+  - destination used consists of **two destinations** (`r14p` and `as`); the former
+    was already consumed by the sending daemon, and the latter will be processed by the receiving SGN daemon
+  - SGN daemon will forward the data to the **Application Server (AS)** pointed
+    out by the `as` field of the current destination (`dest_1`)
+  - if data transmission fails while sending the data to the destination **AS** (`as`),
+    SGN daemon will use the next available destination and repeat the whole **Level 1 routing** 
+    procedure
+
+###### Routing rules configuration subset (mno/stp/stp-test-01/routing)
+```c
+rule_1 {
+  hunt-stop   "1"
+  description "Test rule #1"
+  priority    "0"           
+  route {        
+    match {
+      sccp {
+        cgpa {
+          gt {
+            address "12345678"
+          }
+        }
+      }
+    }
+    destination {
+      dest_1 {
+        priority   "0"
+        as         "TEST-AS-01"
+        r14p       "sgnd"
+      }
+    }
+  }        
+}
+
+```
+
+###### Step by step STP Rule activation process using the [pMINK CLI](#cli-client-shell):
+1. Create new rule named **rule_1** on an STP node named **stp-test-01**
+   - create empty rule node: `set mno stp stp-test-01 routing rule_1`
+   - set a new root node for easier editing: `edit mno stp stp-test-01 routing rule_1`
+   - set basic parameters:
+
+     ```c
+     set hunt-stop 1
+     set description "Test rule #1"
+     set priority 0
+     ```
+2. Create **match** section for **rule_1** on an STP node named **stp-test-01**
+   - set a new root node for easier editing: `edit route`
+   - create match section
+
+     ```c
+     set match sccp cgpa gt address 12345678
+     ```
+3. Create **destination** section for **rule_1** with **dest_1** destination
+   - create new empty destination node: `set destination dest_1`
+   - set a new root node for easier editing: `edit destination dest_1`
+   - set destination parameters
+
+     ```c
+     set priority 0
+     set as TEST-AS-01
+     set r14p sgnd
+     ```
+
+   - commit changes: `commit`
+
+
+
 
 ### Data Retention daemon
 ---
@@ -863,7 +1057,7 @@ comes to passive monitoring, there are some major differences to consider:
 
 ##### Data Retention daemon (DRD) data fields for SMS:
 
-```bash
+```
 +------------------------------------------------------------------------+
 | Field name            | Field value                                    |
 +------------------------------------------------------------------------+
@@ -897,7 +1091,7 @@ comes to passive monitoring, there are some major differences to consider:
 
 ###### Data Retention daemon (DRD) data fields for SRI-for-SM:
 
-```bash
+```
 +--------------------------------------------------------------+
 | Field name           | Field value                           |
 +--------------------------------------------------------------+
@@ -921,7 +1115,7 @@ comes to passive monitoring, there are some major differences to consider:
 Data Retention daemon (DRD) offers detailed error tracking for **SMS TPDU 3GPP TS 23.04** and **SRI-for-SM**;
 the following error types are available:
 
-```bash
+```
 +--------------------------------------------+
 | Error type                                 |
 +--------------------------------------------+
