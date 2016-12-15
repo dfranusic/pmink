@@ -170,7 +170,9 @@ libpmutils_la_CPPFLAGS = $(COMMON_INCLUDES)
 # antlr_utils
 libantlrutils_la_SOURCES = src/utils/antlr_utils.cpp
 libantlrutils_la_CPPFLAGS = $(COMMON_INCLUDES) \
-	  		    $(ANTLR_FLAGS)# pmink daemon
+	  		    $(ANTLR_FLAGS)
+
+# pmink daemon
 libpmdaemon_la_SOURCES = src/daemon/daemon.cpp
 libpmdaemon_la_CPPFLAGS = $(COMMON_INCLUDES)
 
@@ -396,11 +398,11 @@ drd_SOURCES = src/daemons/dr/drd.cpp \
 
 drd_CPPFLAGS = $(COMMON_INCLUDES) \
 	       -Isrc/daemons/dr \
-		$(ANTLR_FLAGS) \
-		$(BOOST_FLAGS) \
-		$(NCURSES_CFLAGS) \
-		$(ICU_CPPFLAGS) \
-		$(LIBMYSQLCPPCONN_CXXFLAGS)
+	       $(ANTLR_FLAGS) \
+	       $(BOOST_FLAGS) \
+	       $(NCURSES_CFLAGS) \
+	       $(ICU_CPPFLAGS) \
+	       $(LIBMYSQLCPPCONN_CXXFLAGS)
 
 drd_LDADD = $(BOOST_LDLIBS) \
 	    $(NCURSES_LIBS) \
