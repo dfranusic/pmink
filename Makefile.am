@@ -153,11 +153,11 @@ libtcpip_la_CPPFLAGS = $(COMMON_INCLUDES)
 # rrp
 librrp_la_SOURCES = src/routing_rating/rrp.cpp \
                     src/routing_rating/rrp_events.cpp
-librrp_la_CPPFLAGS = $(COMMON_INCLUDES)	
+librrp_la_CPPFLAGS = $(COMMON_INCLUDES) $(BOOST_FLAGS)
 
 # db
 libpmdb_la_SOURCES = src/db/pmdb.cpp
-libpmdb_la_CPPFLAGS = $(COMMON_INCLUDES)
+libpmdb_la_CPPFLAGS = $(COMMON_INCLUDES) $(BOOST_FLAGS)
 
 # pmink_net
 libpmnet_la_SOURCES = src/utils/pmink_net.cpp
@@ -229,7 +229,7 @@ pm_plg_cli_cfg_la_LIBADD = $(BOOST_LDLIBS) \
 #+-----------------------+
 #| R14P protocol library |
 #+-----------------------+
-libr14p_la_CPPFLAGS = $(COMMON_INCLUDES)
+libr14p_la_CPPFLAGS = $(COMMON_INCLUDES) $(BOOST_FLAGS)
 libr14p_la_SOURCES = src/r14p/r14p.cpp \
 		     src/r14p/r14p_reg_events.cpp \
 		     src/asn1/asn1.cpp \
@@ -492,9 +492,9 @@ configdc_LDADD = $(BOOST_LDLIBS) \
 #| pMINK R14P routing daemon  |
 #+----------------------------+
 routingd_SOURCES = src/daemons/routing/routingd.cpp \
-		   src/daemons/routing/routing.cpp \
 		   src/daemons/routing/routingd_events.cpp \
-		   src/daemons/routing/cfg_events.cpp
+		   src/daemons/routing/cfg_events.cpp \
+		   src/daemons/routing/routing.cpp
 
 routingd_CPPFLAGS = $(COMMON_INCLUDES) \
 		    -Isrc/daemons/routing \
