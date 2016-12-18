@@ -823,16 +823,17 @@ namespace r14p {
 		pthread_mutex_t mtx_streams;				/**< Active streams mutex */
 		pthread_spinlock_t slock_callback;
 		pthread_spinlock_t slock_uuid;
-		// semaphores
-		//sem_t queue_sem;					/**< Outbound queue semaphore */
 		// memory pools
-		memory::Pool<memory::MemChunk<1024>, true > mc_pool;		/**< Raw chunk memory pool */
-		memory::Pool<R14PPayload, true> pld_pool;			/**< R14PPayload memory pool */
-		memory::Pool<asn1::R14PMessage, true> r14pm_pool;		/**< R14PMessage memory pool */
-		memory::Pool<R14PStream, true> stream_pool;			/**< R14PStream memory pool */
-		// ref counter
+		memory::Pool<memory::MemChunk<1024>, true > mc_pool;	/**< Raw chunk memory pool */
+		memory::Pool<R14PPayload, true> pld_pool;		/**< R14PPayload memory pool */
+		memory::Pool<asn1::R14PMessage, true> r14pm_pool;	/**< R14PMessage memory pool */
+		memory::Pool<R14PStream, true> stream_pool;		/**< R14PStream memory pool */
+		//  state machine, etc.
 		pmink::Atomic<uint32_t> ref_counter;
 		R14PStateMachine r14p_sm;
+                pmink::Atomic<bool> streams_active;
+                pmink::Atomic<time_t> timestamp;
+
 
 
 

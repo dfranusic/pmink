@@ -948,6 +948,8 @@ void r14p::R14PStateMachine::run(){
 					seq_num_tlv = header->_sequence_num->linked_node->tlv;
 					uuid_tlv = header->_uuid->linked_node->tlv;
 
+                                        // update timestamp
+                                        r14pc->timestamp.set(time(NULL));
 
 					// R14P_SF_HEARTBEAT - heartbeat
 					if(seq_flag_tlv->value[0] == asn1::SequenceFlag::_sf_heartbeat){
@@ -2217,6 +2219,7 @@ r14p::R14PStream* r14p::R14PClient::create_stream(){
 void r14p::R14PClient::add_stream(r14p::R14PStream* _stream){
 	pthread_mutex_lock(&mtx_streams);
 	streams.push_back(_stream);
+        streams_active.set(true);
 	pthread_mutex_unlock(&mtx_streams);
 
 }
@@ -2238,6 +2241,7 @@ void r14p::R14PClient::remove_stream(r14p::R14PStream* _stream){
 	for(unsigned int i = 0; i<streams.size(); i++){
 	    if(streams[i] == _stream){
 		streams.erase(streams.begin() + i);
+                if(streams.size() == 0) streams_active.set(false);
 		break;
 	    }
 	}
@@ -2249,6 +2253,7 @@ void r14p::R14PClient::remove_stream_unsafe(r14p::R14PStream* _stream){
 	for(unsigned int i = 0; i<streams.size(); i++){
 	    if(streams[i] == _stream){
 		streams.erase(streams.begin() + i);
+                if(streams.size() == 0) streams_active.set(false);
 		break;
 	    }
 	}
@@ -3649,6 +3654,7 @@ void r14p::R14PClient::process_timeout(bool override){
 	    // next stream
 	    }else ++it;
 	}
+        if(streams.size() == 0) streams_active.set(false);
 	// unlock
 	pthread_mutex_unlock(&mtx_streams);
     }
@@ -3788,45 +3794,57 @@ int r14p::R14PClient::out_process(R14PPayload* r14ppld, R14PCallbackArgs* cb_arg
 void* r14p::R14PClient::out_loop(void* args){
     // check for args
     if(args == NULL) return NULL;
-	R14PCallbackArgs cb_args;
-	R14PClient* r14pc = (R14PClient*)args;
-	R14PPayload* r14ppld = NULL;
-	//int res;
-	bool internal_data, external_data;
-	timespec pause_ts = {0, 1000000}; // 1msec
+    R14PCallbackArgs cb_args;
+    R14PClient* r14pc = (R14PClient*)args;
+    R14PPayload* r14ppld = NULL;
+    bool internal_data, external_data;
+    timespec pause_ts = {0, 1}; // 1nsec
+    timespec pause_ts_long = {0, 1000000}; // 1msec
 
-	// loop
-	while(r14pc->is_active()){
-	    // reset
-	    internal_data = false;
-	    external_data = false;
+    // loop
+    while(r14pc->is_active()){
+        // reset
+        internal_data = false;
+        external_data = false;
 
-	    // pop internal
-	    if(r14pc->internal_out_queue.pop(&r14ppld) == 0){
-		internal_data = true;
-		r14pc->out_process(r14ppld, &cb_args);
-	    }
-
-
-	    // pop external
-	    r14ppld = r14pc->pop_out_queue();
-	    if(r14ppld != NULL) {
-		external_data = true;
-		r14pc->out_process(r14ppld, &cb_args);
-	    }
-
-	    // sleep if both queues are empty
-	    if(!external_data && !internal_data) nanosleep(&pause_ts, NULL);
-
-	}
-
-	// detach thread
-	pthread_detach(r14pc->out_thread);
-	r14pc->out_thread = 0;
-	r14pc->dec_thread_count();
+        // pop internal
+        if(r14pc->internal_out_queue.pop(&r14ppld) == 0){
+            internal_data = true;
+            r14pc->out_process(r14ppld, &cb_args);
+        }
 
 
-	return NULL;
+        // pop external
+        r14ppld = r14pc->pop_out_queue();
+        if(r14ppld != NULL) {
+            external_data = true;
+            r14pc->out_process(r14ppld, &cb_args);
+        }
+
+        // sleep if both queues are empty
+        if(!(external_data || internal_data)) {
+            // - use smaller sleep value (1 nsec) if the
+            //   following conditions are met:
+            //     1. at least one stream is active
+            //     2. a packet was received by this client
+            //        no longer than 1 sec ago (this is important
+            //        in order to avoid seeing timed out streams
+            //        as active streams if they still haven't
+            //        been removed from the active stream list)
+            if(r14pc->streams_active.get() && (time(NULL) - r14pc->timestamp.get() < 1))
+                nanosleep(&pause_ts, NULL);
+
+            // - sleep longer (1 msec) if there are no
+            //   active streams
+            else nanosleep(&pause_ts_long, NULL);
+        }
+    }
+
+    // detach thread
+    pthread_detach(r14pc->out_thread);
+    r14pc->out_thread = 0;
+    r14pc->dec_thread_count();
+    return NULL;
 }
 
 unsigned int r14p::R14PClient::inc_thread_count(){
