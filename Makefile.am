@@ -542,7 +542,7 @@ cli_service_CPPFLAGS = $(COMMON_INCLUDES) \
 		       $(BOOST_FLAGS) \
 		       $(NCURSES_CFLAGS)
 
-cli_service_CXXFLAGS = -rdynamic
+cli_service_LDFLAGS = -export-dynamic
 
 cli_service_LDADD = $(BOOST_LDLIBS) \
 		    $(NCURSES_LIBS) \
@@ -611,7 +611,7 @@ fgnd_SOURCES = src/daemons/fgn/fgnd.cpp \
 	       src/daemons/fgn/fgn_stats.cpp \
 	       src/daemons/fgn/lua_if.cpp
 
-fgnd_CXXFLAGS = $(GCC_CPP14_FLAGS) -rdynamic
+fgnd_CXXFLAGS = $(GCC_CPP14_FLAGS)
 
 fgnd_LDADD = $(BOOST_LDLIBS) \
 	     $(NCURSES_LIBS) \
@@ -629,6 +629,8 @@ fgnd_LDADD = $(BOOST_LDLIBS) \
 	     $(LUAJIT_LIBS) \
 	     $(ANTLR_LDLIBS) \
 	     $(ICU_LIBS)
+
+fgnd_LDFLAGS = -export-dynamic
 
 fgnd_CPPFLAGS = $(FGN_CPP14_FLAGS) \
 		-DFLOGIC_PAUSE_RESUME \
@@ -648,7 +650,7 @@ fgnd_CPPFLAGS = $(FGN_CPP14_FLAGS) \
 #   not be able to start without installing everything first with
 #   "make install"
 if ENABLE_LUAJITBUNDLED
-fgnd_LDFLAGS = -rpath `readlink -f lib/LuaJIT-2.0.3/src`
+fgnd_LDFLAGS += -rpath `readlink -f lib/LuaJIT-2.0.3/src`
 endif
 
 
