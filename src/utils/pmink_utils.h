@@ -1364,6 +1364,14 @@ namespace pmink_utils {
 		return true;
 	    }
 
+            time_t get_ts(const ID_TYPE& id){
+                // find
+		cmap_it_type it = data_map.find(id);
+		// check result, return
+		if(it == data_map.end()) return 0;
+		return it->second.ts;
+            }
+
 	    bool update_timeout(cmap_it_type it, uint32_t timeout){
 		// update ts
 		it->second.data_timeout = timeout;
