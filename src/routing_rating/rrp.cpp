@@ -1124,9 +1124,12 @@ rrp::RRSequence* rrp::RRConnection::new_sequence(const char* _dest_id, RRMethodT
     if(rrs == NULL) rrs = seq_pool.allocate_constructed();
     if(rrs == NULL) return NULL;
     rrs->reset(reset_uuid, true);
+    // check for valid method
+    const char* method_str = session->find_rev_str(_method); 
+    if(method_str == NULL) return NULL;
     // set method
     rrs->method = _method;
-    rrs->pdu.params.set_cstr(rrp::RRPT_METHOD, session->find_rev_str(_method));
+    rrs->pdu.params.set_cstr(rrp::RRPT_METHOD, method_str);
     // destination ctx
     strcpy(rrs->destination_id, _dest_id);
     rrs->pdu.params.set_cstr(RRPT_DST_CTX, _dest_id);
