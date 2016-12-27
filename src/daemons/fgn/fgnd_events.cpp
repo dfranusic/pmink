@@ -198,7 +198,7 @@ void SrvcMsgDone::run(r14p::R14PCallbackArgs* args){
 
 
     // *** smpp ***
-    if((int)*vp_conn_type == sgn::CT_SMPP){
+    if((int)*vp_conn_type == sgn::CT_SMPP || (int)*vp_conn_type == sgn::CT_PCAP_SMPP){
 	// get pdu type
 	pmink_utils::VariantParam* vp_smpp_pdu = smsg->vpmap.get_param(asn1::ParameterType::_pt_smpp_command_id);
 	if(vp_smpp_pdu == NULL) return;
@@ -252,7 +252,7 @@ void SrvcMsgDone::run(r14p::R14PCallbackArgs* args){
     }
 
     // *** ss7 m3ua ***
-    if((int)*vp_conn_type != sgn::CT_M3UA) return;
+    if(!((int)*vp_conn_type == sgn::CT_M3UA || (int)*vp_conn_type == sgn::CT_PCAP_M3UA)) return;
 
 
     // check context
