@@ -197,7 +197,7 @@ libr14pstats_la_CPPFLAGS = $(COMMON_INCLUDES)
 
 # lua_utils
 libluautils_la_SOURCES = src/utils/lua_utils.cpp
-libluautils_la_CPPFLAGS = $(COMMON_INCLUDES)
+libluautils_la_CPPFLAGS = $(COMMON_INCLUDES) $(LUAJIT_CFLAGS)
 
 
 # pMINK libraries and plugins
