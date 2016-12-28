@@ -134,12 +134,12 @@ int pmink_lua_pd_req(void* pm, int action){
     // request notification
     cmd_params->set_bool(asn1::ParameterType::_pt_pmink_correlation_notification, true);
     // set guid for fgn payload (_pt_pmink_guid index 0)
-    cmd_params->set_octets(asn1::ParameterType::_pt_pmink_guid, (unsigned char*)&pld->guid, sizeof(pld->guid));
+    cmd_params->set_octets(asn1::ParameterType::_pt_pmink_guid, &pld->guid, sizeof(pld->guid));
     // set correlation guid for current pd transaction (_pt_pmink_guid index 1)
     __uint128_t tmp_guid = 0;
     dd->generate_uuid((unsigned char*)&tmp_guid);
-    cmd_params->set_octets(asn1::ParameterType::_pt_pmink_guid, (unsigned char*)&tmp_guid, sizeof(tmp_guid), 1);
-    pld->params.set_octets(asn1::ParameterType::_pt_pmink_guid, (unsigned char*)&tmp_guid, sizeof(tmp_guid), fgn::PIT_INPUT_CMD_REQ_PART);
+    cmd_params->set_octets(asn1::ParameterType::_pt_pmink_guid, &tmp_guid, sizeof(tmp_guid), 1);
+    pld->params.set_octets(asn1::ParameterType::_pt_pmink_guid, &tmp_guid, sizeof(tmp_guid), fgn::PIT_INPUT_CMD_REQ_PART);
     // set service id for notification
     cmd_params->set_int(asn1::ParameterType::_pt_pmink_service_id, asn1::ServiceId::_sid_fgn_filtering);
     // send to pd
@@ -323,7 +323,7 @@ int pmink_lua_hlr_req(void* pm){
     // request notification
     cmd_params->set_bool(asn1::ParameterType::_pt_pmink_correlation_notification, true);
     // set guid
-    cmd_params->set_octets(asn1::ParameterType::_pt_pmink_guid, (unsigned char*)&pld->guid, sizeof(pld->guid));
+    cmd_params->set_octets(asn1::ParameterType::_pt_pmink_guid, &pld->guid, sizeof(pld->guid));
     // set service id for notification
     cmd_params->set_int(asn1::ParameterType::_pt_pmink_service_id, asn1::ServiceId::_sid_fgn_filtering);
     // send to stp

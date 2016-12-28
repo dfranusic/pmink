@@ -1203,11 +1203,13 @@ void* rrp::RRConnection::in_loop(void* args){
 		// decode
 		res = decode(buff, br, &pdu, conn->session);
 		if(res == 0){
+                    /*
 		    PMDLOG(
 			std::cout << "======================== RRP Received =================" << std::endl;
 			std::cout << std::string((char*)buff, br) << std::endl;
 			std::cout << "======================================================="  << std::endl;
 		    )
+                    */
 		    //std::cout << "DECODED" << std::endl;
 		    //std::cout << pdu.params << std::endl;
 		    // validate size
@@ -1516,12 +1518,14 @@ void* rrp::RRConnection::out_loop(void* args){
 
 		// *** no fragmentation ***
 		// send
+                /*
 		PMDLOG(
 			std::cout << "======================== RRP Sending: " << enc_l << " =================" << std::endl;
 			std::cout << std::string((char*)tmp_buff, enc_l) << std::endl;
 			std::cout << "======================================================="  << std::endl;
 
 		)
+                */
 
 		//std::cout << "Sending...: " << enc_l << std::endl;
 		//tmp_buff[enc_l] = 0;

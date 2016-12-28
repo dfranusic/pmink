@@ -3397,8 +3397,11 @@ bool fgn::FilteringLogic::match(const char* data,
 	    int lua_res = 0;
 	    // check if resuming
 	    if(lua_status(L) == LUA_YIELD){
-		// resume script
-		lua_res = lua_resume(L, 0);
+                PMDLOG(
+                    std::cout << "[LUA]: Resuming from LUA_YIELD..." << std::endl;
+                    lua_utils::lua_stack_dump(L);
+                )
+		lua_res = lua_resume(L, lua_gettop(L));
 
 	    // starting for the first time
 	    }else{
@@ -3432,12 +3435,20 @@ bool fgn::FilteringLogic::match(const char* data,
                         } 
                     }
                 }
+                PMDLOG(
+                    std::cout << "[LUA]: Starting..." << std::endl;
+                    lua_utils::lua_stack_dump(L);
+                )
 		// run script
 		lua_res = lua_resume(L, (argc > 0 ? 2 : 1));
 	    }
 
 	    // normal exit
 	    if(lua_res == 0){
+                PMDLOG(
+                    std::cout << "[LUA]: Finished without errors..." << std::endl;
+                    lua_utils::lua_stack_dump(L);
+                )
 		// boolean res
 		if(lua_isboolean(L, -1)) lua_res = (bool)lua_toboolean(L, -1);
 		// int res
@@ -3448,6 +3459,10 @@ bool fgn::FilteringLogic::match(const char* data,
 		int sc = lua_gettop(L);
 		// remove all except precompiled lua chunk
 		if(sc > 1) lua_pop(L, sc - 1);
+                PMDLOG(
+                    std::cout << "[LUA]: Cleanup completed..." << std::endl;
+                    lua_utils::lua_stack_dump(L);
+                )
 
 	    // script error
 	    }else if(lua_res > LUA_YIELD){
@@ -3469,6 +3484,10 @@ bool fgn::FilteringLogic::match(const char* data,
 
 	    // script paused
 	    }else{
+                PMDLOG(
+                    std::cout << "[LUA]: Paused..." << std::endl;
+                    lua_utils::lua_stack_dump(L);
+                )
 		// set resume point
 		fgn_pld->rproc->rule_resume_index = fgn_pld->rproc->current_pos.index;
 		fgn_pld->rproc->rule_resume_sub_index = fgn_pld->rproc->current_pos.sub_index;
@@ -3654,7 +3673,7 @@ int fgn::FilteringLogic::generate_sri_sm_req(rule_param_t* params){
     // request notification
     cmd_params->set_bool(asn1::ParameterType::_pt_pmink_correlation_notification, true);
     // set guid
-    cmd_params->set_octets(asn1::ParameterType::_pt_pmink_guid, (unsigned char*)&pld->guid, sizeof(pld->guid));
+    cmd_params->set_octets(asn1::ParameterType::_pt_pmink_guid, &pld->guid, sizeof(pld->guid));
     // set service id for notification
     cmd_params->set_int(asn1::ParameterType::_pt_pmink_service_id, asn1::ServiceId::_sid_fgn_filtering);
     // send to stp
@@ -7019,7 +7038,7 @@ int fgn::FgnPayload::send_rate_sri_req(){
 
     // *** sequence params ***
     // guid
-    rrs->pdu.params.set_octets(rrp::RRPT_GUID, (unsigned char*)&guid, sizeof(guid));
+    rrs->pdu.params.set_octets(rrp::RRPT_GUID, &guid, sizeof(guid));
     // type
     rrs->pdu.params.set_int(rrp::RRPT_TYPE, rrp::RRTT_SRI_SM);
 
@@ -7099,7 +7118,7 @@ int fgn::FgnPayload::send_rate_sri_req(){
     if(vp != NULL){
 	uint32_t sid = htobe32((int)*vp);
 	int br = pmink_utils::bytes_required(sid);
-	rrs->pdu.params.set_octets(rrp::RRPT_TCAP_SID, (unsigned char*)&sid, br);
+	rrs->pdu.params.set_octets(rrp::RRPT_TCAP_SID, &sid, br);
 
     }
 
@@ -7108,7 +7127,7 @@ int fgn::FgnPayload::send_rate_sri_req(){
     if(vp != NULL){
 	uint32_t did = htobe32((int)*vp);
 	int br = pmink_utils::bytes_required(did);
-	rrs->pdu.params.set_octets(rrp::RRPT_TCAP_DID, (unsigned char*)&did, br);
+	rrs->pdu.params.set_octets(rrp::RRPT_TCAP_DID, &did, br);
 
     }
 
@@ -7199,7 +7218,7 @@ int fgn::FgnPayload::send_rate_ss7_sms(){
 
     // *** sequence params ***
     // guid
-    rrs->pdu.params.set_octets(rrp::RRPT_GUID, (unsigned char*)&guid, sizeof(guid));
+    rrs->pdu.params.set_octets(rrp::RRPT_GUID, &guid, sizeof(guid));
     // type
     pmink_utils::VariantParam* vp = params.get_param(asn1::ParameterType::_pt_tcap_opcode, tcap_op_index);
     if(vp != NULL){
@@ -7292,7 +7311,7 @@ int fgn::FgnPayload::send_rate_ss7_sms(){
     if(vp != NULL){
 	uint32_t sid = htobe32((int)*vp);
 	int br = pmink_utils::bytes_required(sid);
-	rrs->pdu.params.set_octets(rrp::RRPT_TCAP_SID, (unsigned char*)&sid, br);
+	rrs->pdu.params.set_octets(rrp::RRPT_TCAP_SID, &sid, br);
 
     }
 
@@ -7301,7 +7320,7 @@ int fgn::FgnPayload::send_rate_ss7_sms(){
     if(vp != NULL){
 	uint32_t did = htobe32((int)*vp);
 	int br = pmink_utils::bytes_required(did);
-	rrs->pdu.params.set_octets(rrp::RRPT_TCAP_DID, (unsigned char*)&did, br);
+	rrs->pdu.params.set_octets(rrp::RRPT_TCAP_DID, &did, br);
 
     }
 
@@ -7473,7 +7492,7 @@ int fgn::FgnPayload::send_rate_rpl(){
 
     // *** sequence params ***
     // guid
-    rrs->pdu.params.set_octets(rrp::RRPT_GUID, (unsigned char*)&guid, sizeof(guid));
+    rrs->pdu.params.set_octets(rrp::RRPT_GUID, &guid, sizeof(guid));
     // type
     rrs->pdu.params.set_int(rrp::RRPT_TYPE, rrp::RRTT_RETURN_RESULT);
 
@@ -7548,7 +7567,7 @@ int fgn::FgnPayload::send_rate_rpl(){
     if(vp != NULL){
 	uint32_t sid = htobe32((int)*vp);
 	int br = pmink_utils::bytes_required(sid);
-	rrs->pdu.params.set_octets(rrp::RRPT_TCAP_SID, (unsigned char*)&sid, br);
+	rrs->pdu.params.set_octets(rrp::RRPT_TCAP_SID, &sid, br);
 
     }
 
@@ -7557,7 +7576,7 @@ int fgn::FgnPayload::send_rate_rpl(){
     if(vp != NULL){
 	uint32_t did = htobe32((int)*vp);
 	int br = pmink_utils::bytes_required(did);
-	rrs->pdu.params.set_octets(rrp::RRPT_TCAP_DID, (unsigned char*)&did, br);
+	rrs->pdu.params.set_octets(rrp::RRPT_TCAP_DID, &did, br);
 
     }
 
@@ -8139,9 +8158,9 @@ void FgndDescriptor::process_config(){
     pmink::CURRENT_DAEMON->log(pmink::LLT_DEBUG, "Setting up routing connections...");
 
     // pools and timeouts
-    pmink::CURRENT_DAEMON->log(pmink::LLT_DEBUG, "Setting correlation pool size to [%d]...", cpool.get_chunk_count());
     cpool.init(root->to_int("pool", 100));
     cpool.construct_objects();
+    pmink::CURRENT_DAEMON->log(pmink::LLT_DEBUG, "Setting correlation pool size to [%d]...", cpool.get_chunk_count());
 
     // set standard list max for master list manager
     (*list_m).set_max_size(root->to_int("sl_list_max", 1000));
@@ -8611,7 +8630,7 @@ void* fgn::FilterManager::worker_loop(void* args){
 			    vp = pld->params.get_param(asn1::ParameterType::_pt_sccp_calling_pa_subsystem_number);
 			    if(vp != NULL) pld->params.set_int(asn1::ParameterType::_pt_sccp_called_pa_subsystem_number, (int)*vp, 2);
 			    // pmink guid
-			    pld->params.set_octets(asn1::ParameterType::_pt_pmink_guid, (unsigned char*)&pld->guid, sizeof(pld->guid));
+			    pld->params.set_octets(asn1::ParameterType::_pt_pmink_guid, &pld->guid, sizeof(pld->guid));
 			}
 			// debug
 			#ifdef PMDEBUG
@@ -8722,7 +8741,7 @@ void* fgn::FilterManager::worker_loop(void* args){
 			    vp = pld->params.get_param(asn1::ParameterType::_pt_sccp_calling_pa_subsystem_number);
 			    if(vp != NULL) pld->params.set_int(asn1::ParameterType::_pt_sccp_called_pa_subsystem_number, (int)*vp, 2);
 			    // pmink guid
-			    pld->params.set_octets(asn1::ParameterType::_pt_pmink_guid, (unsigned char*)&pld->guid, sizeof(pld->guid));
+			    pld->params.set_octets(asn1::ParameterType::_pt_pmink_guid, &pld->guid, sizeof(pld->guid));
 			}
 			// debug
 			#ifdef PMDEBUG
@@ -8866,7 +8885,7 @@ void* fgn::FilterManager::worker_loop(void* args){
 				vp = (*matched)->params.get_param(asn1::ParameterType::_pt_sccp_calling_pa_subsystem_number);
 				if(vp != NULL) (*matched)->params.set_int(asn1::ParameterType::_pt_sccp_called_pa_subsystem_number, (int)*vp, 2);
 				// pmink guid
-				(*matched)->params.set_octets(asn1::ParameterType::_pt_pmink_guid, (unsigned char*)&(*matched)->guid, sizeof((*matched)->guid));
+				(*matched)->params.set_octets(asn1::ParameterType::_pt_pmink_guid, &(*matched)->guid, sizeof((*matched)->guid));
 			    }
 
 			    // debug
@@ -9089,7 +9108,7 @@ void* fgn::FilterManager::worker_loop(void* args){
 				vp = (*matched)->params.get_param(asn1::ParameterType::_pt_sccp_calling_pa_subsystem_number);
 				if(vp != NULL) (*matched)->params.set_int(asn1::ParameterType::_pt_sccp_called_pa_subsystem_number, (int)*vp, 2);
 				// pmink guid
-				(*matched)->params.set_octets(asn1::ParameterType::_pt_pmink_guid, (unsigned char*)&(*matched)->guid, sizeof((*matched)->guid));
+				(*matched)->params.set_octets(asn1::ParameterType::_pt_pmink_guid, &(*matched)->guid, sizeof((*matched)->guid));
 			    }
 
 			    // debug

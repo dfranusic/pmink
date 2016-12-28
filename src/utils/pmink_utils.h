@@ -1739,7 +1739,16 @@ namespace pmink_utils {
 	    }
 
 	    /**
-	     * Unsigned 64bit int variant vast
+	     * Signed 64bit int variant cast
+	     */
+	    operator int64_t() const {
+		if(type == DPT_INT) return data.i64;
+		return 0;
+	    }
+
+
+	    /**
+	     * Unsigned 64bit int variant cast
 	     */
 	    operator uint64_t() const {
 		if(type == DPT_INT) return data.i64;
@@ -1747,7 +1756,7 @@ namespace pmink_utils {
 	    }
 
 	    /**
-	     * Unsigned 32bit int variant vast
+	     * Unsigned 32bit int variant cast
 	     */
 	    operator uint32_t() const {
 		if(type == DPT_INT) return data.i64;
@@ -1875,7 +1884,7 @@ namespace pmink_utils {
 	     * @param[in]	_data		octets data
 	     * @param[in]	_data_size	data size
 	     */
-	    void set_octets(const unsigned char* _data, unsigned int _data_size){
+	    void set_octets(const void* _data, unsigned int _data_size){
 		if(type == DPT_OCTETS){
 		    // check for buffer overflow
 		    unsigned int csize = (_data_size > max ? max : _data_size);
@@ -2128,7 +2137,7 @@ namespace pmink_utils {
 			    break;
 
 			case DPT_OCTETS:
-			    set_octets(it->first.key, (unsigned char*)vparam.get_data()->str, vparam.get_size(), it->first.index, it->first.fragment, it->first.context);
+			    set_octets(it->first.key, vparam.get_data()->str, vparam.get_size(), it->first.index, it->first.fragment, it->first.context);
 			    break;
 
 			case DPT_POINTER:
@@ -2193,7 +2202,7 @@ namespace pmink_utils {
 			    break;
 
 			case DPT_OCTETS:
-			    set_octets(it->first.key, (unsigned char*)vparam.get_data()->str, vparam.get_size(), it->first.index, it->first.fragment, it->first.context);
+			    set_octets(it->first.key, vparam.get_data()->str, vparam.get_size(), it->first.index, it->first.fragment, it->first.context);
 			    break;
 
 			case DPT_POINTER:
@@ -2365,7 +2374,7 @@ namespace pmink_utils {
 	     * @param[in]	data		param data
 	     * @param[in]	data_size	param data size
 	     */
-	    VariantParam* set_octets(TID id, const unsigned char* data, unsigned int data_size, uint32_t index = 0, uint32_t fragment = 0, uint32_t context = 0){
+	    VariantParam* set_octets(TID id, const void* data, unsigned int data_size, uint32_t index = 0, uint32_t fragment = 0, uint32_t context = 0){
 		insert_res_t rt = params.insert(pmap_value_t(ParamTuple<TID>(id, index, fragment, context),
 						VariantParam(DPT_OCTETS, &param_alloc, max)));
 		rt.first->second.set_octets(data, data_size);
@@ -2402,7 +2411,7 @@ namespace pmink_utils {
 			return set_bool(id, vp->get_data()->b, index, fragment, context);
 
 		    case DPT_OCTETS:
-			return set_octets(id, (unsigned char*)vp->get_data()->str, vp->get_size(), index, fragment, context);
+			return set_octets(id, vp->get_data()->str, vp->get_size(), index, fragment, context);
 
 		    case DPT_POINTER:
 			return set_pointer(id, vp->get_data()->p, index, fragment, context);
@@ -2482,6 +2491,81 @@ namespace pmink_utils {
 	    }
 
 	    /**
+	     * Get param as int
+	     */
+            int64_t get_int(TID id, uint32_t index = 0, uint32_t fragment = 0, uint32_t context = 0){
+                VariantParam* vp = get_param(id, index, fragment, context);
+                if(vp == NULL) return 0;
+                return (int64_t)*vp;
+            }
+
+	    /**
+	     * Get param as c string
+	     */
+            char* get_cstr(TID id, uint32_t index = 0, uint32_t fragment = 0, uint32_t context = 0){
+                VariantParam* vp = get_param(id, index, fragment, context);
+                if(vp == NULL) return 0;
+                return (char*)*vp;
+            }
+
+	    /**
+	     * Get param as double
+	     */
+            double get_double(TID id, uint32_t index = 0, uint32_t fragment = 0, uint32_t context = 0){
+                VariantParam* vp = get_param(id, index, fragment, context);
+                if(vp == NULL) return 0;
+                return (double)*vp;
+            }
+
+	    /**
+	     * Get param as char
+	     */
+            char get_char(TID id, uint32_t index = 0, uint32_t fragment = 0, uint32_t context = 0){
+                VariantParam* vp = get_param(id, index, fragment, context);
+                if(vp == NULL) return 0;
+                return (char)*vp;
+            }
+
+	    /**
+	     * Get param as bool
+	     */
+            char get_bool(TID id, uint32_t index = 0, uint32_t fragment = 0, uint32_t context = 0){
+                VariantParam* vp = get_param(id, index, fragment, context);
+                if(vp == NULL) return 0;
+                return (bool)*vp;
+            }
+
+	    /**
+	     * Get param as octets
+	     */
+            unsigned char* get_octets(TID id, uint32_t index = 0, uint32_t fragment = 0, uint32_t context = 0){
+                VariantParam* vp = get_param(id, index, fragment, context);
+                if(vp == NULL) return 0;
+                return (unsigned char*)*vp;
+            }
+
+	    /**
+	     * Get POINTER param and cast it
+	     */
+            template<typename PTR_TYPE>
+            PTR_TYPE get_pointer(TID id, uint32_t index = 0, uint32_t fragment = 0, uint32_t context = 0){
+                VariantParam* vp = get_param(id, index, fragment, context);
+                if(vp == NULL) return NULL;
+                return (PTR_TYPE)(void*)*vp;
+            }
+
+	    /**
+	     * Get OCTETS param and cast it
+	     */
+            template<typename CAST_TYPE>
+            CAST_TYPE get_octets(TID id, uint32_t index = 0, uint32_t fragment = 0, uint32_t context = 0){
+                VariantParam* vp = get_param(id, index, fragment, context);
+                if(vp == NULL) return NULL;
+                return (CAST_TYPE)(unsigned char*)*vp;
+            }
+
+
+	    /**
 	     * Check if context exists
 	     * @param[in]	context	context
 	     * @return		true if found or false otherwise
@@ -2551,7 +2635,7 @@ namespace pmink_utils {
 			unsigned char tmp[max];
 			memcpy(tmp, (unsigned char*)vp1, vp1.get_size());
 			int tmp_s = vp1.get_size();
-			set_octets(id1.key, (unsigned char*)vp2.get_data()->str, vp2.get_size(), id1.index, id1.fragment, id1.context);
+			set_octets(id1.key, vp2.get_data()->str, vp2.get_size(), id1.index, id1.fragment, id1.context);
 			set_octets(id2.key, tmp, tmp_s, id2.index, id2.fragment, id2.context);
 			break;
 		    }

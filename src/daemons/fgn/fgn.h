@@ -27,6 +27,7 @@
 #include <r14p_stats.h>
 #include <config.h>
 #include <pmink_utils.h>
+#include <lua_utils.h>
 #include <sstream>
 #include <boost/regex.hpp>
 #include <atomic.h>
@@ -457,7 +458,7 @@ namespace fgn{
 	int route_index;
 	int rrp_retry;
 	int rrp_maxr;
-	CorrelationPhaseType phase;
+	int phase;
 	__uint128_t guid;
 	rrp::RRRouteParam route_hlr;
 	pmink::Atomic<uint32_t> refc;

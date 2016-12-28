@@ -121,7 +121,8 @@ noinst_LTLIBRARIES = libpmutils.la \
 		     libpmdb.la \
 		     librrp.la \
 		     libtcpip.la \
-		     libgsm.la
+		     libgsm.la \
+		     libluautils.la
 
 
 # m3ua, sccp, smstpdu, smpp, tcap,  gsm map
@@ -194,10 +195,14 @@ libpmcli_la_CPPFLAGS = $(COMMON_INCLUDES) \
 libr14pstats_la_SOURCES = src/stats/r14p_stats.cpp
 libr14pstats_la_CPPFLAGS = $(COMMON_INCLUDES)
 
+# lua_utils
+libluautils_la_SOURCES = src/utils/lua_utils.cpp
+libluautils_la_CPPFLAGS = $(COMMON_INCLUDES)
+
 
 # pMINK libraries and plugins
 lib_LTLIBRARIES = libr14p.la \
-		  libpmcfg.la  \
+		  libpmcfg.la \
 		  libpmpcap.la
 
 pkglib_LTLIBRARIES = pm_plg_cli_cfg.la
@@ -294,6 +299,7 @@ pmink_test_LDADD = $(BOOST_LDLIBS) \
 		   libr14putils.la \
 		   librrp.la \
 		   libpmcfg.la \
+		   libluautils.la \
 		   -ldl \
 		   $(ANTLR_LDLIBS) \
 		   $(LUAJIT_LIBS) \
@@ -625,6 +631,7 @@ fgnd_LDADD = $(BOOST_LDLIBS) \
 	     libr14putils.la \
 	     librrp.la \
 	     libpmcfg.la \
+	     libluautils.la \
 	     -ldl \
 	     $(LUAJIT_LIBS) \
 	     $(ANTLR_LDLIBS) \

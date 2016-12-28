@@ -29,6 +29,11 @@
 #ifndef RING_H_
 #define RING_H_
 
+// disable boost::circular_buffer debug
+#ifndef BOOST_CB_DISABLE_DEBUG
+#define BOOST_CB_DISABLE_DEBUG
+#endif
+
 #include <boost/circular_buffer.hpp>
 #include <pthread.h>
 
