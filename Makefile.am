@@ -205,7 +205,19 @@ lib_LTLIBRARIES = libr14p.la \
 		  libpmcfg.la \
 		  libpmpcap.la
 
-pkglib_LTLIBRARIES = pm_plg_cli_cfg.la
+pkglib_LTLIBRARIES = pm_plg_cli_cfg.la \
+		     pm_plg_fgn_example.la
+
+pm_plg_fgn_example_la_CPPFLAGS = $(COMMON_INCLUDES) \
+				 -Isrc/daemons/fgn \
+				 $(BOOST_FLAGS)
+
+pm_plg_fgn_example_la_SOURCES = src/daemons/fgn/plugins/example.cpp
+
+pm_plg_fgn_example_la_LDFLAGS = -version-info 1:0:0 \
+				-export-dynamic \
+				-shared \
+				-module
 
 #+-------------------------+
 #| pMINK CLI config plugin |
