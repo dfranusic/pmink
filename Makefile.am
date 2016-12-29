@@ -210,6 +210,7 @@ pkglib_LTLIBRARIES = pm_plg_cli_cfg.la \
 
 pm_plg_fgn_example_la_CPPFLAGS = $(COMMON_INCLUDES) \
 				 -Isrc/daemons/fgn \
+				 $(LUAJIT_CFLAGS) \
 				 $(BOOST_FLAGS)
 
 pm_plg_fgn_example_la_SOURCES = src/daemons/fgn/plugins/example.cpp
