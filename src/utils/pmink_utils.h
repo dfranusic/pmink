@@ -2164,6 +2164,53 @@ namespace pmink_utils {
                 return (this->params != other.params);
             }
 
+	    /**
+	     * += operator
+	     */
+	    VariantParamMap<TID, _Alloc>& operator+=(VariantParamMap<TID, _Alloc>& other) {
+		// self assignment check
+		if(this == &other) return *this;
+		// loop other params
+		for(it_t it = other.params.begin(); it != other.params.end(); it++){
+		    // other param
+		    VariantParam& vparam = it->second;
+                    // skip if it exists
+                    if(get_param(it->first.key, it->first.index, it->first.fragment, it->first.context) != NULL) continue;
+		    // create param with data from other param
+		    switch(vparam.get_type()){
+			case DPT_INT:
+			    set_int(it->first.key, vparam.get_data()->i64, it->first.index, it->first.fragment, it->first.context);
+			    break;
+
+			case DPT_STRING:
+			    set_cstr(it->first.key, vparam.get_data()->str, it->first.index, it->first.fragment, it->first.context);
+			    break;
+
+			case DPT_DOUBLE:
+			    set_double(it->first.key, vparam.get_data()->d, it->first.index, it->first.fragment, it->first.context);
+			    break;
+
+			case DPT_CHAR:
+			    set_char(it->first.key, vparam.get_data()->c, it->first.index, it->first.fragment, it->first.context);
+			    break;
+
+			case DPT_BOOL:
+			    set_bool(it->first.key, vparam.get_data()->b, it->first.index, it->first.fragment, it->first.context);
+			    break;
+
+			case DPT_OCTETS:
+			    set_octets(it->first.key, vparam.get_data()->str, vparam.get_size(), it->first.index, it->first.fragment, it->first.context);
+			    break;
+
+			case DPT_POINTER:
+			    set_pointer(it->first.key, vparam.get_data()->p, it->first.index, it->first.fragment, it->first.context);
+			    break;
+
+		    }
+
+		}
+		return *this;
+	    }
 
 
 	    /**
