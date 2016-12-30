@@ -32,7 +32,9 @@ typedef pmink_utils::PooledVPMap<uint32_t> vp_params_t;
 
 // utils
 #define PM_FGN_CAT(x, y) x ## y
+#define PM_FGN_CAT2(x, y) PM_FGN_CAT(x, y)
 #define PM_FGN_STR(x) #x
+#define PM_FGN_STR2(x) PM_FGN_STR(x)
 
 // get rrp routing connection and sequence
 rrp::RRSequence* get_rrp_routing_seq(){
@@ -60,7 +62,11 @@ extern "C" PM_FGN_CAT(int luaopen_, name)(lua_State* L);
 // start of lua module init methods definition
 #define PM_FGN_MODULE_INIT_DEFINE(name, methods)\
 int PM_FGN_CAT(luaopen_, name)(lua_State* L){\
-    std::cout << "!!!LUAOPEN!!!!!: " << L << std::endl;\
+    PMDLOG(\
+        std::cout << "[LUA]: loading module = [" <<\
+                     PM_FGN_STR2(PM_FGN_CAT(luaopen_, name))  <<\
+                     "] , State = [" << L << "]" << std::endl;\
+    )\
     lua_pushcfunction(L, &pm_fgn_module_init);\
     return 1;\
 }\
@@ -68,7 +74,9 @@ int pm_fgn_module_init(lua_State* L){\
     int argc = lua_gettop(L);\
     if(!(argc >= 1 && lua_islightuserdata(L, 1))) return 0;\
     void* p = (void*)lua_topointer(L, 1);\
-    std::cout << "pm_fgn_module_init....." << argc << ", " << lua_type(L, 1) << ", " << L << std::endl;\
+    PMDLOG(\
+        std::cout << "[LUA]: calling [pm_fgn_module_init], arg count = [" << argc << "]" << std::endl;\
+    )\
     lua_newtable(L);\
     methods;\
     return 1;\
