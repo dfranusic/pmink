@@ -35,5 +35,6 @@ PM_FGN_MODULE_INIT_DECLARE(PM_FGN_MODULE)
 // declare "pm_plg_fgn_example.example_test" method
 PM_FGN_MODULE_METHOD_DECLARE(example_test)
 PM_FGN_MODULE_METHOD_DECLARE(example_test_2)
+PM_FGN_MODULE_METHOD_DECLARE(example_test_3)
 
 #endif //PM_FGN_MODULE_EXAMPLE_H

@@ -30,6 +30,7 @@ PM_FGN_MODULE_INIT_DEFINE(
     //   to module "example"
     PM_FGN_MODULE_ADD_METHOD(example_test)
     PM_FGN_MODULE_ADD_METHOD(example_test_2)
+    PM_FGN_MODULE_ADD_METHOD(example_test_3)
 )
 
 // RRP test event
@@ -51,7 +52,7 @@ class RRPTestEvent: public rrp_event_t{
 
             // *** get PDU params ***
             //  get GT called address
-            char* GT = pdu.get_cstr(rrp::RRPT_DST_CTX);
+            char* GT = pdu.get_cstr(rrp::RRPT_GT_CALLED);
 
             //sleep(20);
             // * resume when done and add "[GT] -> "123456"
@@ -117,4 +118,18 @@ PM_FGN_MODULE_METHOD_DEFINE(example_test_2){
     if(GT && strcmp(GT, "123456") == 0) PM_FGN_MODULE_RET_BOOL(true);
     // default return (false)
     PM_FGN_MODULE_RET_BOOL(false);
+}
+
+// define "example.example_test_3" method
+PM_FGN_MODULE_METHOD_DEFINE(example_test_3){
+    // get fgn payload (pointer to fgn::FgnPayload)
+    PM_FGN_PLD_GET(pld);
+
+    // * return table with two entries
+    //   1. key_1 => value
+    //   2. key_2 => 9999
+    PM_FGN_MODULE_RET_TBL(
+        PM_FGN_TBL_ADD_STR("key_1", "value")
+        PM_FGN_TBL_ADD_INT("key_2", 9999)
+    )
 }

@@ -105,6 +105,7 @@ return 1;}
 // return table result
 #define PM_FGN_MODULE_RET_TBL(val)\
 {lua_newtable(L);\
+val;\
 return 1;}
 
 // add str to table
