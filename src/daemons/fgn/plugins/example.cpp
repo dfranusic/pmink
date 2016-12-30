@@ -34,9 +34,9 @@ PM_FGN_MODULE_INIT_DEFINE(
 )
 
 // RRP test event
-class RRPTestEvent: public rrp_event_t{
+class RRPTestEvent: public rrp::rrp_event_t{
     public:
-        void run(rrp_event_args_t& args){
+        void run(rrp::rrp_event_args_t& args){
             // RRP sequenuce
             rrp::RRSequence* rrs = (rrp::RRSequence*)*args.get_arg(rrp::RREAIT_SEQUENCE);
 

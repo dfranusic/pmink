@@ -27,8 +27,6 @@
 // typedefs
 typedef pmink_utils::VariantParam VP;
 typedef asn1::ParameterType PT;
-typedef pmink_utils::EventArgs<rrp::RREventArgIdType, void*> rrp_event_args_t;
-typedef pmink_utils::EventHandler<rrp::RREventArgIdType, void*> rrp_event_t;
 typedef lua_State LS;
 typedef pmink_utils::PooledVPMap<uint32_t> vp_params_t;
 

@@ -173,7 +173,8 @@ namespace rrp{
 
 
     enum RREventArgIdType{
-	RREAIT_SEQUENCE			= 0
+	RREAIT_SEQUENCE			= 0,
+        RREAIT_CONNECTION               = 1
     };
 
 
@@ -235,6 +236,9 @@ namespace rrp{
     class RRSequence;
     class RRConnection;
 
+    // typedefs
+    typedef pmink_utils::EventArgs<rrp::RREventArgIdType, void*> rrp_event_args_t;
+    typedef pmink_utils::EventHandler<rrp::RREventArgIdType, void*> rrp_event_t;
 
     class RRParam{
     public:
@@ -333,6 +337,7 @@ namespace rrp{
 	~RRPDU();
 
 	pmink_utils::PooledVPMap<uint32_t> params;
+	pmink_utils::PooledVPMap<uint32_t> new_params;
 
 	int encode(unsigned char* buffer, int buffer_length, int offset, int* result_length, RRSession* sess = NULL);
 
@@ -417,6 +422,7 @@ namespace rrp{
 	pmink::Atomic<bool> registered;
 	pmink::Atomic<bool> seq_timeout_check;
 	RRSession* session;
+	pmink_utils::EventManager<RREventIdType, RREventArgIdType, void*> e_handler;
 
 	int generate_uuid(unsigned char* out);
 	RRSequence* new_sequence(const char* _dest_id, RRMethodType _method, bool reset_uuid = true, RRSequence* rrs = NULL);
@@ -432,7 +438,6 @@ namespace rrp{
 
 
     private:
-	pmink_utils::EventManager<RREventIdType, RREventArgIdType, void*> e_handler;
 	RRConnectionType direction;
 	int socket;
 	std::vector<RRSequence*> seqs;
@@ -478,6 +483,7 @@ namespace rrp{
 	std::map<uint32_t, std::string> rev_param_def_map;
 	// status map
 	std::map<uint32_t, RRStatus> status_def_map;
+	pmink_utils::EventManager<RREventIdType, RREventArgIdType, void*> e_handler;
 
 	const char* find_rev_str(uint32_t id);
 	RRParam* find_param_id(const char* pstr);
@@ -499,7 +505,6 @@ namespace rrp{
 
     private:
 	std::vector<RRConnection*> conns;
-	pmink_utils::EventManager<RREventIdType, RREventArgIdType, void*> e_handler;
 	int seq_timeout;
 	int seq_pool;
 	char daemon_id[65];

@@ -543,6 +543,7 @@ void rrp::RRStateMachine::process_begin(RRSequence* tmp_seq){
     // add sequence
     tmp_seq->connection->add_sequence(tmp_seq);
     // run SEQUENCE_NEW event handler
+    tmp_seq->pdu.new_params.clear_params();
     pmink_utils::EventArgs<RREventArgIdType, void*> e_args;
     e_args.add_arg(RREAIT_SEQUENCE, tmp_seq);
     tmp_seq->connection->e_handler.run_handler(RREIT_SEQUENCE_NEW, e_args);
@@ -552,6 +553,7 @@ void rrp::RRStateMachine::process_begin(RRSequence* tmp_seq){
 
     // *** gen ack ***
     tmp_seq->gen_ack(true);
+    tmp_seq->pdu.params += tmp_seq->pdu.new_params;
     // status
     params->set_cstr(RRPT_STATUS, rrs->find_status_id(RREC_200)->msg.c_str());
     /*
@@ -611,6 +613,7 @@ void rrp::RRStateMachine::process_continue(RRSequence* tmp_seq){
     // toggle seq ack
     tmp_seq->toggle_ack_rcvd();
     // run RREIT_SEQUENCE_NEXT event handler
+    tmp_seq->pdu.new_params.clear_params();
     pmink_utils::EventArgs<RREventArgIdType, void*> e_args;
     e_args.add_arg(RREAIT_SEQUENCE, tmp_seq);
     tmp_seq->e_handler.run_handler(RREIT_SEQUENCE_NEXT, e_args);
@@ -626,6 +629,7 @@ void rrp::RRStateMachine::process_continue(RRSequence* tmp_seq){
 
     // *** gen ack ***
     tmp_seq->gen_ack(true);
+    tmp_seq->pdu.params += tmp_seq->pdu.new_params;
 
     // toggle seq ack
     tmp_seq->toggle_ack_rcvd();
@@ -668,6 +672,7 @@ void rrp::RRStateMachine::process_end(RRSequence* tmp_seq, bool remove_seq){
     // toggle seq ack
     tmp_seq->toggle_ack_rcvd();
     // run RREIT_SEQUENCE_END event handler
+    tmp_seq->pdu.new_params.clear_params();
     pmink_utils::EventArgs<RREventArgIdType, void*> e_args;
     e_args.add_arg(RREAIT_SEQUENCE, tmp_seq);
     tmp_seq->e_handler.run_handler(RREIT_SEQUENCE_END, e_args);
@@ -677,6 +682,7 @@ void rrp::RRStateMachine::process_end(RRSequence* tmp_seq, bool remove_seq){
 
     // *** gen ack ***
     tmp_seq->gen_ack(true);
+    tmp_seq->pdu.params += tmp_seq->pdu.new_params;
     // free on send
     tmp_seq->free_on_send = true;
     // remove from list
@@ -2056,9 +2062,16 @@ rrp::RRConnection* rrp::RRSession::connect( const char* end_point_address,
 	    break;
 
 	case RRCT_SERVER:
+        {
 	    // do nothing, register done by server
 	    rrc->registered.set(true);
+            // run CLIENT_NEW event handler
+            pmink_utils::EventArgs<RREventArgIdType, void*> e_args;
+            e_args.add_arg(RREAIT_CONNECTION, rrc);
+            e_handler.run_handler(RREIT_CLIENT_NEW, e_args);
 	    break;
+        }
+
     }
 
     // return
