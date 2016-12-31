@@ -718,10 +718,6 @@ void rrp::RRStateMachine::process_seq_end(RRSequence* tmp_seq){
     // check status for unregistered
     pmink_utils::VariantParam* vp = tmp_seq->pdu.params.get_param(RRPT_STATUS);
     if(vp != NULL && RRStatus::get_status((char*)*vp) == RREC_401){
-	//PMDLOG(
-	  //  std::cout << "======================== UNREGEISTERED =================" << std::endl;
-	//)
-
 	tmp_seq->connection->reconnect_flag.comp_swap(false, true);
     }
 
@@ -883,7 +879,7 @@ rrp::RRConnection::RRConnection(int _socket,
     seq_pool.init(stream_pool_size);
     seq_pool.construct_objects();
     // set stream connection pointer
-    for(int i = 0; i<stream_pool_size; i++) seq_pool.get_constructed(i)->connection = this;
+    for(unsigned int i = 0; i<stream_pool_size; i++) seq_pool.get_constructed(i)->connection = this;
 
     // queues
     out_queue.set_capacity(stream_pool_size);
@@ -994,7 +990,6 @@ int rrp::RRConnection::init_reconnect(){
     close(socket);
     // new socket
     socket = reconnect_socket();
-    //std::cout << "NEW SOCKET : " << socket << std::endl;
     // cehck socket
     if(socket <= 0) return -1;
 
@@ -1016,8 +1011,6 @@ int rrp::RRConnection::init_reconnect(){
     pthread_t tmp_thread_h;
     pthread_create(&tmp_thread_h, NULL, &_tmp_thread::run, this);
 
-    // register
-    //if(register_client() != 0) return 1;
     // ok
     return socket;
 }
@@ -1068,6 +1061,7 @@ void rrp::RRConnection::process_timeout(bool override){
 	    // next seq
 	    }else ++it;
 	}
+        if(seqs.size() == 0) seqs_active.set(false);
 	// unlock
 	mtx_seqs.unlock();
     }
@@ -1103,6 +1097,7 @@ int rrp::RRConnection::register_client(){
 void rrp::RRConnection::add_sequence(RRSequence* _seq){
     mtx_seqs.lock();
     seqs.push_back(_seq);
+    seqs_active.set(true);
     mtx_seqs.unlock();
 
 }
@@ -1112,6 +1107,7 @@ void rrp::RRConnection::remove_sequence(RRSequence* _seq){
     for(unsigned int i = 0; i<seqs.size(); i++){
 	if(seqs[i] == _seq){
 	    seqs.erase(seqs.begin() + i);
+            if(seqs.size() == 0) seqs_active.set(false);
 	    break;
 	}
     }
@@ -1122,7 +1118,7 @@ void rrp::RRConnection::remove_sequence(RRSequence* _seq){
 bool rrp::RRConnection::validate_seq_num(RRPDU* pdu,  unsigned int expected_seq_num){
     pmink_utils::VariantParam* vp = pdu->params.get_param(RRPT_SEQUENCE);
     if(vp == NULL) return false;
-    if((int)*vp != expected_seq_num) return false;
+    if((uint32_t)*vp != expected_seq_num) return false;
     return true;
 }
 
@@ -1171,7 +1167,6 @@ void* rrp::RRConnection::in_loop(void* args){
     socklen_t src_addr_l = sizeof(src_addr);
     int br;
     int res;
-    timespec ts = {0, 1000000};
     unsigned char buff[conn->session->max_pdu_size];
     unsigned char frag_buff[conn->session->max_pdu_size];
     unsigned int frag_l = 0;
@@ -1186,10 +1181,6 @@ void* rrp::RRConnection::in_loop(void* args){
 	conn->process_timeout();
 	// reconnect
 	if(conn->reconnect_flag.get()){
-	    //PMDLOG(
-		//std::cout << "======================== RRP RECONNECTING =================" << std::endl;
-	    //)
-
 	    // force timeout of all active seqs
 	    conn->process_timeout(true);
 	    // update socket
@@ -1209,6 +1200,8 @@ void* rrp::RRConnection::in_loop(void* args){
 		// decode
 		res = decode(buff, br, &pdu, conn->session);
 		if(res == 0){
+                    // update timestamp
+                    conn->timestamp.set(time(NULL));
                     /*
 		    PMDLOG(
 			std::cout << "======================== RRP Received =================" << std::endl;
@@ -1216,27 +1209,22 @@ void* rrp::RRConnection::in_loop(void* args){
 			std::cout << "======================================================="  << std::endl;
 		    )
                     */
-		    //std::cout << "DECODED" << std::endl;
-		    //std::cout << pdu.params << std::endl;
 		    // validate size
 		    vp = pdu.params.get_param(RRPT_SIZE);
 		    // sanity check
 		    if(vp == NULL) {
 			// todo err stats
-			//std::cout << "Size missing..." << std::endl;
 			continue;
 		    }
 		    // decode size
 		    if(RRSize::get_size((char*)*vp, &rrsize) != 0){
 			// todo err stats
-			//std::cout << "Size malformed..." << std::endl;
 			continue;
 		    }
 
 		    // check if size is correct
 		    if(br != rrsize.size){
 			// todo err stats
-			//std::cout << "Size error..." << std::endl;
 			continue;
 		    }
 
@@ -1244,8 +1232,7 @@ void* rrp::RRConnection::in_loop(void* args){
 		    res = conn->rrp_sm.run(&pdu, conn);
 		    // check errors
 		    if(res != 0){
-			// todo errors
-			//std::cout << "STATE MACHINE ERR: " << res << std::endl;
+			// todo err stats
 		    }
 
 		// fragmented
@@ -1257,12 +1244,10 @@ void* rrp::RRConnection::in_loop(void* args){
 			// todo err stats
 			continue;
 		    }
-		    //std::cout << "!!! FRAGMENTED: " << rrsize.size << ":" << rrsize.fragment << ":" << rrsize.more_fragments << std::endl;
 		    // next expected fragment
 		    ++frag_c;
 		    // check if right fragmetn index received
 		    if(frag_c != rrsize.fragment){
-			//std::cout << "!!!UNEXPECTED FRAGMENT: " << rrsize.fragment << ", expected: " << frag_c << std::endl;
 			// reset
 			frag_c = 0;
 			frag_l = 0;
@@ -1274,15 +1259,12 @@ void* rrp::RRConnection::in_loop(void* args){
 		    if(frag_c == 1) frag_hash = pmink_utils::hash_fnv1a(rrsize.uuid, sizeof(rrsize.uuid));
 		    // check if uuids match
 		    else if(frag_hash != pmink_utils::hash_fnv1a(rrsize.uuid, sizeof(rrsize.uuid))){
-			//std::cout << "!!!UNEXPECTED FRAGMENT UUID!! " << std::endl;
 			// reset
 			frag_c = 0;
 			frag_l = 0;
 			frag_hash = 0;
 			continue;
-
 		    }
-
 
 		    // size without Size line
 		    int tmp_s = rrsize.size - vp->get_size() - 5;
@@ -1312,17 +1294,6 @@ void* rrp::RRConnection::in_loop(void* args){
 			memcpy(frag_buff, tmp_str, nsl);
 			frag_l += nsl;
 
-			/*
-			std::cout << "Total l: " << frag_l << std::endl;
-			std::cout << "=====================" << std::endl;
-			std::cout << std::string((char*)frag_buff, frag_l);
-			std::cout << "=====================" << std::endl;
-			*/
-			//pmink_utils::print_hex(frag_buff, frag_l);
-
-
-
-
 			// decode
 			res = decode(frag_buff, frag_l, &pdu, conn->session);
 			if(res == 0){
@@ -1331,13 +1302,10 @@ void* rrp::RRConnection::in_loop(void* args){
 			    // check errors
 			    if(res != 0){
 				// todo errors
-				//std::cout << "STATE MACHINE ERR: " << res << std::endl;
 			    }
 
 			}else{
 			    // todo stats
-			    //std::cout << "DEcode ERROR!!! " << std::endl;
-			    //std::cout << std::string((char*)frag_buff, frag_l) << std::endl;
 			}
 
 			// reset
@@ -1348,7 +1316,6 @@ void* rrp::RRConnection::in_loop(void* args){
 		    }
 
 		}else{
-		    //std::cout << "DEcode ERROR!!! " << std::endl;
 		    // todo stats
 		}
 
@@ -1358,15 +1325,14 @@ void* rrp::RRConnection::in_loop(void* args){
 	}else{
 	    // idle
 	    if(res == 0){
-		nanosleep(&ts, NULL);
-		//std::cout << "Socket idle..." << std::endl;
+                // do nothing for now
 
 	    // error
 	    }else{
-		//std::cout << "Socket error..." << std::endl;
 		// force timeout of all active seqs
 		conn->process_timeout(true);
-
+                // reconnect, update socket
+                fds_lst[0].fd = conn->init_reconnect();
 
 	    }
 	}
@@ -1415,7 +1381,8 @@ void* rrp::RRConnection::out_loop(void* args){
     inet_aton(conn->end_point_address, &end_addr);
     end_point.sin_addr.s_addr = end_addr.s_addr;
     RRSequence* rrseq = NULL;
-    timespec ts = {0, 1000000};
+    timespec pause_ts = {0, 1};
+    timespec pause_ts_long = {0, 1000000};
     int enc_l = 0;
     int res;
     unsigned char tmp_buff[conn->session->max_pdu_size];
@@ -1449,19 +1416,10 @@ void* rrp::RRConnection::out_loop(void* args){
 		    // fwd pointer after Size line
 		    tmp_buff_p = &tmp_buff[size_str_l];
 
-		    //std::cout << "!!!!FRAGMENTED!!!" << std::endl;
-		    //std::cout << "=======================" << std::endl;
-		    //pmink_utils::print_hex(tmp_buff, enc_l);
-		    //std::cout << std::string((char*)tmp_buff_p, enc_l) << std::endl;
-		    //std::cout << "=======================" << std::endl;
-
 		    // Size:300;1;1;7a57b6da591245c2999033fd21dad623\n
-		    //int enc_l_wo_size = enc_l - size_str_l;
 		    int total_l = enc_l - size_str_l;
-		    //int enc_l_wo_size = conn->session->mtu - 50;
 		    int frag_mtu = conn->session->mtu - 50;
 		    int frag_l = frag_mtu;
-		    //std::cout << "====TOTAL L : ===================" << total_l << std::endl;
 		    // frag counter
 		    int fragc = 0;
 
@@ -1482,7 +1440,6 @@ void* rrp::RRConnection::out_loop(void* args){
 			// overflow check
 			if(tmp_buff_end_p + rrsize_enc_l > &tmp_buff[conn->session->max_pdu_size]){
 			    // todo err stats
-			    //std::cout << "==========ERRR!!!!" << std::endl;
 			    break;
 			}
 			// insert size
@@ -1490,15 +1447,6 @@ void* rrp::RRConnection::out_loop(void* args){
 			memcpy(tmp_buff_p, rrsize_buff, rrsize_enc_l);
 			// update end pointer
 			tmp_buff_end_p += rrsize_enc_l;
-
-			/*
-			std::cout << "=======================" << std::endl;
-			std::cout << "Fragment: " << fragc << std::endl;
-			std::cout << "Size: " << rrsize.size << std::endl;
-			pmink_utils::print_hex(tmp_buff_p, rrsize.size);
-			std::cout << std::string((char*)tmp_buff_p, rrsize.size) << std::endl;
-			std::cout << "=======================" << std::endl;
-			*/
 
 			// send fragment
 			res = sendto(conn->socket, tmp_buff_p, rrsize.size, MSG_NOSIGNAL, (sockaddr*)&end_point, sizeof(end_point));
@@ -1532,11 +1480,6 @@ void* rrp::RRConnection::out_loop(void* args){
 
 		)
                 */
-
-		//std::cout << "Sending...: " << enc_l << std::endl;
-		//tmp_buff[enc_l] = 0;
-		//std::cout << std::string((char*)tmp_buff, enc_l) << std::endl;
-
 		res = sendto(conn->socket, tmp_buff, enc_l, MSG_NOSIGNAL, (sockaddr*)&end_point, sizeof(end_point));
 		if(res == -1){
 		    // queue reconnect
@@ -1551,14 +1494,27 @@ void* rrp::RRConnection::out_loop(void* args){
 
 	    // check if end point port changed
 	    if(conn->end_port_changed_flag.comp_swap(true, false)){
-		//std::cout << "========== CHANGING END PORT ============: " <<conn->end_point_port << std::endl;
 		end_point.sin_port = ntohs(conn->end_point_port);
 
 	    }
 
 	// no packets, sleep
-	}else nanosleep(&ts, NULL);
+	}else{
+            // - use smaller sleep value (1 nsec) if the
+            //   following conditions are met:
+            //     1. at least one sequence is active
+            //     2. a packet was received by this client
+            //        no longer than 1 sec ago (this is important
+            //        in order to avoid seeing timed out sequences
+            //        as active sequences if they still haven't
+            //        been removed from the active sequence list)
+            if(conn->seqs_active.get() && (time(NULL) - conn->timestamp.get() < 1))
+                nanosleep(&pause_ts, NULL);
 
+            // - sleep longer (1 msec) if there are no
+            //   active sequences
+            else nanosleep(&pause_ts_long, NULL);
+        }
 
     }
 
@@ -1826,7 +1782,6 @@ void* rrp::RRSession::server_loop(void* args){
     socklen_t src_addr_l = sizeof(src_addr);
     int br;
     int res;
-    timespec ts = {0, 1000000};
     RRPDU pdu;
     pmink_utils::VariantParam* vp = NULL;
     pmink_utils::PooledVPMap<uint32_t> tmp_params;
@@ -1849,30 +1804,22 @@ void* rrp::RRSession::server_loop(void* args){
 		br = recvfrom(fds_lst[0].fd, buff, sizeof(buff), 0, (sockaddr*)&src_addr, &src_addr_l);
 		// decode
 		if(decode(buff, br, &pdu, sess) == 0){
-		   // std::cout << "RRP Received... "  << std::endl;
-		    //std::cout << "==============="  << std::endl;
-		    //buff[br] = 0;
-		    //std::cout << buff << std::endl << std::endl;
-		    //std::cout << "==============="  << std::endl;
 		    // validate size
 		    vp = pdu.params.get_param(RRPT_SIZE);
 		    // sanity check
 		    if(vp == NULL) {
 			// todo err stats
-			//std::cout << "Size missing..." << std::endl;
 			continue;
 		    }
 		    // decode size
 		    if(RRSize::get_size((char*)*vp, &rrsize) != 0){
 			// todo err stats
-			//std::cout << "Size malformed..." << std::endl;
 			continue;
 		    }
 
 		    // check if size is correct
 		    if(br != rrsize.size){
 			// todo err stats
-			//std::cout << "Size error..." << std::endl;
 			continue;
 		    }
 
@@ -1891,19 +1838,7 @@ void* rrp::RRSession::server_loop(void* args){
 		    if(rrp_p == NULL || rrp_p->id != RRRT_REGISTER) continue;
 
 		    // REGISTER found
-		   // std::cout << "!!!!REGISTER!!" << std::endl;
-
-
-
-
-
 		    // create client
-		    //std::cout << "Peer address: " << inet_ntoa(src_addr.sin_addr) << std::endl;
-		    //std::cout << "Peer port: " << be16toh(src_addr.sin_port) << std::endl;
-		    //std::cout << "Server port: " << sess->server_port << std::endl;
-		    //std::cout << "Server address: " << sess->server_local_address << std::endl;
-
-
 		    rrc = sess->connect(inet_ntoa(src_addr.sin_addr),
 				        be16toh(src_addr.sin_port),
 				        sess->server_local_address,
@@ -1953,10 +1888,6 @@ void* rrp::RRSession::server_loop(void* args){
 		    // encode
 		    if(pdu.encode(buff, sizeof(buff), 0, &enc_l, sess) == 0){
 			// send
-			///std::cout << "Server sending..." << std::endl;
-			//buff[enc_l] = 0;
-			//std::cout << (char*)buff << std::endl;
-
 			sendto(fds_lst[0].fd, buff, enc_l, MSG_NOSIGNAL, (sockaddr*)&src_addr, sizeof(src_addr));
 		    }
 
@@ -1965,9 +1896,6 @@ void* rrp::RRSession::server_loop(void* args){
 
 		}else{
 		    // todo stats
-		    //std::cout << "DEcode ERROR!!! " << std::endl;
-		    //buff[br] = 0;
-		    //std::cout << buff << std::endl;
 		}
 
 
@@ -1976,14 +1904,11 @@ void* rrp::RRSession::server_loop(void* args){
 	}else{
 	    // idle
 	    if(res == 0){
-		nanosleep(&ts, NULL);
-		//std::cout << "Socket idle..." << std::endl;
+                // do nothing for now
 
 	    // error
 	    }else{
-		//std::cout << "Socket error..." << std::endl;
-
-
+                // todo stats
 	    }
 	}
     }
@@ -2430,11 +2355,6 @@ int rrp::decode(const unsigned char* data, int data_length, RRPDU* pdu, RRSessio
     // set packet data
     pdu->params.set_octets(rrp::RRPT_PACKET_DATA, data, data_length);
     pdu->params.set_label(rrp::RRPT_PACKET_DATA, rrs->find_rev_str(rrp::RRPT_PACKET_DATA));
-
-
-    //std::cout << "PARAMS" << std::endl;
-    //std::cout << pdu->params << std::endl;
-
 
     // ok
     return 0;

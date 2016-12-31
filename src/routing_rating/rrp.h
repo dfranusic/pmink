@@ -421,6 +421,8 @@ namespace rrp{
 	pmink::RingBuffer<RRSequence*> out_queue;
 	pmink::Atomic<bool> registered;
 	pmink::Atomic<bool> seq_timeout_check;
+	pmink::Atomic<bool> seqs_active;
+	pmink::Atomic<bool> timestamp;
 	RRSession* session;
 	pmink_utils::EventManager<RREventIdType, RREventArgIdType, void*> e_handler;
 
