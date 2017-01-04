@@ -29,6 +29,7 @@ typedef pmink_utils::VariantParam VP;
 typedef asn1::ParameterType PT;
 typedef lua_State LS;
 typedef pmink_utils::PooledVPMap<uint32_t> vp_params_t;
+typedef fgn::Plugin PLUGIN;
 
 // utils
 #define PM_FGN_CAT(x, y) x ## y
@@ -56,7 +57,9 @@ rrp::RRSequence* get_rrp_routing_seq(){
 
 // lua module init methods declarations
 #define PM_FGN_MODULE_INIT_DECLARE(name)\
+const char* PM_FGN_MODULE_STR = PM_FGN_STR2(name);\
 extern "C" int pm_fgn_module_init(lua_State* L);\
+extern "C" const char* pm_fgn_module_get_name();\
 extern "C" PM_FGN_CAT(int luaopen_, name)(lua_State* L);
 
 // start of lua module init methods definition
@@ -70,6 +73,9 @@ int PM_FGN_CAT(luaopen_, name)(lua_State* L){\
     lua_pushcfunction(L, &pm_fgn_module_init);\
     return 1;\
 }\
+const char* pm_fgn_module_get_name(){\
+    return PM_FGN_MODULE_STR;\
+}\
 int pm_fgn_module_init(lua_State* L){\
     int argc = lua_gettop(L);\
     if(!(argc >= 1 && lua_islightuserdata(L, 1))) return 0;\
@@ -77,15 +83,22 @@ int pm_fgn_module_init(lua_State* L){\
     PMDLOG(\
         std::cout << "[LUA]: calling [pm_fgn_module_init], arg count = [" << argc << "]" << std::endl;\
     )\
+    FgndDescriptor* dd = (FgndDescriptor*)pmink::CURRENT_DAEMON;\
+    fgn::Plugin* plg_p = NULL;\
+    fgn::plugin_m_t::iterator it = dd->plugins.find(PM_FGN_MODULE_STR);\
+    if(it != dd->plugins.end()) plg_p = &it->second;\
     lua_newtable(L);\
     methods;\
     return 1;\
 }
 
+#define PM_FGN_MODULE_INIT_VARS(name) extern "C" void pm_fgn_module_init_vars(fgn::Plugin* P)
+
 // add user method to lua module
 #define PM_FGN_MODULE_ADD_METHOD(method)\
     lua_pushlightuserdata(L, p);\
-    lua_pushcclosure(L, &method, 1);\
+    lua_pushlightuserdata(L, plg_p);\
+    lua_pushcclosure(L, &method, 2);\
     lua_setfield(L, -2, PM_FGN_STR(method));
 
 // lua user method declaration and definition
@@ -140,6 +153,10 @@ dd->cmap.set(pld->guid, pld);\
 dd->cmap.unlock();\
 usr_code;\
 return lua_yield(L, 1);}
+
+// get Plugin pointer
+#define PM_FGN_PLUGIN_GET(name)\
+fgn::Plugin* name = (fgn::Plugin*)lua_topointer(L, lua_upvalueindex(2));
 
 // get FgnPayload as an upvalue
 #define PM_FGN_PLD_GET(name) \

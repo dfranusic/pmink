@@ -495,8 +495,6 @@ namespace fgn{
 
     };
 
-
-
     // Filtering
     class FilterManager{
 	friend class FilterConfigMod;
@@ -527,6 +525,16 @@ namespace fgn{
 
     };
 
+    class Plugin{
+    public:
+        void* handle;
+        std::string fname;
+        pmink_utils::PooledVPMap<uint32_t> params;
+
+    };
+
+    // typedefs
+    typedef std::map<std::string, fgn::Plugin> plugin_m_t;
 
 }
 
@@ -557,7 +565,10 @@ public:
     int generate_uuid(unsigned char* out);
     void send_stp(fgn::rule_param_t* params);
     void send_pd(fgn::rule_param_t* params);
-
+    // plugins
+    const char* get_plugin_name(void* hndl);
+    int init_plugin_vars(fgn::Plugin* plugin);
+    void init_plugins(const char* dir);
     // routing daemons
     std::vector<std::string> routing_daemons;
     // config
@@ -628,6 +639,8 @@ public:
     pmink_utils::MTMasterSlave<fgn::rule_m_t, true> rule_m;
     // master flood manager
     pmink_utils::MTMasterSlave<fgn::flood_m_t, true> flood_m;
+    // plugins
+    fgn::plugin_m_t plugins;
 };
 
 

@@ -611,13 +611,14 @@ CONFIG {
 			// STP node
 			fgn_node * "STRING_15" "FGN Node" {
 				// pools
-				pool 		"INT"	"Correlation and rule processor pool size"
-				timeout		"INT"	"Default correlation timeout"
-				timer_res	"INT"	"Timer resolution in seconds"
-				fworkers	"INT"	"Number of rule processor threads"
-				sl_list_max	"INT"	"Maximum number of elements in standard list (default = 1000)"
-				fl_list_max	"INT"	"Maximum number of elements in flood list (default = 1000)"
-				fl_list_ttl	"INT"	"Maximum flood list TTL in seconds (default = 3600)"
+				pool 		"INT"	    "Correlation and rule processor pool size"
+				timeout		"INT"	    "Default correlation timeout"
+				timer_res	"INT"	    "Timer resolution in seconds"
+				fworkers	"INT"	    "Number of rule processor threads"
+				sl_list_max	"INT"	    "Maximum number of elements in standard list (default = 1000)"
+				fl_list_max	"INT"	    "Maximum number of elements in flood list (default = 1000)"
+				fl_list_ttl	"INT"	    "Maximum flood list TTL in seconds (default = 3600)"
+                                plugin_dir      "STRING"    "User plugin directory (default = current)"
 
 				// routing configuration
 				routing CONST "Routing nodeset configuration" {

@@ -64,14 +64,18 @@ class RRPTestEvent: public rrp::rrp_event_t{
                 // if payload is still buffered, do the following
                 if(GT) PM_FGN_TBL_ADD_STR("GT", GT)
             );
-
-            // free event
-            delete this;
         }
 };
 
+// init global vars for this plugin
+PM_FGN_MODULE_INIT_VARS(PM_FGN_MODULE){
+    // set plugin parameter (RRP event which will be reused)
+    P->params.set_pointer(0, new RRPTestEvent());
+}
+
+
 // send dummy data via RRP
-int test_rrp_method(__uint128_t guid, LS* L){
+int test_rrp_method(__uint128_t guid, LS* L, PLUGIN* P){
     // get RRP sequence for RRP routing connection
     rrp::RRSequence* rrs = get_rrp_routing_seq();
     if(!rrs) return 1;
@@ -81,11 +85,12 @@ int test_rrp_method(__uint128_t guid, LS* L){
     // *** SEQUENCE params ***
     seq.set_octets(0, &guid, sizeof(guid));
     seq.set_pointer(1, L);
+    seq.set_pointer(2, P);
     // *** PDU params ***
     // test GT Called number
     pdu.set_cstr(rrp::RRPT_GT_CALLED, "123456");
-    // create event
-    RRPTestEvent* rrp_event = new RRPTestEvent();
+    // get event from plugin params
+    RRPTestEvent* rrp_event = P->params.get_pointer<RRPTestEvent*>(0);
     // set event handlers
     rrs->e_handler.set_handler(rrp::RREIT_SEQUENCE_END, rrp_event);
     rrs->e_handler.set_handler(rrp::RREIT_SEQUENCE_TIMEOUT, rrp_event);
@@ -99,12 +104,14 @@ int test_rrp_method(__uint128_t guid, LS* L){
 PM_FGN_MODULE_METHOD_DEFINE(example_test){
     // get fgn payload (pointer to fgn::FgnPayload)
     PM_FGN_PLD_GET(pld);
+    // get fgn plugin pointer
+    PM_FGN_PLUGIN_GET(P);
     // return and yield
     PM_FGN_MODULE_RET_YIELD(
         // payload
         pld,
         // action just BEFORE yield
-        test_rrp_method(pld->guid, L)
+        test_rrp_method(pld->guid, L, P)
     );
 }
 

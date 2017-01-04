@@ -32,6 +32,7 @@
 #include "lua.hpp"
 #include <lua_if.h>
 #include <connection.h>
+#include <dlfcn.h>
 
 // FWorker
 fgn::FWorker::FWorker(int _id, int q_size, FilterManager* _fm): id(_id), fm(_fm){
@@ -8348,6 +8349,11 @@ void FgndDescriptor::process_config(){
     (*root)("lists")->set_on_change_handler(&lists_mod_handler, true);
     pmink::CURRENT_DAEMON->log(pmink::LLT_DEBUG, "Finished building filtering lists...");
 
+    // load plugins
+    pmink::CURRENT_DAEMON->log(pmink::LLT_DEBUG, "Load plugins...");
+    init_plugins(root->to_cstr("plugin_dir"));
+    pmink::CURRENT_DAEMON->log(pmink::LLT_DEBUG, "Finished loading plugins...");
+
     // create filtering workers
     pmink::CURRENT_DAEMON->log(pmink::LLT_DEBUG, "Starting rule processor threads...");
     int pcc = root->to_int("fworkers", 1);
@@ -9338,6 +9344,105 @@ void FgndDescriptor::send_pd(fgn::rule_param_t* params){
 
     // *********************************************
     // *********************************************
+
+}
+
+const char* FgndDescriptor::get_plugin_name(void * hndl){
+    if(!hndl) return NULL;
+    typedef const char* (*dl_func_t)();
+    dlerror();
+    dl_func_t dl_func = (dl_func_t)dlsym(hndl, "pm_fgn_module_get_name");
+    const char *dlsym_error = dlerror();
+    if(dlsym_error){
+        // log
+        pmink::CURRENT_DAEMON->log(pmink::LLT_ERROR, dlsym_error);
+        // close
+        dlclose(hndl);
+        return NULL;
+    }
+    // run method
+    return dl_func();
+}
+
+int FgndDescriptor::init_plugin_vars(fgn::Plugin* plugin){
+    if(!plugin || !plugin->handle) return 1;
+    typedef void (*dl_func_t)(fgn::Plugin*);
+    dlerror();
+    dl_func_t dl_func = (dl_func_t)dlsym(plugin->handle, "pm_fgn_module_init_vars");
+    const char *dlsym_error = dlerror();
+    if(dlsym_error) return 2;
+    // run method
+    dl_func(plugin);
+    // ok
+    return 0;
+}
+void FgndDescriptor::init_plugins(const char* dir){
+    dirent** fnames;
+    std::string tmp_str;
+    // scan dir
+    if(!dir) dir = ".";
+    int n = scandir(dir, &fnames, NULL, &alphasort);
+    // if no error
+    if(n >= 0){
+	for(int i = 0; i<n; i++){
+	    // check if file is actually a file and not a dir
+	    if(fnames[i]->d_type == DT_REG || fnames[i]->d_type == DT_LNK){
+		const char *ext = strrchr(fnames[i]->d_name, '.');
+		if((!ext) || (ext == fnames[i]->d_name)) continue;
+		else if(strcmp(ext, ".so") != 0) continue;
+		// init plugin
+		fgn::Plugin plugin;
+		plugin.fname.assign(dir);
+		plugin.fname.append("/");
+		plugin.fname.append(fnames[i]->d_name);
+		plugin.handle = dlopen(plugin.fname.c_str(), RTLD_LAZY);
+		if(!plugin.handle) {
+		    // log
+		    pmink::CURRENT_DAEMON->log(pmink::LLT_ERROR, 
+					       "Error while loading user plugin [%s]!", plugin.fname.c_str());
+		    continue;
+		}
+                // get plugin name from library
+		const char* plg_name = get_plugin_name(plugin.handle);
+                // err check
+                if(!plg_name) continue;
+                // check if pplugin alrady exists
+                fgn::plugin_m_t::iterator it = plugins.find(plg_name);
+                if(it != plugins.end()){
+		    // log
+		    pmink::CURRENT_DAEMON->log(pmink::LLT_ERROR, 
+					       "Plugin [file = '%s', name = '%s'] already"
+                                               "registered, disabling both plugins due to name clash!",
+                                               plugin.fname.c_str(),
+                                               plg_name);
+
+                    // erase from plugin list
+                    plugins.erase(plg_name);
+                    // close current library
+                    dlclose(plugin.handle);
+                    // next
+                    continue;
+
+                }
+                // log
+		pmink::CURRENT_DAEMON->log(pmink::LLT_INFO, 
+                                           "Loading plugin: name = [%s], filename = [%s]", 
+                                           plg_name,
+                                           plugin.fname.c_str());
+                // add to list
+                plugins[plg_name] = plugin;
+                // init plugins vars (optional)
+                init_plugin_vars(&plugins[plg_name]);
+	    }
+
+	    // free file
+	    free(fnames[i]);
+
+	}
+	// free file list
+	free(fnames);
+
+    }
 
 }
 
