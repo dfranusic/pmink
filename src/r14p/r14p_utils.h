@@ -99,7 +99,7 @@ namespace r14p {
 	 * @param[in]	_data_size	Data size
 	 * @return	0 for success or error code
 	 */
-	virtual int set_data(void* _data, unsigned int _data_size);
+	virtual int set_data(const void* _data, unsigned int _data_size);
 
 	/**
 	 * Set parameter data
@@ -237,12 +237,12 @@ namespace r14p {
 	void lock();				/**< Lock mutex */
 	void unlock();				/**< Unlock mutex */
 
-	void fragment(void* _data, unsigned int _data_size);
+	void fragment(const void* _data, unsigned int _data_size);
 
 
 	unsigned char data[256];		/**< Parameter data buffer */
 	unsigned char* data_p;			/**< Parameter data pointer */
-	void* in_data_p;			/**< Input data pointer */
+	const void* in_data_p;			/**< Input data pointer */
 	unsigned int data_size;			/**< Parameter data size */
 	unsigned int total_data_size;		/**< Total data size including all fragments */
 	ServiceParamType type;			/**< Parameter type */
@@ -264,13 +264,13 @@ namespace r14p {
 
 
 	// data read callback
-	typedef int (*param_data_cb_type)(ServiceParam* sc_param, void* in, int in_size);
+	typedef int (*param_data_cb_type)(ServiceParam* sc_param, const void* in, int in_size);
 
 	param_data_cb_type param_data_cb;
 
 
-	static int param_data_file(ServiceParam* sc_param, void* in, int in_size);
-	static int param_data_default(ServiceParam* sc_param, void* in, int in_size);
+	static int param_data_file(ServiceParam* sc_param, const void* in, int in_size);
+	static int param_data_default(ServiceParam* sc_param, const void* in, int in_size);
 
     };
 

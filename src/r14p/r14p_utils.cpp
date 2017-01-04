@@ -57,7 +57,7 @@ r14p::ServiceParam::~ServiceParam(){
 
 }
 
-void r14p::ServiceParam::fragment(void* _data, unsigned int _data_size){
+void r14p::ServiceParam::fragment(const void* _data, unsigned int _data_size){
     // set in data pointer
     in_data_p = _data;
     // set first fragment data
@@ -76,7 +76,7 @@ void r14p::ServiceParam::fragment(void* _data, unsigned int _data_size){
 }
 
 
-int r14p::ServiceParam::param_data_file(ServiceParam* sc_param, void* in, int in_size){
+int r14p::ServiceParam::param_data_file(ServiceParam* sc_param, const void* in, int in_size){
     FILE* f = (FILE*)in;
 
     // get tmp service param buffer
@@ -94,7 +94,7 @@ int r14p::ServiceParam::param_data_file(ServiceParam* sc_param, void* in, int in
     return bc;
 }
 
-int r14p::ServiceParam::param_data_default(ServiceParam* sc_param, void* in, int in_size){
+int r14p::ServiceParam::param_data_default(ServiceParam* sc_param, const void* in, int in_size){
     // calculate number of bytes needed for current fragment
     int bc = (sc_param->total_data_size > sizeof(sc_param->data) ? sizeof(sc_param->data) : sc_param->total_data_size);
 
@@ -174,7 +174,7 @@ void r14p::ServiceParam::set(pmink_utils::VariantParam* vparam){
 }
 
 
-int r14p::ServiceParam::set_data(void* _data, unsigned int _data_size){
+int r14p::ServiceParam::set_data(const void* _data, unsigned int _data_size){
     lock();
     if(_data_size > 256) {
 	// default param data fetch method

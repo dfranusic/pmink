@@ -1914,7 +1914,7 @@ namespace pmink_utils {
 	     * Get current data size in bytes
 	     * @return		Data size in bytes
 	     */
-	    unsigned int get_size(){
+	    unsigned int get_size() const{
 		return data_size;
 	    }
 
@@ -1922,7 +1922,7 @@ namespace pmink_utils {
 	     * Get parameter type
 	     * @return		Parameter type
 	     */
-	    VariantParamType get_type(){
+	    VariantParamType get_type() const{
 		return type;
 	    }
 
@@ -1936,7 +1936,7 @@ namespace pmink_utils {
 	    /**
 	     * Get variant data pointer
 	     */
-	    UVariantParam* get_data(){
+	    const UVariantParam* get_data() const{
 		return &data;
 	    }
 
@@ -2167,13 +2167,13 @@ namespace pmink_utils {
 	    /**
 	     * += operator
 	     */
-	    VariantParamMap<TID, _Alloc>& operator+=(VariantParamMap<TID, _Alloc>& other) {
+	    VariantParamMap<TID, _Alloc>& operator+=(const VariantParamMap<TID, _Alloc>& other) {
 		// self assignment check
 		if(this == &other) return *this;
 		// loop other params
-		for(it_t it = other.params.begin(); it != other.params.end(); it++){
+		for(cit_t it = other.params.begin(); it != other.params.end(); it++){
 		    // other param
-		    VariantParam& vparam = it->second;
+		    const VariantParam& vparam = it->second;
                     // skip if it exists
                     if(get_param(it->first.key, it->first.index, it->first.fragment, it->first.context) != NULL) continue;
 		    // create param with data from other param
@@ -2216,16 +2216,16 @@ namespace pmink_utils {
 	    /**
 	     * Assignment operator
 	     */
-	    VariantParamMap<TID, _Alloc>& operator=(VariantParamMap<TID, _Alloc>& other) {
+	    VariantParamMap<TID, _Alloc>& operator=(const VariantParamMap<TID, _Alloc>& other) {
 		// self assignment check
 		if(this == &other) return *this;
 		params.clear();
 		// copy labels
 		labels = other.labels;
 		// loop other params
-		for(it_t it = other.params.begin(); it != other.params.end(); it++){
+		for(cit_t it = other.params.begin(); it != other.params.end(); it++){
 		    // other param
-		    VariantParam& vparam = it->second;
+		    const VariantParam& vparam = it->second;
 		    // create param with data from other param
 		    switch(vparam.get_type()){
 			case DPT_INT:
