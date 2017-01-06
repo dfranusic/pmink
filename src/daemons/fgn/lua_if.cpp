@@ -27,6 +27,31 @@
 #include <unicode/ucnv.h>
 #include <boost/regex/icu.hpp>
 
+// *** ascii regex count ***
+int pmink_lua_regex_count(void* pm, const char* data, const char* regex){
+    if(pm == NULL || data == NULL || regex == NULL) return 0;
+    // create regex
+    boost::regex r(regex);
+    // count
+    return std::distance(boost::cregex_iterator(data,
+                                                data + strlen(data),
+                                                r),
+                         boost::cregex_iterator());
+}
+
+// *** utf-8 regex count ***
+int pmink_lua_utf8_regex_count(void* pm, const char* data, const char* regex){
+    if(pm == NULL || data == NULL || regex == NULL) return false;
+    // create regex
+    boost::u32regex r = boost::make_u32regex(regex);
+    // count
+    return std::distance(boost::utf8regex_iterator(data,
+                                                   data + strlen(data),
+                                                   r),
+                         boost::utf8regex_iterator());
+
+}
+
 // *** utf-8 toupper ***
 int pmink_lua_utf8_upper(void* pm, const char* data, char* out){
     if(pm == NULL || data == NULL || out == NULL) return -1;

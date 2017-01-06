@@ -329,10 +329,14 @@ ffi.cdef [[
 		static const int _pt_smpp_default_vendor_encoding = 145;
 		
 	};
+        // *** ascii regex ***
+        int pmink_lua_regex_count(void* pm, const char* data, const char* regex);
+
 	// *** utf8 ***
 	int pmink_lua_utf8_upper(void* pm, const char* data, char* out);
 	int pmink_lua_utf8_lower(void* pm, const char* data, char* out);
 	bool pmink_lua_utf8_regex_match(void* pm, const char* data, const char* regex);
+        int pmink_lua_utf8_regex_count(void* pm, const char* data, const char* regex);
 
 
 	// *** pd request ***
@@ -785,10 +789,22 @@ local function w_vp_to_val(vp)
 	elseif vpt == 7 then return C.pmink_lua_vp_to_pointer(pmink.args[1], vp)
 	else return nil end
 end
+-- ****************************
+-- *** ascii regex wrappers ***
+-- ****************************
+-- ascii regex count wrapper
+local function w_ascii_regex_count(data, regex)
+    return C.pmink_lua_regex_count(pmink.args[1], data, regex);
+end
 
 -- **********************
 -- *** utf-8 wrappers ***
 -- **********************
+-- utf8 regex count wrapper
+local function w_utf8_regex_count(data, regex)
+	return C.pmink_lua_utf8_regex_count(pmink.args[1], data, regex)
+end
+
 -- utf8_upper wrapper
 local function w_utf8_upper(data)
 	-- out buffer
@@ -862,6 +878,9 @@ local function init(...)
 	pmink.utf8upper = w_utf8_upper
 	pmink.utf8lower = w_utf8_lower
 	pmink.utf8match = w_utf8_regex_match
+        pmink.utf8cmatch = w_utf8_regex_count
+        -- ascii regex related
+        pmink.cmatch = w_ascii_regex_count
 	return pmink
 end
 
