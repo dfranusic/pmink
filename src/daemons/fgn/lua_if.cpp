@@ -39,6 +39,30 @@ int pmink_lua_regex_count(void* pm, const char* data, const char* regex){
                          boost::cregex_iterator());
 }
 
+// *** ascii regex_match ***
+rgx_result_t pmink_lua_regex_match(void* pm, const char* data, const char* regex){
+    rgx_result_t res = {NULL, 0, false};
+    if(pm == NULL || data == NULL || regex == NULL) return res;
+    // create regex
+    boost::regex r(regex);
+    boost::cmatch what;
+    // match
+    res.matched = boost::regex_match(data, what, r);
+    if(res.matched){
+        // set size and alloc memory (freed in lua)
+        res.size = what.size();
+        res.groups = (char**)malloc(res.size * sizeof(char*));
+        // loop groups
+        for(unsigned int i = 0; i<res.size; i++){
+            // alloc memory and copy str (freed in lua)
+            res.groups[i] = (char*)malloc(what[i].str().size() + 1);
+            strcpy(res.groups[i], what[i].str().c_str());
+        }
+    }
+    // return struct
+    return res;
+};
+
 // *** utf-8 regex count ***
 int pmink_lua_utf8_regex_count(void* pm, const char* data, const char* regex){
     if(pm == NULL || data == NULL || regex == NULL) return false;

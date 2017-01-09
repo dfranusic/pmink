@@ -30,6 +30,12 @@ local ffi = require("ffi")
 local C = ffi.C
 -- declare pmink C functions
 ffi.cdef [[
+        typedef struct {
+            char** groups;
+            int size;
+            bool matched;
+        } rgx_result_t;
+
 	struct sccp_consts{
 		static const int NP_UNKNOWN = 0x00;
 		static const int NP_ISDN_TELEPHONE = 0x10;
@@ -331,6 +337,7 @@ ffi.cdef [[
 	};
         // *** ascii regex ***
         int pmink_lua_regex_count(void* pm, const char* data, const char* regex);
+        rgx_result_t pmink_lua_regex_match(void* pm, const char* data, const char* regex);
 
 	// *** utf8 ***
 	int pmink_lua_utf8_upper(void* pm, const char* data, char* out);
@@ -409,6 +416,8 @@ ffi.cdef [[
 	// VariantParam set pointer
 	bool pmink_lua_vp_set_pointer(void* pm, void* vp, void* val);
 
+        // C library
+        void free(void*);
 ]]
 
 
@@ -797,6 +806,21 @@ local function w_ascii_regex_count(data, regex)
     return C.pmink_lua_regex_count(pmink.args[1], data, regex);
 end
 
+-- ascii regex match wrapper
+local function w_ascii_regex_match(data, regex)
+    local res = C.pmink_lua_regex_match(pmink.args[1], data, regex);
+    if not res.matched then return nil end
+    local tbl_res = {}
+    tbl_res[0] = res.size
+    tbl_res['G'] = {}
+    for i = 0, res.size - 1 do
+        tbl_res['G'][i] = ffi.string(res.groups[i])
+        C.free(res.groups[i])
+    end
+    C.free(res.groups)
+    return tbl_res
+end
+
 -- **********************
 -- *** utf-8 wrappers ***
 -- **********************
@@ -880,6 +904,7 @@ local function init(...)
 	pmink.utf8match = w_utf8_regex_match
         pmink.utf8cmatch = w_utf8_regex_count
         -- ascii regex related
+        pmink.match = w_ascii_regex_match
         pmink.cmatch = w_ascii_regex_count
 	return pmink
 end

@@ -28,10 +28,17 @@
 #define PMINK_LUA_MODULE	"local F = require('pmink')(...);"
 #define PMINK_LUA_DUMMY_STR	"lua"
 
+// return type for regex match
+typedef struct {
+    char** groups;
+    int size;
+    bool matched;
+} rgx_result_t;
 
 extern "C" {
     // *** ascii regex ***
     int pmink_lua_regex_count(void* pm, const char* data, const char* regex);
+    rgx_result_t pmink_lua_regex_match(void* pm, const char* data, const char* regex);
 
     // *** utf8 ***
     int pmink_lua_utf8_upper(void* pm, const char* data, char* out);
