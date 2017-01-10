@@ -337,12 +337,12 @@ ffi.cdef [[
 	};
         // *** ascii regex ***
         int pmink_lua_regex_count(void* pm, const char* data, const char* regex);
-        rgx_result_t pmink_lua_regex_match(void* pm, const char* data, const char* regex);
+        rgx_result_t pmink_lua_regex_match(void* pm, const char* data, const char* regex, bool grps);
 
 	// *** utf8 ***
 	int pmink_lua_utf8_upper(void* pm, const char* data, char* out);
 	int pmink_lua_utf8_lower(void* pm, const char* data, char* out);
-	bool pmink_lua_utf8_regex_match(void* pm, const char* data, const char* regex);
+	rgx_result_t pmink_lua_utf8_regex_match(void* pm, const char* data, const char* regex, bool grps);
         int pmink_lua_utf8_regex_count(void* pm, const char* data, const char* regex);
 
 
@@ -807,9 +807,13 @@ local function w_ascii_regex_count(data, regex)
 end
 
 -- ascii regex match wrapper
-local function w_ascii_regex_match(data, regex)
-    local res = C.pmink_lua_regex_match(pmink.args[1], data, regex);
+local function w_ascii_regex_match(data, regex, grps)
+    local res = C.pmink_lua_regex_match(pmink.args[1], data, regex, (grps == nil and false or true));
+    -- nil if not matched (groups or no groups)
     if not res.matched then return nil end
+    -- if not using groups, return true if matched
+    if not grps then return true end
+    -- if using groups and matched, return table
     local tbl_res = {}
     tbl_res[0] = res.size
     tbl_res['G'] = {}
@@ -856,8 +860,22 @@ local function w_utf8_lower(data)
 end
 
 -- utf8_regex_match wrapper
-local function w_utf8_regex_match(data, regex)
-	return C.pmink_lua_utf8_regex_match(pmink.args[1], data, regex)
+local function w_utf8_regex_match(data, regex, grps)
+    local res = C.pmink_lua_utf8_regex_match(pmink.args[1], data, regex, (grps == nil and false or true));
+    -- nil if not matched (groups or no groups)
+    if not res.matched then return nil end
+    -- if not using groups, return true if matched
+    if not grps then return true end
+    -- if using groups and matched, return table
+    local tbl_res = {}
+    tbl_res[0] = res.size
+    tbl_res['G'] = {}
+    for i = 0, res.size - 1 do
+        tbl_res['G'][i] = ffi.string(res.groups[i])
+        C.free(res.groups[i])
+    end
+    C.free(res.groups)
+    return tbl_res
 end
 
 

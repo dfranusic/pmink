@@ -38,12 +38,12 @@ typedef struct {
 extern "C" {
     // *** ascii regex ***
     int pmink_lua_regex_count(void* pm, const char* data, const char* regex);
-    rgx_result_t pmink_lua_regex_match(void* pm, const char* data, const char* regex);
+    rgx_result_t pmink_lua_regex_match(void* pm, const char* data, const char* regex, bool grps);
 
     // *** utf8 ***
     int pmink_lua_utf8_upper(void* pm, const char* data, char* out);
     int pmink_lua_utf8_lower(void* pm, const char* data, char* out);
-    bool pmink_lua_utf8_regex_match(void* pm, const char* data, const char* regex);
+    rgx_result_t pmink_lua_utf8_regex_match(void* pm, const char* data, const char* regex, bool grps);
     int pmink_lua_utf8_regex_count(void* pm, const char* data, const char* regex);
 
     // *** hlr request ***

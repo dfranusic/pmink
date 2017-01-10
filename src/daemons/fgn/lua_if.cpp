@@ -40,11 +40,17 @@ int pmink_lua_regex_count(void* pm, const char* data, const char* regex){
 }
 
 // *** ascii regex_match ***
-rgx_result_t pmink_lua_regex_match(void* pm, const char* data, const char* regex){
+rgx_result_t pmink_lua_regex_match(void* pm, const char* data, const char* regex, bool grps){
     rgx_result_t res = {NULL, 0, false};
     if(pm == NULL || data == NULL || regex == NULL) return res;
     // create regex
     boost::regex r(regex);
+    // *** not using groups ***
+    if(!grps){
+        res.matched = boost::regex_match(data, r);
+        return res;
+    }
+    // *** using groups ***
     boost::cmatch what;
     // match
     res.matched = boost::regex_match(data, what, r);
@@ -126,12 +132,33 @@ int pmink_lua_utf8_lower(void* pm, const char* data, char* out){
 
 }
 // *** utf-8 regex_match ***
-bool pmink_lua_utf8_regex_match(void* pm, const char* data, const char* regex){
-    if(pm == NULL || data == NULL || regex == NULL) return false;
+rgx_result_t pmink_lua_utf8_regex_match(void* pm, const char* data, const char* regex, bool grps){
+    rgx_result_t res = {NULL, 0, false};
+    if(pm == NULL || data == NULL || regex == NULL) return res;
     // create regex
     boost::u32regex r = boost::make_u32regex(regex);
+    // *** not using groups ***
+    if(!grps){
+        res.matched = boost::u32regex_match(data, r);
+        return res;
+    }
+     // *** using groups ***
     boost::cmatch what;
-    return boost::u32regex_match(data, what, r);
+    // match
+    res.matched = boost::u32regex_match(data, what, r);
+    if(res.matched){
+        // set size and alloc memory (freed in lua)
+        res.size = what.size();
+        res.groups = (char**)malloc(res.size * sizeof(char*));
+        // loop groups
+        for(unsigned int i = 0; i<res.size; i++){
+            // alloc memory and copy str (freed in lua)
+            res.groups[i] = (char*)malloc(what[i].str().size() + 1);
+            strcpy(res.groups[i], what[i].str().c_str());
+        }
+    }
+    // return struct
+    return res;
 }
 
 
