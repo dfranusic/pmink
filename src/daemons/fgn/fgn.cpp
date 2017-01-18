@@ -9380,7 +9380,7 @@ void FgndDescriptor::init_plugins(const char* dir){
     dirent** fnames;
     std::string tmp_str;
     // scan dir
-    if(!dir) dir = ".";
+    if(!dir || strlen(dir) == 0) dir = ".";
     int n = scandir(dir, &fnames, NULL, &alphasort);
     // if no error
     if(n >= 0){
