@@ -12,7 +12,8 @@
 set -e
 
 ME=`basename "$0"`
-PMINK_VAR="/var/run/pmink"
+PMINK_RUN="/var/run/pmink"
+PMINK_VAR="/var/lib/pmink"
 PMINK_LUA="/usr/share/pmink/lua/?.lua"
 FGND="/usr/bin/fgnd"
 DEFAULTS="/etc/default/$ME"
@@ -28,6 +29,8 @@ ARGS=""
 
 
 do_start() {
+  # create pid dir
+  mkdir -p $PMINK_RUN
   # set id
   if [ ! -z "$DAEMON_ID" ]; then
     ARGS="$ARGS -i $DAEMON_ID"
@@ -95,7 +98,7 @@ do_start() {
     ulimit -c 0
   fi
   export LUA_PATH=$PMINK_LUA
-  start-stop-daemon --start --background --make-pidfile --chdir $PMINK_VAR --pidfile $PMINK_VAR/$ME.pid --exec $FGND -- $ARGS
+  start-stop-daemon --start --background --make-pidfile --chdir $PMINK_VAR --pidfile $PMINK_RUN/$ME.pid --exec $FGND -- $ARGS
   log_end_msg $?
   return 0
 }
@@ -107,9 +110,9 @@ case "$1" in
     ;;
   stop)
     log_begin_msg "Stopping pMINK Filtering Gateway Node Daemon..."
-    start-stop-daemon --stop --retry 10 --pidfile $PMINK_VAR/$ME.pid
+    start-stop-daemon --stop --retry 10 --pidfile $PMINK_RUN/$ME.pid
     log_end_msg $?
-    rm -f $PMINK_VAR/$ME.pid
+    rm -f $PMINK_RUN/$ME.pid
     ;;
   restart|reload|force-reload) 
     $0 stop
@@ -117,7 +120,7 @@ case "$1" in
     $0 start
     ;;
   status)
-    status_of_proc -p $PMINK_VAR/$ME.pid
+    status_of_proc -p $PMINK_RUN/$ME.pid
     ;;
   *)
     echo "Usage: /etc/init.d/pmink_fgnd {start|stop|restart|reload|force-reload|status}"
