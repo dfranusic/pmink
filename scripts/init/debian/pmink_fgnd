@@ -12,9 +12,9 @@
 set -e
 
 ME=`basename "$0"`
-PMINK_VAR="/usr/local/pmink/var"
-PMINK_LUA="/usr/local/pmink/lua/?.lua"
-FGND="/usr/local/pmink/bin/fgnd"
+PMINK_VAR="/var/run/pmink"
+PMINK_LUA="/usr/share/pmink/lua/?.lua"
+FGND="/usr/bin/fgnd"
 DEFAULTS="/etc/default/$ME"
 ARGS=""
 # Check for daemon presence

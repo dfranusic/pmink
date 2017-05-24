@@ -12,8 +12,8 @@
 set -e
 
 ME=`basename "$0"`
-PMINK_VAR="/usr/local/pmink/var"
-RTRD="/usr/local/pmink/bin/routingd"
+PMINK_VAR="/var/run/pmink"
+RTRD="/usr/bin/routingd"
 DEFAULTS="/etc/default/$ME"
 ARGS=""
 # Check for daemon presence

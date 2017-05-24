@@ -1,4 +1,5 @@
 #!/bin/bash
 set -e
-echo "/usr/local/pmink/lib" > /etc/ld.so.conf.d/99pmink.conf && ldconfig
+echo "/usr/lib/pmink/bundled/lib" > /etc/ld.so.conf.d/99pmink.conf && ldconfig
+mkdir -p /var/run/pmink
 exit 0

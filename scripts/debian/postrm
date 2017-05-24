@@ -1,4 +1,5 @@
 #!/bin/bash
 set -e
 rm -f /etc/ld.so.conf.d/99pmink.conf && ldconfig
+rm -rf /var/run/pmink
 exit 0

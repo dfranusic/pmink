@@ -12,8 +12,8 @@
 set -e
 
 ME=`basename "$0"`
-PMINK_VAR="/usr/local/pmink/var"
-SGND="/usr/local/pmink/bin/sgnd"
+PMINK_VAR="/var/run/pmink"
+SGND="/usr/bin/sgnd"
 DEFAULTS="/etc/default/$ME"
 ARGS=""
 # Check for daemon presence

@@ -21,4 +21,4 @@ then
   exit 1
 fi
 
-./configure --prefix=$PREFIX
+./configure --prefix=$PREFIX --bindir=$PREFIX/bin/pmink --libdir=$PREFIX/lib/pmink/bundled/lib --includedir=$PREFIX/include/pmink/bundled --datarootdir=$PREFIX/share/pmink/bundled
