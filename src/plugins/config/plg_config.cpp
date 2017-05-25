@@ -26,6 +26,7 @@
 #include <string.h>
 #include <pmink_utils.h>
 #include <antlr_utils.h>
+#include <daemon.h>
 #include <fstream>
 #include <sstream>
 #include <boost/regex.hpp>
@@ -704,9 +705,17 @@ extern "C" void* block_handler_init(void** args, int argc){
 	// separate IP and PORT
 	boost::smatch regex_groups;
 
+	// check caps
+	bool caps = pmink::pmink_caps_valid();
+	if(!caps){
+	    attron(COLOR_PAIR(1));
+	    printw("ERROR: ");
+	    attroff(COLOR_PAIR(1));
+	    printw("User has insufficient privileges, enable CAP_SYS_NICE capability or set pam_limits RTPRIO value to 100\n");  
+	}
 
 	// connect to first available config daemon
-	for(unsigned int i = 0; i<plg->cfgd_lst.size(); i++){
+	if(caps) for(unsigned int i = 0; i<plg->cfgd_lst.size(); i++){
 		// separate IP and PORT
 		boost::regex_search(*plg->cfgd_lst[i], regex_groups, addr_regex);
 		// connect to config daemon

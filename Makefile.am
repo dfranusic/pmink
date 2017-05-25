@@ -223,6 +223,7 @@ pm_plg_cli_cfg_la_LIBADD = $(BOOST_LDLIBS) \
 			   $(NCURSES_LIBS) \
 			   libr14p.la \
 			   libpmconfig.la \
+			   libpmdaemon.la \
 			   -ldl
 
 
