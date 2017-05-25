@@ -2,5 +2,4 @@
 set -e
 echo "/usr/lib/pmink/bundled/lib" > /etc/ld.so.conf.d/99pmink.conf && ldconfig
 mkdir -p /var/lib/pmink
-sed -i -e 's#\[.*\]#["/usr/lib/pmink/pm_plg_cli_cfg.so"]#g' /etc/pmink/cli_default.pmcfg
 exit 0

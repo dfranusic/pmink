@@ -658,4 +658,4 @@ endif
 # post install actions
 install-data-hook:
 	cd $(DESTDIR)$(confdir) && \
-	$(SED) -i -e "s#@PREFIX@#$(DESTDIR)$(pkglibdir)#g" cli_default.pmcfg
+	$(SED) -i -e "s#@PREFIX@#$(pkglibdir)#g" cli_default.pmcfg
