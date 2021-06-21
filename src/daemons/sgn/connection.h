@@ -276,7 +276,7 @@ namespace sgn {
 
 	pmink_utils::VariantParamMap<ConnectionParamType> params;
 	pmink_utils::StatsManager stats;
-	pmink::Atomic<bool> active;
+	pmink::Atomic<uint8_t> active;
 	pmink_utils::EventManager<ConnectionEventType, ConnectiontEventArgType, void*>* get_e_handler();
 
 
@@ -432,10 +432,10 @@ namespace sgn {
 	int max_in_connc;
 	int reconnect_timer;
 	time_t reconnect_ts;
-	pmink::Atomic<bool> reconnect_queued;
-	pmink::Atomic<bool> reconnecting;
+	pmink::Atomic<uint8_t> reconnect_queued;
+	pmink::Atomic<uint8_t> reconnecting;
 	memory::SpscQPool<PLD_TYPE> pld_pool;
-	pmink::Atomic<bool> cthreads_active;
+	pmink::Atomic<uint8_t> cthreads_active;
 
 	// lock free inner spsc queues
 	lockfree::SpscQ<PLD_TYPE> rx_tx_q;
@@ -593,7 +593,7 @@ namespace sgn {
 
 	pmink::Atomic<SMPP_ApplicationServer*> as;
 
-	pmink::Atomic<bool> smpp_active;
+	pmink::Atomic<uint8_t> smpp_active;
 	// bind user map
 	pmink_utils::Mutex usr_map_mtx;
 	std::map<std::string, SMPPUser> usr_map;
@@ -736,7 +736,7 @@ namespace sgn {
 	int m3ua_connect();
 	void terminate();
 
-	pmink::Atomic<bool> m3ua_active;
+	pmink::Atomic<uint8_t> m3ua_active;
 	pmink::Atomic<ApplicationServer*> as;
 
 

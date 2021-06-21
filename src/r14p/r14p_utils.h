@@ -794,7 +794,7 @@ namespace r14p {
 	sem_t smsg_sem;						/**< Stream done semaphore */
 	sem_t new_param_sem;					/**< New param received semaphore */
 	ServiceParam* frag_param;				/**< Current fragmented param */
-	pmink::Atomic<bool> complete;				/**< Complete flag */
+	pmink::Atomic<uint8_t> complete;				/**< Complete flag */
 	pmink::Atomic<uint32_t> recv_param_count;		/**< Received param count */
 	R14PCallbackHandler cb_handler;
 	bool auto_free;

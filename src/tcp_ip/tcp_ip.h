@@ -475,7 +475,7 @@ namespace tcpip {
 	    // self
 	    void* self;
 	    // finished
-	    pmink::Atomic<bool> finished;
+	    pmink::Atomic<uint8_t> finished;
 
 
 	};
@@ -558,9 +558,9 @@ namespace tcpip {
 	    // self
 	    void* self;
 	    // finished
-	    pmink::Atomic<bool> finished;
+	    pmink::Atomic<uint8_t> finished;
 	    // cleanup
-	    pmink::Atomic<bool> cleanup;
+	    pmink::Atomic<uint8_t> cleanup;
 
 
 	};

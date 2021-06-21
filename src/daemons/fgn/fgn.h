@@ -573,7 +573,7 @@ public:
     // r14p service message manager
     r14p::ServiceMsgManager* r14psmm;
     // cfgd activity flag
-    pmink::Atomic<bool> cfgd_active;
+    pmink::Atomic<uint8_t> cfgd_active;
     // config
     config::Config* config;
     // current cfg id

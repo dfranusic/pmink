@@ -1163,7 +1163,7 @@ namespace pmink_utils {
 
 	    char name[16];			/**< thread name */
 	    pthread_t handle;			/**< thread handle */
-	    pmink::Atomic<bool> active;		/**< thread activity flag */
+	    pmink::Atomic<uint8_t> active;		/**< thread activity flag */
 	    void* user_args;			/**< user start routine args */
 	    void *(*userstart_routine) (void *);/**< user start routine */
 	    ThreadManager* thm;			/**< thread manager pointer */
@@ -1254,7 +1254,7 @@ namespace pmink_utils {
 
 	    pmink::Atomic<uint16_t> th_count;	/**< thread count */
 	    std::vector<ThreadInfo*> threads;	/**< thread list */
-	    pmink::Atomic<bool> active;		/**< thread activity flag */
+	    pmink::Atomic<uint8_t> active;		/**< thread activity flag */
 	    uint16_t core_count;		/**< number of cores */
 
 	};

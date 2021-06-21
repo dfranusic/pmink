@@ -28,7 +28,7 @@ namespace r14p {
 		R14PCallbackMethod* sdone;
 	        // signal
 	        //sem_t signal;
-	        pmink::Atomic<bool> done_signal;
+	        pmink::Atomic<uint8_t> done_signal;
 	        // status
 	        int status;
 
