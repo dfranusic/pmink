@@ -155,7 +155,7 @@ AC_CHECK_LIB([pthread], [pthread_create], , AC_MSG_ERROR([pthread library not fo
 # sctp
 AC_CHECK_LIB([sctp], [sctp_send], , AC_MSG_ERROR([sctp library not found!]))
 # net-snmp
-AC_CHECK_NET_SNMP([5.4], , [AC_MSG_ERROR([Net-snmp library not found!])])
+#AC_CHECK_NET_SNMP([5.4], , [AC_MSG_ERROR([Net-snmp library not found!])])
 # libcap
 AC_CHECK_LIB([cap], [cap_get_proc], , AC_MSG_ERROR([cap library not found!]))
 # mycql c++ connector

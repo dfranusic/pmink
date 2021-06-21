@@ -65,7 +65,7 @@ public:
     // R14P stats
     r14p::R14PStatsSession* r14p_stats;
     // cfgd activity flag
-    pmink::Atomic<bool> cfgd_active;
+    pmink::Atomic<uint8_t> cfgd_active;
     // config
     config::Config* config;
     // current cfg id

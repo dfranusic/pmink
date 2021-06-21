@@ -36,10 +36,10 @@ public:
 
 class HbeatMissed: public r14p::R14PCallbackMethod {
 public:
-    HbeatMissed(pmink::Atomic<bool>* _activity_flag);
+    HbeatMissed(pmink::Atomic<uint8_t>* _activity_flag);
     void run(r14p::R14PCallbackArgs* args);
 
-    pmink::Atomic<bool>* activity_flag;
+    pmink::Atomic<uint8_t>* activity_flag;
 };
 
 

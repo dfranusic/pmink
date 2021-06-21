@@ -798,12 +798,12 @@ namespace r14p {
 		// due to boost related valgrind warnings, declared as a pointer to heap allocated memory
 		// when this gets fixed, random_generator should be stack declared as an offset of R14PClient class
 		boost::uuids::random_generator* random_generator;	/**< random number generator provided by boost */
-		pmink::Atomic<bool> active;
+		pmink::Atomic<uint8_t> active;
 		bool router;						/**< Router capabilities flag */
 		//bool registered;					/**< R14P daemon registered flag */
-		pmink::Atomic<bool> registered;
-		pmink::Atomic<bool> stream_timeout_check;		/**< Stream timeout check flag */
-		pmink::Atomic<bool> reconnect_queued;			/**< Reconnect flag */
+		pmink::Atomic<uint8_t> registered;
+		pmink::Atomic<uint8_t> stream_timeout_check;		/**< Stream timeout check flag */
+		pmink::Atomic<uint8_t> reconnect_queued;			/**< Reconnect flag */
 
 		std::vector<R14PStream*> streams;			/**< List of active streams */
 		pmink::RingBuffer<R14PPayload*> out_queue;
@@ -831,7 +831,7 @@ namespace r14p {
 		//  state machine, etc.
 		pmink::Atomic<uint32_t> ref_counter;
 		R14PStateMachine r14p_sm;
-                pmink::Atomic<bool> streams_active;
+                pmink::Atomic<uint8_t> streams_active;
                 pmink::Atomic<time_t> timestamp;
 
 
@@ -895,7 +895,7 @@ namespace r14p {
 		 * Get connection activity status
 		 * @return	True if connection is active or False otherwise
 		 */
-		bool is_active();
+		uint8_t is_active();
 
 		/**
 		 * Set registration flag
@@ -1444,7 +1444,7 @@ namespace r14p {
 		unsigned int raw_data_length;		/**< Length of raw encoded data */
 		R14PClient* client;			/**< Client connection */
 		R14PStream* stream;			/**< Stream connection */
-		pmink::Atomic<bool> out;		/**< Processed in out queue flag */
+		pmink::Atomic<uint8_t> out;		/**< Processed in out queue flag */
 
 
 	};
@@ -1812,7 +1812,7 @@ namespace r14p {
 		    pthread_attr_t server_thread_attr;		/**< Server thread attributes */
 		    pmink::Atomic<int> server_socket;
 		    int poll_interval;				/**< Socket poll interval */
-		    pmink::Atomic<bool> server_mode;
+		    pmink::Atomic<uint8_t> server_mode;
 		    char daemon_type[50];			/**< Session daemon type */
 		    char daemon_id[50];				/**< Session daemon id */
 		    std::vector<R14PClient*> clients;		/**< List of active clients (inbound + outbound) */
@@ -1827,8 +1827,8 @@ namespace r14p {
 	 */
 	class HeartbeatInfo {
 	private:
-	    pmink::Atomic<bool> active;
-	    pmink::Atomic<bool> next;
+	    pmink::Atomic<uint8_t> active;
+	    pmink::Atomic<uint8_t> next;
 	    pmink::Atomic<uint64_t> total_sent_count;			/**< Sent heartbeat counter */
 	    pmink::Atomic<uint64_t> total_received_count;		/**< Sent heartbeat counter */
 	    pmink::Atomic<uint64_t> missed_count;			/**< Missed heartbeat counter */

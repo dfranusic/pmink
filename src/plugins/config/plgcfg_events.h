@@ -43,7 +43,7 @@ public:
     sem_t sem_cfgd;
     config::UserId cfg_user_id;
     //bool cfgd_active;
-    pmink::Atomic<bool> cfgd_active;
+    pmink::Atomic<uint8_t> cfgd_active;
     r14p::HeartbeatInfo* hbeat;
 
 };

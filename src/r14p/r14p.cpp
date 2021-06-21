@@ -1879,7 +1879,7 @@ int r14p::R14PClient::generate_uuid(unsigned char* out){
 }
 
 
-bool r14p::R14PClient::is_active(){
+uint8_t r14p::R14PClient::is_active(){
     return active.get();
 
 }

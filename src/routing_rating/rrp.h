@@ -358,7 +358,7 @@ namespace rrp{
 	char destination_id[65];
 	unsigned char uuid[16];
 	bool free_on_send;
-	pmink::Atomic<bool> out;
+	pmink::Atomic<uint8_t> out;
 	time_t timestamp;
 	bool ack_rcvd;
 	bool timed_out;
@@ -414,8 +414,8 @@ namespace rrp{
 	boost::mt19937 ran_mt19937;
 	boost::uuids::random_generator* random_generator;
 	pmink::RingBuffer<RRSequence*> out_queue;
-	pmink::Atomic<bool> registered;
-	pmink::Atomic<bool> seq_timeout_check;
+	pmink::Atomic<uint8_t> registered;
+	pmink::Atomic<uint8_t> seq_timeout_check;
 	RRSession* session;
 
 	int generate_uuid(unsigned char* out);
@@ -443,8 +443,8 @@ namespace rrp{
 	char local_point_address[16];
 	unsigned int local_point_port;
 	RRStateMachine rrp_sm;
-	pmink::Atomic<bool> reconnect_flag;
-	pmink::Atomic<bool> end_port_changed_flag;
+	pmink::Atomic<uint8_t> reconnect_flag;
+	pmink::Atomic<uint8_t> end_port_changed_flag;
 
 
 	// locks

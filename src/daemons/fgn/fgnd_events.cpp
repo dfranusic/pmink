@@ -26,7 +26,7 @@
 #include <connection.h>
 
 
-HbeatMissed::HbeatMissed(pmink::Atomic<bool>* _activity_flag){
+HbeatMissed::HbeatMissed(pmink::Atomic<uint8_t>* _activity_flag){
     activity_flag = _activity_flag;
 
 }

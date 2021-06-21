@@ -34,7 +34,7 @@ namespace rrp{
 	void run(pmink_utils::EventArgs<RREventArgIdType, void*>& args);
 
 	RRConnection* rr_conn;
-	pmink::Atomic<bool> finished;
+	pmink::Atomic<uint8_t> finished;
 	int status;
     };
 
