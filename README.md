@@ -1,5 +1,5 @@
 # pMINK MNO
-##### *Project MINK framework + Mobile Network Operator Compoents*
+##### *Project MINK framework + Mobile Network Operator Components*
 ----
 [![Build Status](https://travis-ci.org/dfranusic/pmink.svg?branch=master)](https://travis-ci.org/dfranusic/pmink)
 
